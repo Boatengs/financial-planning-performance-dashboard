@@ -17,7 +17,7 @@
   ],
   "bts_master_coordinate_ingested": false,
   "passenger_gt_seat_detail_rows_flagged": 0,
-  "scope_note": "T-100 layer is restricted to records whose reporting carrier code is DL. It is not represented as the full Delta-marketed network or all Delta Connection affiliates.",
-  "coordinate_note": "BTS Master Coordinate is canonical when present; FAA NASR is a U.S.-focused fallback. Unresolved airports remain explicitly flagged rather than fabricated.",
-  "scenario_integrity_note": "Budget, Forecast, Upside and Downside tables are schema-only templates at this stage; no modeled values are fabricated in the data foundation."
+  "scope_note": "T-100 network scope uses reporting carrier code DL; Delta Connection affiliates and marketed itineraries outside that reporting-carrier scope are excluded.",
+  "coordinate_note": "Coordinate precedence is BTS Airport Master Coordinate followed by FAA NASR fallback; unresolved airport coordinates remain null.",
+  "scenario_integrity_note": "Budget, Forecast, Upside, and Downside tables are schema-only until modeled assumptions are introduced."
 }
