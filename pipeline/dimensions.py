@@ -6,19 +6,42 @@ from .config import FPNA_KPIS, NETWORK_KPIS, PROCESSED, RAW, ROOT
 from .io_utils import sha256_file, write_csv
 
 
-def build_dimensions(fin_meta, route_rows):
+def build_date_dimension(start_year: int = 2019, end_year: int = 2026):
     dates = []
-    for y in range(2019, 2027):
+    for y in range(start_year, end_year + 1):
         for m in range(1, 13):
             q = (m - 1) // 3 + 1
-            dates.append({"date_key": y * 100 + m, "period": f"{y:04d}-{m:02d}-01", "year": y, "quarter": f"Q{q}", "month": m, "month_name": date(y, m, 1).strftime("%B")})
+            dates.append({
+                "date_key": y * 100 + m,
+                "period": f"{y:04d}-{m:02d}-01",
+                "year": y,
+                "quarter": f"Q{q}",
+                "month": m,
+                "month_name": date(y, m, 1).strftime("%B"),
+            })
     write_csv(PROCESSED / "dim_date.csv", dates)
+    return dates
 
+
+def build_route_dimension(route_rows):
     routes = {}
     for r in route_rows:
-        routes[r["route_id"]] = {"route_id": r["route_id"], "market_id": r["market_id"], "origin": r["origin"], "destination": r["destination"], "scope": r["scope"], "distance_miles": r["distance_miles"]}
+        routes[r["route_id"]] = {
+            "route_id": r["route_id"],
+            "market_id": r["market_id"],
+            "origin": r["origin"],
+            "destination": r["destination"],
+            "scope": r["scope"],
+            "distance_miles": r["distance_miles"],
+        }
     route_dim = sorted(routes.values(), key=lambda x: x["route_id"])
     write_csv(PROCESSED / "dim_route.csv", route_dim)
+    return route_dim
+
+
+def build_dimensions(fin_meta, route_rows):
+    dates = build_date_dimension()
+    route_dim = build_route_dimension(route_rows)
 
     metric_rows = []
     for m in fin_meta:
@@ -39,7 +62,7 @@ def build_dimensions(fin_meta, route_rows):
 
     scenarios = [
         {"scenario_id": "ACT", "scenario_name": "Actual", "scenario_type": "Reported", "editable": 0, "description": "Reported historical actuals only."},
-        {"scenario_id": "BUD", "scenario_name": "Budget", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created budget; never represented as Delta internal budget."},
+        {"scenario_id": "BUD", "scenario_name": "Budget", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created budget based on documented assumptions."},
         {"scenario_id": "FCT", "scenario_name": "Forecast", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created rolling forecast based on public actuals and documented assumptions."},
         {"scenario_id": "UP", "scenario_name": "Upside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created upside scenario."},
         {"scenario_id": "DOWN", "scenario_name": "Downside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created downside scenario."},
