@@ -41,7 +41,7 @@ class SourceManifestTests(unittest.TestCase):
     def test_2022_international_archive_range_is_correct(self):
         self.assertIn("202201.202212", self.history.URLS["international"][2022])
 
-    def test_current_source_catalog_uses_expected_publishers(self):
+    def test_current_source_catalog_uses_expected_publishers_and_domains(self):
         allowed_hosts = {
             "data.sec.gov",
             "d18rn0p25nwr6d.cloudfront.net",
@@ -49,11 +49,25 @@ class SourceManifestTests(unittest.TestCase):
             "www.bts.gov",
         }
         self.assertEqual(len(self.current.SOURCES), 6)
-        for label, url, destination in self.current.SOURCES:
+        self.assertEqual({source[1] for source in self.current.SOURCES}, {"financial", "network"})
+        for label, group, url, destination in self.current.SOURCES:
             parsed = urlparse(url)
+            self.assertIn(group, {"financial", "network"}, label)
             self.assertEqual(parsed.scheme, "https", label)
             self.assertIn(parsed.netloc, allowed_hosts, label)
             self.assertTrue(str(destination).startswith(str(self.current.RAW)), label)
+
+    def test_source_domain_selection_is_exact(self):
+        financial = self.current.select_sources("financial")
+        network = self.current.select_sources("network")
+        all_sources = self.current.select_sources("all")
+
+        self.assertEqual(len(financial), 3)
+        self.assertEqual(len(network), 3)
+        self.assertEqual(len(all_sources), 6)
+        self.assertTrue(all(source[1] == "financial" for source in financial))
+        self.assertTrue(all(source[1] == "network" for source in network))
+        self.assertEqual(set(financial + network), set(all_sources))
 
 
 if __name__ == "__main__":

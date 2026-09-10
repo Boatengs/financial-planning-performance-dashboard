@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Download the raw inputs required by the financial planning data model.
+"""Download raw inputs required by the financial and network data models.
 
 Files are retrieved from SEC, Delta Investor Relations, BTS, and FAA publisher
-endpoints, written to the paths expected by the build pipeline, and checksum-logged.
+endpoints, written to the paths expected by the build pipelines, and checksum-logged.
 """
 from __future__ import annotations
 
@@ -20,31 +20,37 @@ RAW = ROOT / "raw"
 SOURCES = [
     (
         "SEC CompanyFacts",
+        "financial",
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json",
         RAW / "delta_companyfacts.json",
     ),
     (
         "Delta 2025 10-K XBRL workbook",
+        "financial",
         "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000027904/0db061b6-3e78-4a3a-8131-9b65c5210ab7.xls",
         RAW / "delta_2025_10k.xls",
     ),
     (
         "Delta 2026 Q2 10-Q XBRL workbook",
+        "financial",
         "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000027904/47a4a84f-7c64-4145-b2b4-288bed9a4037.xls",
         RAW / "delta_2026_q2_10q.xls",
     ),
     (
         "FAA NASR airport CSV",
+        "network",
         "https://nfdc.faa.gov/webContent/28DaySub/extra/03_Sep_2026_APT_CSV.zip",
         RAW / "faa_airports_2026-09-03.zip",
     ),
     (
         "BTS T-100 Domestic Segment",
+        "network",
         "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/domestic-segments/DB28SEG.DD.WAC.202506.202605.REL01.04AUG2026.zip",
         RAW / "t100" / "domestic" / "current_202506_202605.zip",
     ),
     (
         "BTS T-100 International Segment",
+        "network",
         "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202506.202605.REL01.04AUG2026.zip",
         RAW / "t100" / "international" / "current_202506_202605.zip",
     ),
@@ -99,13 +105,25 @@ def download(label: str, url: str, destination: Path, *, force: bool, retries: i
     raise RuntimeError(f"Failed to download {label} after {retries} attempts: {last_error}")
 
 
+def select_sources(group: str):
+    if group == "all":
+        return SOURCES
+    return [source for source in SOURCES if source[1] == group]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--group",
+        choices=("all", "financial", "network"),
+        default="all",
+        help="Source domain to acquire (default: all)",
+    )
     parser.add_argument("--force", action="store_true", help="Re-download files that already exist")
     parser.add_argument("--retries", type=int, default=3, help="Download attempts per source (default: 3)")
     args = parser.parse_args()
 
-    for label, url, destination in SOURCES:
+    for label, _group, url, destination in select_sources(args.group):
         download(label, url, destination, force=args.force, retries=max(1, args.retries))
 
 

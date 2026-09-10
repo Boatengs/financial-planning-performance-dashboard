@@ -47,14 +47,14 @@ def build_t100():
             for row in parse_t100_zip(path, scope):
                 natural_key = tuple(row[k] for k in [
                     "year", "month", "origin", "destination", "carrier_code", "carrier_entity_code",
-                    "service_class", "aircraft_group", "aircraft_type", "aircraft_configuration"
+                    "service_class", "aircraft_group", "aircraft_type", "aircraft_configuration", "scope"
                 ])
                 previous = rows_by_key.get(natural_key)
                 if previous is None or row["source_release_date"] >= previous["source_release_date"]:
                     rows_by_key[natural_key] = row
 
     detailed = sorted(rows_by_key.values(), key=lambda r: (
-        r["year"], r["month"], r["origin"], r["destination"], r["aircraft_type"], r["service_class"]
+        r["year"], r["month"], r["origin"], r["destination"], r["scope"], r["aircraft_type"], r["service_class"]
     ))
     write_csv(PROCESSED / "fact_route_aircraft_monthly.csv", detailed, T100_COLUMNS + ["scope", "source_file", "source_release_date"])
 

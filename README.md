@@ -1,6 +1,7 @@
 # Financial Planning & Performance Dashboard
 
 [![Python CI](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml)
+[![Historical Network Data Build](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/historical-data-build.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/historical-data-build.yml)
 
 A reproducible FP&A and business-performance analytics project using Delta Air Lines as the operating case study. The project combines corporate financial statements with airline traffic and capacity data to support financial performance analysis, KPI monitoring, route-level diagnostics, scenario modeling, and an interactive 3D network experience.
 
@@ -17,13 +18,14 @@ The analytical model is designed to answer five questions:
 ## Architecture
 
 ```text
-SEC CompanyFacts ─────────────┐
-Delta 10-K / 10-Q ───────────┤
-BTS T-100 Domestic ──────────┼─> ingestion ─> validation ─> analytical marts ─> SQLite
-BTS T-100 International ─────┤                                      │
-BTS airport coordinates ─────┤                                      ├─> FP&A / KPI layer
-FAA NASR airport data ────────┘                                      └─> BI / 3D network layer
+SEC CompanyFacts + Delta filings ─> financial pipeline ─> financial marts ─┐
+                                                                          ├─> governed KPI / FP&A model
+BTS T-100 + BTS/FAA airports ─────> network pipeline ───> network marts ───┘            │
+                                                                                       ├─> executive BI
+                                                                                       └─> interactive 3D network
 ```
+
+Financial and network acquisition are independently executable source domains. This keeps historical route/capacity processing isolated from corporate-filings acquisition while preserving a common analytical model for compatible cross-domain KPIs.
 
 The pipeline separates three metric classes:
 
@@ -50,7 +52,7 @@ The pipeline separates three metric classes:
 | Departures performed | 1,179,217 |
 | Completion rate | 99.42% |
 
-The currently loaded T-100 snapshot covers June 2025 through May 2026. Historical acquisition logic for 2019–2025 is included in `scripts/download_t100_history.py`.
+The committed validation snapshot covers June 2025 through May 2026. A separate historical-network build acquires the BTS 2019–2025 annual archives and combines them with the current rolling release to validate 2019–2026 operating coverage.
 
 ## Core KPI framework
 
@@ -93,9 +95,10 @@ Source roles, direct download endpoints, field usage, and lineage notes are docu
 The analytical model follows a dimensional structure centered on:
 
 - `fact_financial_actual`
-- `fact_financial_kpi`
+- `fact_financial_kpi_derived`
 - `fact_route_monthly`
 - `fact_route_aircraft_monthly`
+- `fact_network_kpi_monthly`
 - `fact_budget_forecast`
 - `fact_driver_assumption`
 - `dim_date`
@@ -110,21 +113,15 @@ See [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) for grains, keys, relationships, 
 
 Python 3.11+ is recommended. The current pipeline uses the Python standard library.
 
+### Combined current foundation
+
 ```bash
 python scripts/download_official_sources.py
 python scripts/build_data_foundation.py
 python scripts/validate_foundation.py
 ```
 
-Historical T-100 archives can be acquired with:
-
-```bash
-python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025
-python scripts/build_data_foundation.py
-python scripts/validate_foundation.py
-```
-
-Equivalent Makefile targets are:
+Equivalent Makefile targets:
 
 ```bash
 make bootstrap
@@ -132,11 +129,28 @@ make build
 make validate
 ```
 
-`make all` runs all three in sequence.
+`make all` runs those three steps in sequence.
+
+### Historical network history, 2019–2026
+
+```bash
+python scripts/download_official_sources.py --group network
+python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025
+python scripts/build_network_history.py
+python scripts/validate_network_history.py
+```
+
+Or run the complete network sequence:
+
+```bash
+make network-history
+```
+
+The network build produces route-aircraft, route-month, monthly KPI, airport, route, and date tables plus `network_source_manifest.csv`, `network_history_summary.json`, and `network_history_validation.json`.
 
 ## Tests
 
-The test suite uses small synthetic SEC/T-100/airport fixtures, so it does not require the large raw datasets. It covers period parsing, derived KPI compatibility, carrier filtering, BTS release precedence, route KPI reconciliation, malformed-row handling, coordinate-source precedence, unresolved-coordinate behavior, and source-manifest integrity.
+The test suite uses small synthetic SEC/T-100/airport fixtures and does not require large raw datasets. It covers period parsing, derived KPI compatibility, carrier filtering, BTS release precedence, source-domain selection, scope-aware deduplication, route KPI reconciliation, malformed-row handling, coordinate-source precedence, unresolved-coordinate behavior, source-manifest integrity, and historical-network table validation.
 
 ```bash
 make check
@@ -153,7 +167,7 @@ GitHub Actions executes the same checks on Python 3.11 and 3.12 for pushes to `m
 
 ## Validation and reproducibility
 
-The full-data validation layer checks:
+The combined-foundation validation layer checks:
 
 - source-to-mart row reconciliation;
 - numeric SQL typing;
@@ -163,18 +177,28 @@ The full-data validation layer checks:
 - KPI formula consistency;
 - deterministic CSV generation.
 
-Two consecutive clean builds of the current foundation reproduced all 13 deterministic CSV outputs byte-for-byte. Machine-readable QA evidence is stored under `processed/`.
+The historical-network validator additionally checks:
+
+- 2019–2026 calendar-year coverage;
+- T-100 natural-key uniqueness with domestic/international scope isolation;
+- annual archive release-date parsing;
+- exact airport and route dimension coverage;
+- route-to-network passenger, seat, ASM, RPM, departure, freight, and mail reconciliation;
+- load-factor and completion-rate formula reconciliation;
+- generated summary row-count consistency.
+
+Two consecutive clean builds of the committed current foundation reproduced all 13 deterministic CSV outputs byte-for-byte. Machine-readable QA evidence is stored under `processed/`.
 
 ## Repository structure
 
 ```text
 .
-├── .github/workflows/ # automated Python checks
-├── pipeline/          # ingestion, transformation, dimensions, QA, SQLite persistence
+├── .github/workflows/ # automated Python and historical network checks
+├── pipeline/          # ingestion, transformation, dimensions, QA, persistence
 ├── scripts/           # acquisition, build, and validation entry points
 ├── tests/             # synthetic-fixture unit and regression tests
 ├── docs/              # data model, sources, KPI definitions, quality and dashboard design
-├── raw/               # local source-data landing area; large source files are gitignored
+├── raw/               # source-data landing area; large source files are gitignored
 ├── processed/         # compact validation and lineage artifacts; large marts are gitignored
 ├── Makefile
 └── README.md
@@ -182,6 +206,6 @@ Two consecutive clean builds of the current foundation reproduced all 13 determi
 
 ## Scope notes
 
-The current T-100 implementation filters on reporting carrier code `DL`. This is a reporting-carrier scope and is not equivalent to all Delta-marketed itineraries or every Delta Connection-operated flight. Corporate-to-network blended metrics are published only when the numerator and denominator use compatible scopes and periods.
+The T-100 implementation filters on reporting carrier code `DL`. This is a reporting-carrier scope and is not equivalent to all Delta-marketed itineraries or every Delta Connection-operated flight. Corporate-to-network blended metrics are published only when numerator and denominator use compatible scopes and periods.
 
-The next data-model extension is the full 2019–2026 monthly operating history, followed by BTS global airport coordinates and Form 41 cost/fuel schedules.
+The next model extensions are BTS global airport-coordinate completion and Form 41 cost/fuel schedules, followed by the forecasting and scenario layer that consumes the governed financial and operating marts.
