@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Official raw source files are reproducibly acquired by scripts.
+# Keep manifests/documentation in Git; keep large source binaries out.
+raw/**/*.zip
+raw/**/*.xls
+raw/**/*.xlsx
+raw/delta_companyfacts.json
+raw/bts_master_coordinate.csv
+raw/Master_Coordinate.csv
+raw/T_MASTER_CORD.csv
+
+# Generated heavy analytical artifacts
+processed/delta_fpna_foundation.sqlite
+processed/fact_route_aircraft_monthly.csv
+processed/fact_route_monthly.csv
+
+# Temporary downloads/builds
+*.tmp
+*.part
+build/
+dist/
