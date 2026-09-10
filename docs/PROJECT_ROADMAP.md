@@ -1,60 +1,53 @@
-# Project roadmap
+# Technical Roadmap
 
-## Phase 1 — Data foundation (current)
+## Phase 1 — Data foundation
 
-- Official-source acquisition only
 - SEC CompanyFacts financial actuals
-- Delta filing workbooks retained for cross-checks / management KPI extraction
-- BTS T-100 network facts
+- Delta 10-K and 10-Q filing ingestion
+- BTS T-100 domestic and international segment ingestion
 - FAA airport-coordinate fallback
-- Typed SQLite analytical model
-- KPI dictionary, source manifest, validation, reproducibility controls
+- typed SQLite analytical model
+- KPI dictionary and source lineage
+- deterministic validation and reproducibility controls
 
-## Phase 2 — Historical operating layer
+## Phase 2 — Historical operating model
 
-- Extend T-100 to 2019–current
-- Add BTS Master Coordinate as the preferred global airport location table
-- Add Form 41 cost/fuel schedules where analytically justified
-- Reconcile carrier scope before any corporate-to-network blended KPI is published
+- extend monthly T-100 coverage to 2019–2026;
+- integrate BTS Airport Master Coordinate for global airport coverage;
+- reconcile revised and overlapping BTS releases;
+- add route, airport, geographic, and aircraft historical dimensions;
+- validate period completeness and carrier scope across the historical series.
 
-## Phase 3 — FP&A model
+## Phase 3 — Cost and driver model
 
-- Driver-based budget and rolling forecast
-- Actual vs budget / forecast variance bridges
-- Base, upside and downside scenarios
-- Fuel, capacity, load factor, labor and margin sensitivities
-- Forecast accuracy and bias controls
+- integrate BTS Form 41 operating-cost schedules;
+- add fuel cost and consumption measures;
+- model maintenance, labor, aircraft operating expense, and capacity drivers;
+- reconcile company-level and network-level periods before publishing blended KPIs.
 
-All modeled values remain clearly labeled as analyst-created scenarios, never Delta internal plans.
+## Phase 4 — FP&A model
 
-## Phase 4 — BI dashboard
+- driver-based budget and rolling forecast;
+- actual-versus-budget and actual-versus-forecast variance analysis;
+- base, upside, and downside scenarios;
+- capacity, load factor, fuel, labor, revenue, and margin sensitivities;
+- forecast-accuracy and forecast-bias measurement.
 
-- Executive financial scorecard
-- Revenue / margin / cash performance
-- Operating KPI views
-- Network and route drilldowns
-- Scenario and variance workspace
+## Phase 5 — BI and 3D application
 
-## Phase 5 — Live 3D network experience
+- executive financial scorecard;
+- revenue, margin, cash-flow, and capital-performance views;
+- operating KPI dashboards;
+- route and airport drilldowns;
+- scenario and variance workspace;
+- interactive 3D airport nodes and route arcs;
+- metric-driven network encoding for passengers, ASM, RPM, load factor, and capacity.
 
-- Interactive airport nodes and route arcs
-- Metric-driven encoding for passengers, ASM, RPM, load factor and capacity
-- Route / airport selection linked to BI panels
-- Performance safeguards for first load and mobile rendering
+## Phase 6 — Production hardening
 
-## Phase 6 — Release quality
-
-- Automated data validation
-- Reproducible builds
-- Dashboard interaction tests
-- Accessibility and performance checks
-- Recruiter-facing README / architecture / screenshots
-- Live deployment
-
-## Phase 7 — Portfolio integration
-
-Only after the standalone project is complete and validated:
-
-- Add the project to `Boatengs/my-portfolio`
-- Publish a polished project card and case study
-- Link to the standalone GitHub repository and live application
+- automated data-quality tests;
+- repeatable source acquisition and deterministic builds;
+- application-level interaction tests;
+- accessibility and responsive-layout checks;
+- first-load and rendering performance validation;
+- deployment documentation and release versioning.
