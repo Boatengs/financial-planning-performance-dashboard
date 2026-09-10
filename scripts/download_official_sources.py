@@ -8,13 +8,15 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import os
-import time
-import urllib.error
-import urllib.request
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from pipeline.http_download import download_file
+
 RAW = ROOT / "raw"
 
 SOURCES = [
@@ -71,38 +73,11 @@ def download(label: str, url: str, destination: Path, *, force: bool, retries: i
         print(f"SKIP  {label}: {destination.relative_to(ROOT)} sha256={sha256(destination)}")
         return
 
-    headers = {
-        "User-Agent": os.environ.get(
-            "SEC_USER_AGENT",
-            "FinancialPlanningPerformanceDashboard/1.0 (+https://github.com/Boatengs/financial-planning-performance-dashboard)",
-        ),
-        "Accept": "*/*",
-    }
-    request = urllib.request.Request(url, headers=headers)
-    tmp = destination.with_suffix(destination.suffix + ".part")
-
-    last_error: Exception | None = None
-    for attempt in range(1, retries + 1):
-        try:
-            with urllib.request.urlopen(request, timeout=90) as response, tmp.open("wb") as output:
-                while True:
-                    chunk = response.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    output.write(chunk)
-            tmp.replace(destination)
-            print(
-                f"OK    {label}: {destination.relative_to(ROOT)} "
-                f"bytes={destination.stat().st_size} sha256={sha256(destination)}"
-            )
-            return
-        except (urllib.error.URLError, TimeoutError, OSError) as exc:
-            last_error = exc
-            if tmp.exists():
-                tmp.unlink()
-            if attempt < retries:
-                time.sleep(min(2**attempt, 10))
-    raise RuntimeError(f"Failed to download {label} after {retries} attempts: {last_error}")
+    download_file(url, destination, retries=max(1, retries))
+    print(
+        f"OK    {label}: {destination.relative_to(ROOT)} "
+        f"bytes={destination.stat().st_size} sha256={sha256(destination)}"
+    )
 
 
 def select_sources(group: str):
