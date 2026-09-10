@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Download the official raw inputs required for the current Delta FP&A foundation.
+"""Download the raw inputs required by the financial planning data model.
 
-Only first-party / official sources are used. Files are written to the exact paths
-expected by ``build_data_foundation.py`` and accompanied by SHA-256 output.
+Files are retrieved from SEC, Delta Investor Relations, BTS, and FAA publisher
+endpoints, written to the paths expected by the build pipeline, and checksum-logged.
 """
 from __future__ import annotations
 
@@ -68,7 +68,7 @@ def download(label: str, url: str, destination: Path, *, force: bool, retries: i
     headers = {
         "User-Agent": os.environ.get(
             "SEC_USER_AGENT",
-            "FinancialPlanningPerformanceDashboard/1.0 github.com/Boatengs/financial-planning-performance-dashboard",
+            "FinancialPlanningPerformanceDashboard/1.0 (+https://github.com/Boatengs/financial-planning-performance-dashboard)",
         ),
         "Accept": "*/*",
     }
