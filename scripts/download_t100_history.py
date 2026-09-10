@@ -33,7 +33,7 @@ URLS = {
         2019: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.201901.201912.REL01.02JUN2020.zip",
         2020: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202001.202012.REL01.02JUN2021.zip",
         2021: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202101.202112.REL01.02JUN2022.zip",
-        2022: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202201.202112.REL01.19SEP2023.zip",
+        2022: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202201.202212.REL01.19SEP2023.zip",
         2023: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202301.202312.REL01.04MAR2024.zip",
         2024: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202401.202412.REL01.04MAR2025.zip",
         2025: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202501.202512.REL01.03MAR2026.zip",
