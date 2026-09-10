@@ -1,3 +1,5 @@
+import csv
+import io
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -50,6 +52,82 @@ def write_zip(path: Path, lines):
         zf.writestr("segment.asc", "".join(lines))
 
 
+TRANSTATS_HEADERS = [
+    "YEAR",
+    "MONTH",
+    "ORIGIN",
+    "ORIGIN_AIRPORT_ID",
+    "ORIGIN_WAC",
+    "ORIGIN_CITY_NAME",
+    "DEST",
+    "DEST_AIRPORT_ID",
+    "DEST_WAC",
+    "DEST_CITY_NAME",
+    "UNIQUE_CARRIER",
+    "UNIQUE_CARRIER_ENTITY",
+    "CARRIER_GROUP",
+    "DISTANCE",
+    "CLASS",
+    "AIRCRAFT_GROUP",
+    "AIRCRAFT_TYPE",
+    "AIRCRAFT_CONFIG",
+    "DEPARTURES_PERFORMED",
+    "DEPARTURES_SCHEDULED",
+    "PAYLOAD",
+    "SEATS",
+    "PASSENGERS",
+    "FREIGHT",
+    "MAIL",
+    "RAMP_TO_RAMP",
+    "AIR_TIME",
+]
+
+
+def transtats_row(**overrides):
+    row = {
+        "YEAR": "2025",
+        "MONTH": "7",
+        "ORIGIN": "ATL",
+        "ORIGIN_AIRPORT_ID": "10397",
+        "ORIGIN_WAC": "34",
+        "ORIGIN_CITY_NAME": "Atlanta, GA",
+        "DEST": "JFK",
+        "DEST_AIRPORT_ID": "12478",
+        "DEST_WAC": "22",
+        "DEST_CITY_NAME": "New York, NY",
+        "UNIQUE_CARRIER": "DL",
+        "UNIQUE_CARRIER_ENTITY": "19790",
+        "CARRIER_GROUP": "3",
+        "DISTANCE": "500.0",
+        "CLASS": "F",
+        "AIRCRAFT_GROUP": "6",
+        "AIRCRAFT_TYPE": "694",
+        "AIRCRAFT_CONFIG": "1",
+        "DEPARTURES_PERFORMED": "9.0",
+        "DEPARTURES_SCHEDULED": "10.0",
+        "PAYLOAD": "10000.0",
+        "SEATS": "100.0",
+        "PASSENGERS": "75.0",
+        "FREIGHT": "500.0",
+        "MAIL": "50.0",
+        "RAMP_TO_RAMP": "900.0",
+        "AIR_TIME": "800.0",
+    }
+    row.update({key: str(value) for key, value in overrides.items()})
+    return row
+
+
+def write_transtats_zip(path: Path, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    buffer = io.StringIO()
+    writer = csv.DictWriter(buffer, fieldnames=TRANSTATS_HEADERS)
+    writer.writeheader()
+    writer.writerows(rows)
+    with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("T_T100_SEGMENT.csv", buffer.getvalue())
+        zf.writestr("Documentation.csv", "field,description\nYEAR,Year\n")
+
+
 class T100Tests(unittest.TestCase):
     def test_parser_filters_to_reporting_carrier_dl(self):
         with TemporaryDirectory() as tmp:
@@ -60,6 +138,25 @@ class T100Tests(unittest.TestCase):
         self.assertEqual(rows[0]["carrier_code"], "DL")
         self.assertEqual(rows[0]["passengers"], 75)
         self.assertEqual(rows[0]["source_release_date"], "2026-01-01")
+
+    def test_transtats_csv_maps_to_canonical_t100_schema(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "transtats_domestic_2025.snapshot_20260910.zip"
+            write_transtats_zip(
+                path,
+                [transtats_row(UNIQUE_CARRIER="AA"), transtats_row(UNIQUE_CARRIER="DL")],
+            )
+            rows = list(t100.parse_t100_zip(path, "domestic"))
+
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(row["carrier_code"], "DL")
+        self.assertEqual(row["carrier_entity_code"], "19790")
+        self.assertEqual(row["destination"], "JFK")
+        self.assertEqual(row["distance_miles"], 500)
+        self.assertEqual(row["passengers"], 75)
+        self.assertEqual(row["carrier_wac"], 0)
+        self.assertEqual(row["source_release_date"], "2026-09-10")
 
     def test_later_release_wins_and_route_kpis_reconcile(self):
         with TemporaryDirectory() as tmp:
