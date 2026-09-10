@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Download raw inputs required by the financial and network data models.
+"""Download fixed raw inputs required by the financial and network data models.
 
-Files are retrieved from SEC, Delta Investor Relations, BTS, and FAA publisher
-endpoints, written to the paths expected by the build pipelines, and checksum-logged.
+SEC and Delta filing inputs plus the FAA NASR reference file are acquired here.
+T-100 annual extracts are acquired separately from the official BTS TranStats form
+by ``download_t100_history.py``.
 """
 from __future__ import annotations
 
@@ -44,18 +45,6 @@ SOURCES = [
         "https://nfdc.faa.gov/webContent/28DaySub/extra/03_Sep_2026_APT_CSV.zip",
         RAW / "faa_airports_2026-09-03.zip",
     ),
-    (
-        "BTS T-100 Domestic Segment",
-        "network",
-        "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/domestic-segments/DB28SEG.DD.WAC.202506.202605.REL01.04AUG2026.zip",
-        RAW / "t100" / "domestic" / "current_202506_202605.zip",
-    ),
-    (
-        "BTS T-100 International Segment",
-        "network",
-        "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202506.202605.REL01.04AUG2026.zip",
-        RAW / "t100" / "international" / "current_202506_202605.zip",
-    ),
 ]
 
 
@@ -92,7 +81,7 @@ def main() -> None:
         "--group",
         choices=("all", "financial", "network"),
         default="all",
-        help="Source domain to acquire (default: all)",
+        help="Fixed-source domain to acquire (default: all)",
     )
     parser.add_argument("--force", action="store_true", help="Re-download files that already exist")
     parser.add_argument("--retries", type=int, default=3, help="Download attempts per source (default: 3)")

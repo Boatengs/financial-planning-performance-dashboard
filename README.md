@@ -20,12 +20,12 @@ The analytical model is designed to answer five questions:
 ```text
 SEC CompanyFacts + Delta filings ─> financial pipeline ─> financial marts ─┐
                                                                           ├─> governed KPI / FP&A model
-BTS T-100 + BTS/FAA airports ─────> network pipeline ───> network marts ───┘            │
+BTS TranStats T-100 + FAA/BTS geo ─> network pipeline ───> network marts ──┘            │
                                                                                        ├─> executive BI
                                                                                        └─> interactive 3D network
 ```
 
-Financial and network acquisition are independently executable source domains. This keeps historical route/capacity processing isolated from corporate-filings acquisition while preserving a common analytical model for compatible cross-domain KPIs.
+Financial and network acquisition are independently executable source domains. T-100 is acquired as annual domestic and international extracts directly from the U.S. DOT BTS TranStats download forms, normalized into one canonical segment schema, and filtered to reporting carrier code `DL`.
 
 The pipeline separates three metric classes:
 
@@ -35,7 +35,7 @@ The pipeline separates three metric classes:
 
 ## Current validated dataset
 
-| Measure | Current foundation |
+| Measure | Current committed foundation |
 |---|---:|
 | SEC financial facts | 315 |
 | Derived financial KPI observations | 57 |
@@ -52,7 +52,7 @@ The pipeline separates three metric classes:
 | Departures performed | 1,179,217 |
 | Completion rate | 99.42% |
 
-The committed validation snapshot covers June 2025 through May 2026. A separate historical-network build acquires the BTS 2019–2025 annual archives and combines them with the current rolling release to validate 2019–2026 operating coverage.
+The committed validation snapshot covers June 2025 through May 2026. The historical network workflow is designed to acquire annual TranStats extracts for 2019–2026 and validate the expanded operating series independently.
 
 ## Core KPI framework
 
@@ -82,13 +82,12 @@ Detailed definitions and formulas are maintained in [`docs/KPI_DICTIONARY.md`](d
 | Delta 2025 Form 10-K | U.S. Securities and Exchange Commission | https://www.sec.gov/Archives/edgar/data/27904/000002790426000013/0000027904-26-000013-index.htm |
 | Delta Q2 2026 Form 10-Q | U.S. Securities and Exchange Commission | https://www.sec.gov/Archives/edgar/data/27904/000002790426000031/0000027904-26-000031-index.htm |
 | Delta SEC filings | Delta Air Lines Investor Relations | https://ir.delta.com/financials/sec-filings/default.aspx |
-| T-100 Domestic Segment | U.S. DOT Bureau of Transportation Statistics | https://www.bts.gov/browse-statistical-products-and-data/bts-publications/data-bank-28ds-t-100-domestic-segment-data |
-| T-100 International Segment | U.S. DOT Bureau of Transportation Statistics | https://www.bts.gov/browse-statistical-products-and-data/bts-publications/%E2%80%A2-data-bank-28is-t-100-and-t-100f |
-| T-100 table definitions / downloads | BTS TranStats | https://www.transtats.bts.gov/DatabaseInfo.asp?QO_VQ=EEE |
-| Airport Master Coordinate | BTS TranStats | https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=N8vn6v10&gnoyr_VQ=FLL |
+| T-100 Domestic Segment, table 259 | U.S. DOT Bureau of Transportation Statistics — TranStats | https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FIM&QO_fu146_anzr=Nv4%20Pn44vr45 |
+| T-100 International Segment, table 261 | U.S. DOT Bureau of Transportation Statistics — TranStats | https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FJE&QO_fu146_anzr=Nv4%20Pn44vr45 |
+| Airport Master Coordinate | U.S. DOT Bureau of Transportation Statistics — TranStats | https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=N8vn6v10&gnoyr_VQ=FLL |
 | NASR airport data, effective Sep. 3, 2026 | Federal Aviation Administration | https://www.faa.gov/air_traffic/flight_info/aeronav/Aero_Data/NASR_Subscription/2026-09-03/ |
 
-Source roles, direct download endpoints, field usage, and lineage notes are documented in [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
+Source roles, acquisition endpoints, field usage, and lineage notes are documented in [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
 
 ## Data model
 
@@ -111,12 +110,13 @@ See [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) for grains, keys, relationships, 
 
 ## Rebuild
 
-Python 3.11+ is recommended. The current pipeline uses the Python standard library.
+Python 3.11+ is recommended. The data pipeline uses the Python standard library.
 
 ### Combined current foundation
 
 ```bash
 python scripts/download_official_sources.py
+python scripts/download_t100_history.py --years 2025 2026
 python scripts/build_data_foundation.py
 python scripts/validate_foundation.py
 ```
@@ -129,13 +129,13 @@ make build
 make validate
 ```
 
-`make all` runs those three steps in sequence.
+`make all` executes the complete current-foundation sequence.
 
-### Historical network history, 2019–2026
+### Historical network series, 2019–2026
 
 ```bash
 python scripts/download_official_sources.py --group network
-python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025
+python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025 2026
 python scripts/build_network_history.py
 python scripts/validate_network_history.py
 ```
@@ -146,11 +146,24 @@ Or run the complete network sequence:
 make network-history
 ```
 
+The T-100 downloader submits one annual request per scope/year to the official TranStats forms. Each downloaded ZIP is retained as a dated raw snapshot with table ID, source URL, file size, SHA-256 checksum, and acquisition timestamp in `raw/t100_history_download_manifest.csv`.
+
 The network build produces route-aircraft, route-month, monthly KPI, airport, route, and date tables plus `network_source_manifest.csv`, `network_history_summary.json`, and `network_history_validation.json`.
 
 ## Tests
 
-The test suite uses small synthetic SEC/T-100/airport fixtures and does not require large raw datasets. It covers period parsing, derived KPI compatibility, carrier filtering, BTS release precedence, source-domain selection, scope-aware deduplication, route KPI reconciliation, malformed-row handling, coordinate-source precedence, unresolved-coordinate behavior, source-manifest integrity, and historical-network table validation.
+The test suite uses small synthetic SEC, T-100, TranStats-form, and airport fixtures and does not require the large raw datasets. Coverage includes:
+
+- SEC period parsing and derived KPI compatibility;
+- TranStats form/table configuration and annual request construction;
+- legacy and headered TranStats T-100 parsing;
+- carrier filtering and domestic/international scope isolation;
+- release/snapshot precedence;
+- ASM, RPM, load factor, completion-rate, and passenger-per-departure reconciliation;
+- malformed-record failure behavior;
+- coordinate-source precedence and unresolved-coordinate handling;
+- source-manifest integrity;
+- historical-network table validation.
 
 ```bash
 make check
@@ -167,21 +180,13 @@ GitHub Actions executes the same checks on Python 3.11 and 3.12 for pushes to `m
 
 ## Validation and reproducibility
 
-The combined-foundation validation layer checks:
-
-- source-to-mart row reconciliation;
-- numeric SQL typing;
-- carrier scope;
-- route and airport dimensional completeness;
-- scenario-table isolation;
-- KPI formula consistency;
-- deterministic CSV generation.
+The combined-foundation validation layer checks source-to-mart reconciliation, numeric SQL typing, carrier scope, dimensional completeness, scenario-table isolation, KPI formulas, and deterministic output generation.
 
 The historical-network validator additionally checks:
 
 - 2019–2026 calendar-year coverage;
 - T-100 natural-key uniqueness with domestic/international scope isolation;
-- annual archive release-date parsing;
+- source snapshot/release-date lineage;
 - exact airport and route dimension coverage;
 - route-to-network passenger, seat, ASM, RPM, departure, freight, and mail reconciliation;
 - load-factor and completion-rate formula reconciliation;
@@ -194,7 +199,7 @@ Two consecutive clean builds of the committed current foundation reproduced all 
 ```text
 .
 ├── .github/workflows/ # automated Python and historical network checks
-├── pipeline/          # ingestion, transformation, dimensions, QA, persistence
+├── pipeline/          # acquisition support, transformations, dimensions, QA, persistence
 ├── scripts/           # acquisition, build, and validation entry points
 ├── tests/             # synthetic-fixture unit and regression tests
 ├── docs/              # data model, sources, KPI definitions, quality and dashboard design
@@ -206,6 +211,6 @@ Two consecutive clean builds of the committed current foundation reproduced all 
 
 ## Scope notes
 
-The T-100 implementation filters on reporting carrier code `DL`. This is a reporting-carrier scope and is not equivalent to all Delta-marketed itineraries or every Delta Connection-operated flight. Corporate-to-network blended metrics are published only when numerator and denominator use compatible scopes and periods.
+The T-100 implementation filters on `Unique Carrier = DL` and retains domestic/international source scope in the fact grain. This represents DL reporting-carrier segment operations; it is not equivalent to every Delta-marketed itinerary or every Delta Connection-operated flight. Corporate-to-network blended metrics are published only when numerator and denominator use compatible scopes and periods.
 
 The next model extensions are BTS global airport-coordinate completion and Form 41 cost/fuel schedules, followed by the forecasting and scenario layer that consumes the governed financial and operating marts.

@@ -10,6 +10,7 @@ from .config import PROCESSED, RAW, ROOT
 from .dimensions import build_date_dimension, build_route_dimension
 from .io_utils import sha256_file, write_csv
 from .t100 import build_t100
+from .transtats import form_url
 
 DETAIL_KEY_FIELDS = [
     "year",
@@ -41,6 +42,8 @@ CORE_NONNEGATIVE_FIELDS = [
 
 def _t100_public_url(path: Path) -> str:
     scope = path.parent.name
+    if path.name.startswith("transtats_"):
+        return form_url(scope)
     folder = "domestic-segments" if scope == "domestic" else "international-segments"
     if path.name == "current_202506_202605.zip":
         basename = (
@@ -64,10 +67,15 @@ def build_network_source_manifest(t100_sources, bts_master_path):
     ]
     for path in t100_sources:
         scope = path.parent.name
+        source_name = (
+            f"BTS TranStats T-100 {scope.title()} Segment"
+            if path.name.startswith("transtats_")
+            else f"BTS T-100 {scope.title()} Segment"
+        )
         source_defs.append(
             (
                 path,
-                f"BTS T-100 {scope.title()} Segment",
+                source_name,
                 _t100_public_url(path),
                 "DL reporting-carrier segment traffic and capacity",
             )
