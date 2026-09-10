@@ -1,4 +1,4 @@
-.PHONY: bootstrap build validate all clean
+.PHONY: bootstrap build validate test compile check all clean
 
 bootstrap:
 	python scripts/download_official_sources.py
@@ -8,6 +8,14 @@ build:
 
 validate:
 	python scripts/validate_foundation.py
+
+test:
+	python -m unittest discover -s tests -v
+
+compile:
+	python -m compileall -q pipeline scripts tests
+
+check: compile test
 
 all: bootstrap build validate
 
