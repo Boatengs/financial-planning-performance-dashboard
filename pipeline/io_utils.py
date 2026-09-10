@@ -28,10 +28,11 @@ def sha256_file(path: Path) -> str:
 
 
 def release_date_from_name(path: Path) -> str:
-    m = re.search(r"\.(\d{2})([A-Z]{3})(\d{4})\.zip$", path.name.upper())
+    name = path.name.upper()
+    m = re.search(r"\.(\d{2})([A-Z]{3})(\d{4})\.ZIP$", name)
     if m:
         return datetime.strptime("".join(m.groups()), "%d%b%Y").date().isoformat()
-    if "current_202506_202605" in path.name:
+    if "CURRENT_202506_202605" in name:
         return "2026-08-04"
     return "1900-01-01"
 
