@@ -29,6 +29,9 @@ def sha256_file(path: Path) -> str:
 
 def release_date_from_name(path: Path) -> str:
     name = path.name.upper()
+    snapshot = re.search(r"\.SNAPSHOT_(\d{8})\.ZIP$", name)
+    if snapshot:
+        return datetime.strptime(snapshot.group(1), "%Y%m%d").date().isoformat()
     m = re.search(r"\.(\d{2})([A-Z]{3})(\d{4})\.ZIP$", name)
     if m:
         return datetime.strptime("".join(m.groups()), "%d%b%Y").date().isoformat()
