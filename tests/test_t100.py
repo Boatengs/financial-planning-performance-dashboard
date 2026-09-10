@@ -86,6 +86,23 @@ class T100Tests(unittest.TestCase):
         self.assertEqual(system[0]["passengers"], 80)
         self.assertAlmostEqual(system[0]["load_factor"], 0.8)
 
+    def test_domestic_and_international_scopes_do_not_deduplicate_each_other(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = root / "raw"
+            processed = root / "processed"
+            write_zip(raw / "t100" / "domestic" / "sample.01JAN2026.zip", [make_row(passengers=70)])
+            write_zip(raw / "t100" / "international" / "sample.01JAN2026.zip", [make_row(passengers=60)])
+
+            with patch.object(t100, "RAW", raw), patch.object(t100, "PROCESSED", processed):
+                detailed, routes, system, _ = t100.build_t100()
+
+        self.assertEqual(len(detailed), 2)
+        self.assertEqual({row["scope"] for row in detailed}, {"domestic", "international"})
+        self.assertEqual(len(routes), 2)
+        self.assertEqual({row["scope"] for row in routes}, {"domestic", "international"})
+        self.assertEqual(len(system), 2)
+
     def test_malformed_segment_row_fails_fast(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "bad.01JAN2026.zip"
