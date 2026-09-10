@@ -1,5 +1,7 @@
 # Financial Planning & Performance Dashboard
 
+[![Python CI](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml)
+
 A reproducible FP&A and business-performance analytics project using Delta Air Lines as the operating case study. The project combines corporate financial statements with airline traffic and capacity data to support financial performance analysis, KPI monitoring, route-level diagnostics, scenario modeling, and an interactive 3D network experience.
 
 ## Project objectives
@@ -122,16 +124,36 @@ python scripts/build_data_foundation.py
 python scripts/validate_foundation.py
 ```
 
-Or use the Makefile:
+Equivalent Makefile targets are:
 
 ```bash
-make data
+make bootstrap
+make build
 make validate
 ```
 
+`make all` runs all three in sequence.
+
+## Tests
+
+The test suite uses small synthetic SEC/T-100/airport fixtures, so it does not require the large raw datasets. It covers period parsing, derived KPI compatibility, carrier filtering, BTS release precedence, route KPI reconciliation, malformed-row handling, coordinate-source precedence, unresolved-coordinate behavior, and source-manifest integrity.
+
+```bash
+make check
+```
+
+or directly:
+
+```bash
+python -m compileall -q pipeline scripts tests
+python -m unittest discover -s tests -v
+```
+
+GitHub Actions executes the same checks on Python 3.11 and 3.12 for pushes to `main` and pull requests.
+
 ## Validation and reproducibility
 
-The validation layer checks:
+The full-data validation layer checks:
 
 - source-to-mart row reconciliation;
 - numeric SQL typing;
@@ -147,11 +169,13 @@ Two consecutive clean builds of the current foundation reproduced all 13 determi
 
 ```text
 .
-├── pipeline/        # ingestion, transformation, dimensions, QA, SQLite persistence
-├── scripts/         # acquisition, build, and validation entry points
-├── docs/            # data model, sources, KPI definitions, quality and dashboard design
-├── raw/             # local source-data landing area; large source files are gitignored
-├── processed/       # compact validation and lineage artifacts; large marts are gitignored
+├── .github/workflows/ # automated Python checks
+├── pipeline/          # ingestion, transformation, dimensions, QA, SQLite persistence
+├── scripts/           # acquisition, build, and validation entry points
+├── tests/             # synthetic-fixture unit and regression tests
+├── docs/              # data model, sources, KPI definitions, quality and dashboard design
+├── raw/               # local source-data landing area; large source files are gitignored
+├── processed/         # compact validation and lineage artifacts; large marts are gitignored
 ├── Makefile
 └── README.md
 ```
