@@ -13,6 +13,10 @@ class ReleaseDateParsingTests(unittest.TestCase):
         path = Path("current_202506_202605.zip")
         self.assertEqual(release_date_from_name(path), "2026-08-04")
 
+    def test_transtats_snapshot_date_is_parsed(self):
+        path = Path("transtats_domestic_2025.snapshot_20260910.zip")
+        self.assertEqual(release_date_from_name(path), "2026-09-10")
+
     def test_unknown_filename_has_explicit_low_precedence_date(self):
         self.assertEqual(release_date_from_name(Path("unversioned.zip")), "1900-01-01")
 
