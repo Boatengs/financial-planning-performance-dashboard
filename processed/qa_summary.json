@@ -1,0 +1,23 @@
+{
+  "build_timestamp_utc": "2026-09-10T02:24:25Z",
+  "financial_fact_rows": 315,
+  "t100_delta_aircraft_rows": 46666,
+  "t100_delta_route_month_rows": 22332,
+  "t100_date_min": "2025-06-01",
+  "t100_date_max": "2026-05-01",
+  "unique_directional_routes": 5017,
+  "unique_airports_in_t100": 334,
+  "airport_dimension_rows": 334,
+  "airports_with_coordinates": 223,
+  "airports_resolved_bts_master_coordinate": 0,
+  "airports_resolved_faa_fallback": 223,
+  "airports_pending_coordinates": 111,
+  "pending_airport_codes": [
+    "1FL", "ACC", "AGA", "AKL", "AMS", "ANF", "ANU", "ARN", "ATH", "AUA", "BCN", "BDA", "BER", "BGI", "BJX", "BNE", "BOG", "BON", "BRU", "BZE", "CDG", "CPH", "CTA", "CTG", "CUN", "CUR", "CZM", "DBV", "DOL", "DSS", "EDI", "EZE", "FCA", "FCO", "FRA", "GDL", "GIG", "GND", "GRU", "GUA", "GVA", "HAV", "ICN", "JNB", "KEF", "KIN", "LAP", "LGW", "LHR", "LIM", "LIR", "LIS", "LOS", "MAD", "MBJ", "MEC", "MEL", "MEX", "MFM", "MTY", "MUC", "MXP", "MZT", "NAP", "NAS", "NCE", "NKG", "NLU", "OLB", "OPO", "PBI", "PLS", "POP", "PPT", "PTY", "PUS", "PVR", "QRO", "RAK", "RTB", "SAL", "SAP", "SCL", "SDQ", "SJD", "SJO", "SKB", "SNN", "STI", "STN", "SVD", "SXM", "SYD", "TLV", "TPE", "TQO", "UIO", "UVF", "VCE", "YEG", "YHZ", "YOW", "YUL", "YUM", "YVR", "YWG", "YYC", "YYR", "YYT", "YYZ", "ZRH"
+  ],
+  "bts_master_coordinate_ingested": false,
+  "passenger_gt_seat_detail_rows_flagged": 0,
+  "scope_note": "T-100 layer is restricted to records whose reporting carrier code is DL. It is not represented as the full Delta-marketed network or all Delta Connection affiliates.",
+  "coordinate_note": "BTS Master Coordinate is canonical when present; FAA NASR is a U.S.-focused fallback. Unresolved airports remain explicitly flagged rather than fabricated.",
+  "scenario_integrity_note": "Budget, Forecast, Upside and Downside tables are schema-only templates at this stage; no modeled values are fabricated in the data foundation."
+}
