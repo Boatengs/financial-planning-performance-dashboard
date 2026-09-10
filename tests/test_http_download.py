@@ -47,9 +47,8 @@ class HttpDownloadTests(unittest.TestCase):
                 http_download.download_file(
                     "https://www.bts.gov/example.zip", destination, retries=1
                 )
-
-        curl_mock.assert_called_once()
-        self.assertTrue(destination.exists())
+                curl_mock.assert_called_once()
+                self.assertTrue(destination.exists())
 
 
 if __name__ == "__main__":
