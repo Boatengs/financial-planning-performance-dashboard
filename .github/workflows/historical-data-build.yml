@@ -1,0 +1,72 @@
+name: Historical Data Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/historical-data-build.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: historical-data-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run code checks
+        run: make check
+
+      - name: Download current source files
+        run: python scripts/download_official_sources.py --retries 5
+
+      - name: Download historical T-100 archives
+        run: >-
+          python scripts/download_t100_history.py
+          --years 2019 2020 2021 2022 2023 2024 2025
+
+      - name: Build analytical foundation
+        run: python scripts/build_data_foundation.py
+
+      - name: Validate analytical foundation
+        run: python scripts/validate_foundation.py
+
+      - name: Upload validated analytical outputs
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: delta-fpna-data-${{ github.sha }}
+          path: |
+            processed/*.csv
+            processed/*.json
+            processed/*.sqlite
+            raw/t100_history_download_manifest.csv
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
+
+      - name: Upload acquisition diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: historical-build-diagnostics-${{ github.sha }}
+          path: |
+            raw/t100_history_download_manifest.csv
+            processed/*.json
+            processed/source_manifest.csv
+          if-no-files-found: warn
+          retention-days: 14
