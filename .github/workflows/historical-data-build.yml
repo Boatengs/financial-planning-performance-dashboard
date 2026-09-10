@@ -1,4 +1,4 @@
-name: Historical Data Build
+name: Historical Network Data Build
 
 on:
   workflow_dispatch:
@@ -6,12 +6,20 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/historical-data-build.yml"
+      - "pipeline/network_history.py"
+      - "pipeline/t100.py"
+      - "pipeline/airports.py"
+      - "pipeline/dimensions.py"
+      - "scripts/build_network_history.py"
+      - "scripts/validate_network_history.py"
+      - "scripts/download_official_sources.py"
+      - "scripts/download_t100_history.py"
 
 permissions:
   contents: read
 
 concurrency:
-  group: historical-data-build
+  group: historical-network-data-build
   cancel-in-progress: false
 
 jobs:
@@ -31,31 +39,35 @@ jobs:
       - name: Run code checks
         run: make check
 
-      - name: Download current source files
-        env:
-          SEC_USER_AGENT: "Financial Planning Performance Dashboard 32736261+Boatengs@users.noreply.github.com"
-        run: python scripts/download_official_sources.py --retries 5
+      - name: Download current network source files
+        run: python scripts/download_official_sources.py --group network --retries 5
 
       - name: Download historical T-100 archives
         run: >-
           python scripts/download_t100_history.py
           --years 2019 2020 2021 2022 2023 2024 2025
 
-      - name: Build analytical foundation
-        run: python scripts/build_data_foundation.py
+      - name: Build historical network model
+        run: python scripts/build_network_history.py
 
-      - name: Validate analytical foundation
-        run: python scripts/validate_foundation.py
+      - name: Validate historical network model
+        run: python scripts/validate_network_history.py
 
-      - name: Upload validated analytical outputs
+      - name: Upload validated network outputs
         if: success()
         uses: actions/upload-artifact@v6
         with:
-          name: delta-fpna-data-${{ github.sha }}
+          name: delta-network-history-${{ github.sha }}
           path: |
-            processed/*.csv
-            processed/*.json
-            processed/*.sqlite
+            processed/fact_route_aircraft_monthly.csv
+            processed/fact_route_monthly.csv
+            processed/fact_network_kpi_monthly.csv
+            processed/dim_airport.csv
+            processed/dim_route.csv
+            processed/dim_date.csv
+            processed/network_source_manifest.csv
+            processed/network_history_summary.json
+            processed/network_history_validation.json
             raw/t100_history_download_manifest.csv
           if-no-files-found: error
           compression-level: 6
@@ -65,10 +77,11 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v6
         with:
-          name: historical-build-diagnostics-${{ github.sha }}
+          name: historical-network-diagnostics-${{ github.sha }}
           path: |
             raw/t100_history_download_manifest.csv
-            processed/*.json
-            processed/source_manifest.csv
+            processed/network_source_manifest.csv
+            processed/network_history_summary.json
+            processed/network_history_validation.json
           if-no-files-found: warn
           retention-days: 14
