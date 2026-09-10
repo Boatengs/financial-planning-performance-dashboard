@@ -2,12 +2,13 @@
 
 bootstrap:
 	python scripts/download_official_sources.py
+	python scripts/download_t100_history.py --years 2025 2026
 
 bootstrap-network:
 	python scripts/download_official_sources.py --group network
 
 history-download:
-	python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025
+	python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025 2026
 
 build:
 	python scripts/build_data_foundation.py
