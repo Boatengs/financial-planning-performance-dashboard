@@ -1,15 +1,15 @@
 # Data Quality Report
 
-## Build result
+## Validation status
 
-**PASS** — the independent validator reconciles CSV totals to SQLite, verifies typed numeric fields, checks airport-dimension completeness for observed codes, confirms every retained T-100 detail row uses reporting carrier code `DL`, and confirms both modeled scenario templates are empty.
+**PASS** — the independent validator reconciles CSV totals to SQLite, verifies numeric typing, checks airport-dimension completeness for observed codes, confirms the reporting-carrier filter, and verifies that modeled scenario tables remain unpopulated until the FP&A model is introduced.
 
 ## Current validated counts
 
 | Check | Result |
 |---|---:|
 | SEC financial facts | 315 |
-| Safely derived financial KPI rows | 57 |
+| Derived financial KPI rows | 57 |
 | T-100 aircraft-detail rows | 46,666 |
 | T-100 route-month rows | 22,332 |
 | Directional routes | 5,017 |
@@ -17,11 +17,11 @@
 | Airport dimension rows | 334 |
 | Airports currently geocoded | 223 |
 | Airports pending BTS Master Coordinate | 111 |
-| Detail rows flagged passengers > seats | 0 |
-| Budget/Forecast populated rows | 0 |
+| Detail rows with passengers greater than seats | 0 |
+| Budget / forecast populated rows | 0 |
 | Driver-assumption populated rows | 0 |
 
-## Current network reconciliation
+## Network reconciliation
 
 | Measure | Current loaded data |
 |---|---:|
@@ -34,14 +34,14 @@
 | Departures scheduled | 1,186,146 |
 | Completion rate | 99.4158% |
 
-## Known limitations — intentionally not hidden
+## Coverage and scope
 
-1. **History not yet physically acquired in this runtime.** Current T-100 coverage is 2025-06-01 through 2026-05-01. The official 2019-2025 archive URLs are bundled in `download_t100_history.py`, but binary retrieval from BTS failed in this execution environment. No third-party mirror was substituted.
-2. **Global coordinate table pending.** FAA resolves 223 observed codes; 111 remain un-geocoded until an official BTS Master Coordinate CSV is ingested. The builder already supports it.
-3. **Carrier scope.** `DL` is the reporting-carrier filter. This should be described as DL-reported segment operations, not automatically as all Delta-marketed / Delta Connection flying.
-4. **SEC taxonomy gaps.** Some airline-specific CompanyFacts tags have no framed 2019-2026 rows even though the tag exists historically. They remain unavailable rather than being silently replaced.
-5. **10-K / 10-Q workbooks retained raw.** They are preserved for filing-level cross-checks and later management-KPI extraction; the current foundation does not claim every worksheet has been normalized yet.
+1. **Historical coverage.** The currently loaded T-100 snapshot spans June 2025 through May 2026. Annual 2019–2025 archive endpoints are enumerated in `scripts/download_t100_history.py` for the historical extension.
+2. **Airport coordinates.** FAA NASR currently resolves 223 observed airport codes. The BTS Airport Master Coordinate table is the preferred global coordinate source and will provide broader international coverage.
+3. **Carrier scope.** T-100 records are filtered to reporting carrier code `DL`. Delta Connection affiliates and marketed itineraries outside that reporting-carrier scope are not included in the current network layer.
+4. **SEC taxonomy coverage.** Some airline-specific taxonomy concepts do not provide usable framed observations for every selected period. Missing observations remain null until a source-compatible filing or Form 41 field is integrated.
+5. **Filing workbook normalization.** The Delta 10-K and 10-Q workbooks are retained as filing-level reference inputs. The current model does not normalize every worksheet; fields are added only when their analytical role and lineage are defined.
 
 ## Reproducibility evidence
 
-See `processed/validation_report.json` for output hashes and machine-readable PASS checks. `processed/reproducibility_report.json` records the two-build byte-for-byte determinism test for deterministic CSV outputs. Source-file SHA-256 hashes are in `processed/source_manifest.csv`.
+`processed/validation_report.json` contains machine-readable validation checks and output hashes. `processed/reproducibility_report.json` records the two-build byte-for-byte determinism test for deterministic CSV outputs. Source-file SHA-256 hashes and public endpoints are stored in `processed/source_manifest.csv`.
