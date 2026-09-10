@@ -4,6 +4,7 @@ from datetime import date
 
 from .config import FPNA_KPIS, NETWORK_KPIS, PROCESSED, RAW, ROOT
 from .io_utils import sha256_file, write_csv
+from .transtats import form_url
 
 
 def build_date_dimension(start_year: int = 2019, end_year: int = 2026):
@@ -73,6 +74,28 @@ def build_dimensions(fin_meta, route_rows):
     return dates, route_dim, metric_rows, scenarios
 
 
+def _t100_source_metadata(path):
+    scope = path.parent.name
+    if path.name.startswith("transtats_"):
+        return (
+            f"BTS TranStats T-100 {scope.title()} Segment",
+            form_url(scope),
+        )
+    folder = "domestic-segments" if scope == "domestic" else "international-segments"
+    if path.name == "current_202506_202605.zip":
+        source_basename = (
+            "DB28SEG.DD.WAC.202506.202605.REL01.04AUG2026.zip"
+            if scope == "domestic"
+            else "DB28SEG.FD.WAC.202506.202605.REL01.04AUG2026.zip"
+        )
+    else:
+        source_basename = path.name
+    return (
+        f"BTS T-100 {scope.title()} Segment",
+        f"https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/{folder}/{source_basename}",
+    )
+
+
 def build_source_manifest(t100_sources, bts_master_path):
     source_defs = [
         (RAW / "delta_companyfacts.json", "SEC CompanyFacts", "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json", "Core GAAP financial actuals", "used"),
@@ -81,18 +104,8 @@ def build_source_manifest(t100_sources, bts_master_path):
         (RAW / "faa_airports_2026-09-03.zip", "FAA NASR airport CSV", "https://nfdc.faa.gov/webContent/28DaySub/extra/03_Sep_2026_APT_CSV.zip", "U.S. airport coordinate fallback/enrichment", "used_fallback"),
     ]
     for p in t100_sources:
-        scope = p.parent.name
-        folder = "domestic-segments" if scope == "domestic" else "international-segments"
-        if p.name == "current_202506_202605.zip":
-            source_basename = (
-                "DB28SEG.DD.WAC.202506.202605.REL01.04AUG2026.zip"
-                if scope == "domestic"
-                else "DB28SEG.FD.WAC.202506.202605.REL01.04AUG2026.zip"
-            )
-        else:
-            source_basename = p.name
-        url = f"https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/{folder}/{source_basename}"
-        source_defs.append((p, f"BTS T-100 {scope.title()} Segment", url, "DL-reported segment traffic and capacity", "used"))
+        source_name, url = _t100_source_metadata(p)
+        source_defs.append((p, source_name, url, "DL-reported segment traffic and capacity", "used"))
     if bts_master_path:
         source_defs.append((bts_master_path, "BTS Master Coordinate", "https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=N8vn6v10&gnoyr_VQ=FLL", "Canonical global airport coordinates", "used"))
     rows = []
