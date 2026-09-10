@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "test": "Two consecutive clean builds produced byte-identical deterministic CSV outputs",
+  "files_checked": [
+    "dim_airport.csv",
+    "dim_date.csv",
+    "dim_metric.csv",
+    "dim_route.csv",
+    "dim_scenario.csv",
+    "fact_budget_forecast_template.csv",
+    "fact_driver_assumption_template.csv",
+    "fact_financial_actual.csv",
+    "fact_financial_kpi_derived.csv",
+    "fact_network_kpi_monthly.csv",
+    "fact_route_aircraft_monthly.csv",
+    "fact_route_monthly.csv",
+    "source_manifest.csv"
+  ],
+  "files_changed": [],
+  "sha256": {
+    "dim_airport.csv": "c01df912e072432601b87be4bd2486a6bbdd3f1b50117a1face87e4d72b316f3",
+    "dim_date.csv": "80f6d8a0f5a58f18beb6d3ba3d302fc22164a6d04ae49984b3c2e01c74b5e68d",
+    "dim_metric.csv": "cb48f285518fe2fa5b302e85f91ce4203b1605d36c4cc4d541b42120ccd47d94",
+    "dim_route.csv": "7908ac88d9da55a8aefd32d3d5714ef4be2560f25eb625860732ce96e6f40407",
+    "dim_scenario.csv": "4d32bc21a1be36ca8deffda0426d8fa1111d61614f0e09e2b0d3e944f3d1efc7",
+    "fact_budget_forecast_template.csv": "4874054f119cc9008ee33d397772e942d6fa790b283bfc694b2b8be22bf7b10d",
+    "fact_driver_assumption_template.csv": "55a046f3a87e96e2fad94711e6f814005e8ae52e8ef78c81be67b399a034e553",
+    "fact_financial_actual.csv": "ada90fcd980693e62b67ee4c841e25915e6e2d1266300bd22bc07efd991fbc52",
+    "fact_financial_kpi_derived.csv": "7b030808864337b576cfeba29fa98c23fa1df4cf408bdf8cdddab7d7ede00f23",
+    "fact_network_kpi_monthly.csv": "ee83b2ec2e7c89973f1467beb4c91fd25018b29ca0fed56e06935383b3e88af0",
+    "fact_route_aircraft_monthly.csv": "37e8e10dc14a8248d5218f13b08e993b65c3b1b5459e7320306034cc96e069e5",
+    "fact_route_monthly.csv": "462a7c8091e426b691d0584b0e85d4f9b2299ad2c3be04b47a0adc4b2a22f011",
+    "source_manifest.csv": "9296c670d8face76f0b641b54efd3ac5c87bcb289b152d605b0df9844ced16b9"
+  },
+  "note": "qa_summary.json is excluded because it contains build_timestamp_utc; SQLite is validated by CSV-to-database reconciliation rather than binary hash."
+}
