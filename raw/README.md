@@ -1,25 +1,25 @@
-# Raw official sources
+# Raw Data
 
-Large raw source files are intentionally not committed to Git. They are downloaded from first-party sources into this directory.
+Large source files are stored locally under `raw/` and excluded from Git history. The acquisition scripts download each dataset from its public publisher endpoint and record SHA-256 checksums for lineage and reproducibility.
 
-## Current foundation
-
-Run:
+## Current acquisition
 
 ```bash
 python scripts/download_official_sources.py
 ```
 
-This acquires the current SEC, Delta Investor Relations, FAA, and BTS T-100 inputs at the exact filenames expected by the build pipeline and prints SHA-256 checksums.
+The script retrieves the current SEC CompanyFacts, Delta filing workbooks, BTS T-100 segment archives, and FAA NASR airport data required by the build pipeline.
 
-For the historical T-100 extension (2019 onward), run:
+Historical T-100 archives can be retrieved with:
 
 ```bash
 python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025
 ```
 
-The generated `processed/source_manifest.csv` records the source URLs, local file names, sizes, checksums, roles, and pipeline status.
+## Source documentation
 
-## Source rule
+Exact publisher pages, direct endpoints, dataset roles, and field usage are documented in [`docs/DATA_SOURCES.md`](../docs/DATA_SOURCES.md).
 
-No Kaggle or third-party mirrors. If an official endpoint is unavailable, acquisition fails visibly rather than silently substituting a different source.
+## Lineage
+
+`processed/source_manifest.csv` records the currently loaded source files with their public URL, local filename, file size, SHA-256 checksum, analytical role, and pipeline status.
