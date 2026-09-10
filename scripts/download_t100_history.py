@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Download official BTS DB28 Segment annual archives for 2019-2025.
+"""Download BTS DB28 T-100 Segment annual archives for 2019-2025.
 
-Uses only bts.gov URLs. Files are saved into the raw/t100/{scope} folders used by
-build_data_foundation.py. Existing files are checksum-logged and not overwritten
-unless --force is passed.
+Files are saved under raw/t100/{scope}. Existing files are checksum-logged and
+preserved unless --force is passed.
 """
 from __future__ import annotations
 
@@ -34,7 +33,7 @@ URLS = {
         2019: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.201901.201912.REL01.02JUN2020.zip",
         2020: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202001.202012.REL01.02JUN2021.zip",
         2021: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202101.202112.REL01.02JUN2022.zip",
-        2022: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202201.202212.REL01.19SEP2023.zip",
+        2022: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202201.202112.REL01.19SEP2023.zip",
         2023: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202301.202312.REL01.04MAR2024.zip",
         2024: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202401.202412.REL01.04MAR2025.zip",
         2025: "https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/international-segments/DB28SEG.FD.WAC.202501.202512.REL01.03MAR2026.zip",
@@ -53,7 +52,9 @@ def sha256(path: Path) -> str:
 def download(url: str, dest: Path, retries: int = 3) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     partial = dest.with_suffix(dest.suffix + ".part")
-    headers = {"User-Agent": "Delta-FPNA-Portfolio-Research/1.0 (official BTS data acquisition)"}
+    headers = {
+        "User-Agent": "FinancialPlanningPerformanceDashboard/1.0 (+https://github.com/Boatengs/financial-planning-performance-dashboard)"
+    }
     last_error = None
     for attempt in range(1, retries + 1):
         try:
@@ -110,9 +111,14 @@ def main() -> None:
                     status = "failed"
                     error = str(exc)
             records.append({
-                "scope": scope, "year": year, "official_url": url, "local_file": str(dest.relative_to(ROOT)),
-                "status": status, "size_bytes": dest.stat().st_size if dest.exists() else "",
-                "sha256": sha256(dest) if dest.exists() else "", "error": error,
+                "scope": scope,
+                "year": year,
+                "official_url": url,
+                "local_file": str(dest.relative_to(ROOT)),
+                "status": status,
+                "size_bytes": dest.stat().st_size if dest.exists() else "",
+                "sha256": sha256(dest) if dest.exists() else "",
+                "error": error,
                 "checked_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
             })
 
@@ -121,10 +127,22 @@ def main() -> None:
         with MANIFEST.open(newline="", encoding="utf-8") as f:
             prior = list(csv.DictReader(f))
     touched = {(r["scope"], str(r["year"])) for r in records}
-    merged = [r for r in prior if (r["scope"], r["year"]) not in touched] + [{k: str(v) for k, v in r.items()} for r in records]
+    merged = [r for r in prior if (r["scope"], r["year"]) not in touched] + [
+        {k: str(v) for k, v in r.items()} for r in records
+    ]
     merged.sort(key=lambda r: (r["scope"], int(r["year"])))
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
-    fields = ["scope", "year", "official_url", "local_file", "status", "size_bytes", "sha256", "error", "checked_at_utc"]
+    fields = [
+        "scope",
+        "year",
+        "official_url",
+        "local_file",
+        "status",
+        "size_bytes",
+        "sha256",
+        "error",
+        "checked_at_utc",
+    ]
     with MANIFEST.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
