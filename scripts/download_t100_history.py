@@ -9,13 +9,16 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
-import time
-import urllib.error
-import urllib.request
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from pipeline.http_download import download_file
+
 RAW = ROOT / "raw" / "t100"
 MANIFEST = ROOT / "raw" / "t100_history_download_manifest.csv"
 
@@ -50,30 +53,7 @@ def sha256(path: Path) -> str:
 
 
 def download(url: str, dest: Path, retries: int = 3) -> None:
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    partial = dest.with_suffix(dest.suffix + ".part")
-    headers = {
-        "User-Agent": "FinancialPlanningPerformanceDashboard/1.0 (+https://github.com/Boatengs/financial-planning-performance-dashboard)"
-    }
-    last_error = None
-    for attempt in range(1, retries + 1):
-        try:
-            req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=90) as response, partial.open("wb") as out:
-                while True:
-                    chunk = response.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    out.write(chunk)
-            partial.replace(dest)
-            return
-        except (urllib.error.URLError, TimeoutError, OSError) as exc:
-            last_error = exc
-            if partial.exists():
-                partial.unlink()
-            if attempt < retries:
-                time.sleep(2 ** attempt)
-    raise RuntimeError(f"Failed after {retries} attempts: {url}: {last_error}")
+    download_file(url, dest, retries=max(1, retries))
 
 
 def main() -> None:
