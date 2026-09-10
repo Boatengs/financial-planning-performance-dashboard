@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -32,6 +32,8 @@ jobs:
         run: make check
 
       - name: Download current source files
+        env:
+          SEC_USER_AGENT: "Financial Planning Performance Dashboard 32736261+Boatengs@users.noreply.github.com"
         run: python scripts/download_official_sources.py --retries 5
 
       - name: Download historical T-100 archives
@@ -47,7 +49,7 @@ jobs:
 
       - name: Upload validated analytical outputs
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: delta-fpna-data-${{ github.sha }}
           path: |
@@ -61,7 +63,7 @@ jobs:
 
       - name: Upload acquisition diagnostics on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: historical-build-diagnostics-${{ github.sha }}
           path: |
