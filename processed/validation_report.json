@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "checks": {
+    "core_facts_nonempty": true,
+    "airport_dimension_complete_for_observed_codes": true,
+    "airport_codes_unique": true,
+    "reporting_carrier_restricted_to_DL": true,
+    "no_negative_passenger_or_seat_values": true,
+    "modeled_scenario_templates_empty": true,
+    "sqlite_totals_match_csv": true,
+    "sqlite_numeric_types_preserved": true,
+    "analytical_views_present": [
+      "vw_financial_actual_latest",
+      "vw_financial_kpi_long",
+      "vw_network_monthly",
+      "vw_route_12m"
+    ]
+  },
+  "counts": {
+    "financial_fact_rows": 315,
+    "financial_derived_kpi_rows": 57,
+    "t100_aircraft_rows": 46666,
+    "t100_route_month_rows": 22332,
+    "metric_dictionary_rows": 43,
+    "airport_rows": 334,
+    "airports_with_coordinates": 223,
+    "passengers": 166507545,
+    "seats": 200719700,
+    "asm": 280000460693,
+    "rpm": 234982498965,
+    "load_factor": 0.8392218297906342,
+    "departures_performed": 1179217,
+    "departures_scheduled": 1186146,
+    "completion_rate": 0.994158391968611
+  },
+  "key_output_sha256": {
+    "fact_financial_actual.csv": "ada90fcd980693e62b67ee4c841e25915e6e2d1266300bd22bc07efd991fbc52",
+    "fact_financial_kpi_derived.csv": "7b030808864337b576cfeba29fa98c23fa1df4cf408bdf8cdddab7d7ede00f23",
+    "fact_route_monthly.csv": "462a7c8091e426b691d0584b0e85d4f9b2299ad2c3be04b47a0adc4b2a22f011",
+    "fact_network_kpi_monthly.csv": "ee83b2ec2e7c89973f1467beb4c91fd25018b29ca0fed56e06935383b3e88af0",
+    "dim_airport.csv": "c01df912e072432601b87be4bd2486a6bbdd3f1b50117a1face87e4d72b316f3",
+    "dim_metric.csv": "cb48f285518fe2fa5b302e85f91ce4203b1605d36c4cc4d541b42120ccd47d94",
+    "dim_scenario.csv": "4d32bc21a1be36ca8deffda0426d8fa1111d61614f0e09e2b0d3e944f3d1efc7",
+    "source_manifest.csv": "9296c670d8face76f0b641b54efd3ac5c87bcb289b152d605b0df9844ced16b9"
+  }
+}
