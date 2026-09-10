@@ -1,7 +1,9 @@
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 import unittest
+
+from pipeline.transtats import TABLE_IDS, form_url, vq_encode
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,35 +22,28 @@ class SourceManifestTests(unittest.TestCase):
         cls.history = load_script("download_t100_history", "download_t100_history.py")
         cls.current = load_script("download_official_sources", "download_official_sources.py")
 
-    def test_historical_t100_manifest_has_complete_2019_2025_coverage(self):
-        expected_years = set(range(2019, 2026))
-        self.assertEqual(set(self.history.URLS), {"domestic", "international"})
-        self.assertEqual(set(self.history.URLS["domestic"]), expected_years)
-        self.assertEqual(set(self.history.URLS["international"]), expected_years)
+    def test_transtats_history_covers_2019_2026(self):
+        self.assertEqual(set(self.history.SUPPORTED_YEARS), set(range(2019, 2027)))
+        self.assertEqual(TABLE_IDS, {"domestic": 259, "international": 261})
 
-        urls = []
-        for scope in ("domestic", "international"):
-            for year, url in self.history.URLS[scope].items():
-                parsed = urlparse(url)
-                self.assertEqual(parsed.scheme, "https")
-                self.assertEqual(parsed.netloc, "www.bts.gov")
-                self.assertIn(f"{year}01.{year}12", url)
-                self.assertTrue(url.endswith(".zip"))
-                urls.append(url)
-        self.assertEqual(len(urls), 14)
-        self.assertEqual(len(set(urls)), 14)
+    def test_transtats_form_urls_are_exact_first_party_pages(self):
+        for scope, table_id in TABLE_IDS.items():
+            url = form_url(scope)
+            parsed = urlparse(url)
+            query = parse_qs(parsed.query)
+            self.assertEqual(parsed.scheme, "https")
+            self.assertEqual(parsed.netloc, "transtats.bts.gov")
+            self.assertEqual(parsed.path, "/DL_SelectFields.aspx")
+            self.assertEqual(query["gnoyr_VQ"], [vq_encode(str(table_id))])
+            self.assertIn("QO_fu146_anzr", query)
 
-    def test_2022_international_archive_range_is_correct(self):
-        self.assertIn("202201.202212", self.history.URLS["international"][2022])
-
-    def test_current_source_catalog_uses_expected_publishers_and_domains(self):
+    def test_current_fixed_source_catalog_uses_expected_publishers_and_domains(self):
         allowed_hosts = {
             "data.sec.gov",
             "d18rn0p25nwr6d.cloudfront.net",
             "nfdc.faa.gov",
-            "www.bts.gov",
         }
-        self.assertEqual(len(self.current.SOURCES), 6)
+        self.assertEqual(len(self.current.SOURCES), 4)
         self.assertEqual({source[1] for source in self.current.SOURCES}, {"financial", "network"})
         for label, group, url, destination in self.current.SOURCES:
             parsed = urlparse(url)
@@ -63,8 +58,8 @@ class SourceManifestTests(unittest.TestCase):
         all_sources = self.current.select_sources("all")
 
         self.assertEqual(len(financial), 3)
-        self.assertEqual(len(network), 3)
-        self.assertEqual(len(all_sources), 6)
+        self.assertEqual(len(network), 1)
+        self.assertEqual(len(all_sources), 4)
         self.assertTrue(all(source[1] == "financial" for source in financial))
         self.assertTrue(all(source[1] == "network" for source in network))
         self.assertEqual(set(financial + network), set(all_sources))
