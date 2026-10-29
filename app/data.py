@@ -16,8 +16,9 @@ BLUE = "#1d4ed8"
 RED = "#b91c1c"
 GREEN = "#047857"
 AMBER = "#b45309"
-SCENARIO_COLORS = {"ACT": INK, "BUD": "#9ca3af", "FCT": BLUE, "UP": GREEN, "DOWN": RED}
-SCENARIO_NAMES = {"ACT": "Actual", "BUD": "Budget", "FCT": "Base forecast", "UP": "Upside", "DOWN": "Downside"}
+SCENARIO_COLORS = {"ACT": INK, "BUD": "#9ca3af", "FCT": BLUE, "FUEL": AMBER, "UP": GREEN, "DOWN": RED}
+SCENARIO_NAMES = {"ACT": "Actual", "BUD": "Budget", "FCT": "Base forecast", "FUEL": "Fuel stays at latest price",
+                  "UP": "Upside", "DOWN": "Downside"}
 
 
 @st.cache_data

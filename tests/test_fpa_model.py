@@ -40,11 +40,24 @@ class FpaModelTests(unittest.TestCase):
         out = fpa_model.outcomes(fpa_model.drivers_from_actuals(row))
         self.assertAlmostEqual(out["operating_income"], row["mainline_operating_income"], delta=1e-3)
 
-    def test_regular_series_is_forecast_without_error(self):
-        result, _ = self.run_model(synthetic_quarters())
-        self.assertEqual(result["latest_actual"], "2026Q3")
-        self.assertEqual(result["forecast_quarters"], ["2026Q4", "2027Q1", "2027Q2", "2027Q3"])
-        self.assertLess(result["backtest"]["mainline_revenue|hall"]["driver_mape"], 1e-9)
+    def test_base_is_seasonal_naive_by_driver(self):
+        rows = synthetic_quarters()
+        history = {fpa_model.q_index(r["period_label"]): fpa_model.drivers_from_actuals(r) for r in rows}
+        origin = fpa_model.q_index("2025Q2")
+        path = fpa_model.forecast(history, origin, 4)
+        for target, point in path.items():
+            for driver, value in point.items():
+                self.assertAlmostEqual(value, history[target - 4][driver])
+
+    def test_method_comparison_covers_every_method_and_drift_recovers_constant_growth(self):
+        result, out = self.run_model(synthetic_quarters())
+        with (out / "analysis_forecast_method_comparison.csv").open() as f:
+            rows = [r for r in csv.DictReader(f) if r["horizon"] == "all"]
+        self.assertEqual({r["method"] for r in rows}, set(fpa_model.METHODS))
+        drift = next(r for r in rows if r["method"] == "median_4q_yoy_drift")
+        self.assertLess(float(drift["revenue_mape"]), 1e-9)
+        self.assertEqual(result["base_method"], "seasonal_naive")
+        self.assertIn("FUEL", result["scenario_next4_operating_income"])
 
     def test_forecast_uses_only_information_up_to_origin(self):
         rows = synthetic_quarters()
