@@ -43,7 +43,7 @@ with left:
     fig.add_scatter(x=view["period_label"], y=view["prasm_cents"], name="PRASM", line=dict(color=MUTED, dash="dash"))
     fig.update_layout(title="Revenue and cost per ASM (cents)", height=380, margin=dict(l=10, r=10, t=50, b=10),
                       legend=dict(orientation="h", y=-0.2), yaxis=dict(range=[5, 28]))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 with right:
     fig = go.Figure()
     fig.add_bar(x=view["period_label"], y=(view["trasm_cents"] - view["casm_cents"]),
@@ -51,7 +51,7 @@ with right:
                 name="TRASM minus CASM")
     fig.update_layout(title="Unit margin: TRASM minus CASM (cents per ASM)", height=380,
                       margin=dict(l=10, r=10, t=50, b=10), yaxis=dict(range=[-8, 6]))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 a, b = st.columns(2)
 with a:
@@ -59,7 +59,7 @@ with a:
     fig.add_scatter(x=view["period_label"], y=view["load_factor"] * 100, name="Load factor", line=dict(color=INK))
     fig.update_layout(title="Load factor (%)", height=320, margin=dict(l=10, r=10, t=50, b=10),
                       yaxis=dict(range=[50, 95]))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 with b:
     fig = go.Figure()
     fig.add_scatter(x=view["period_label"], y=view["fuel_cost_per_gallon"], name="Fuel $/gal", line=dict(color=AMBER))
@@ -68,7 +68,7 @@ with b:
     fig.update_layout(title="Fuel price and efficiency", height=320, margin=dict(l=10, r=10, t=50, b=10),
                       yaxis=dict(title="$ per gallon"), yaxis2=dict(title="ASMs per gallon", overlaying="y", side="right"),
                       legend=dict(orientation="h", y=-0.25))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 off = view[(view["casm_cents"] > 28) | (view["trasm_cents"] - view["casm_cents"] < -8) | (view["load_factor"] < 0.5)]
 if not off.empty:
@@ -79,7 +79,7 @@ with st.expander("Quarterly table"):
     cols = ["period_label", "asm", "load_factor", "pax_revenue", "mainline_revenue", "mainline_expense",
             "mainline_operating_margin", "prasm_cents", "trasm_cents", "casm_cents", "casm_ex_fuel_cents",
             "yield_cents", "fuel_cost_per_gallon"]
-    st.dataframe(view[cols], hide_index=True, use_container_width=True)
+    st.dataframe(view[cols], hide_index=True, width="stretch")
 
 check = csv("check_form41_vs_sec.csv")
 footnote(f"Scope check: DL's Form 41 total operating revenue equals {check['revenue_ratio'].min():.2%} to "

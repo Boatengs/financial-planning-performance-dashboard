@@ -30,18 +30,18 @@ st.markdown(
 st.subheader("Validation checks")
 checks = pd.DataFrame([{"Check": k, "Pass": v["pass"], "Detail": v["detail"]}
                        for k, v in validation["checks"].items()])
-st.dataframe(checks, hide_index=True, use_container_width=True)
+st.dataframe(checks, hide_index=True, width="stretch")
 
 st.subheader("Sources")
 st.dataframe(csv("source_manifest.csv")[["source_name", "local_file", "official_url", "role", "sha256"]],
-             hide_index=True, use_container_width=True)
+             hide_index=True, width="stretch")
 
 st.subheader("Metric dictionary")
-st.dataframe(csv("metric_dictionary.csv"), hide_index=True, use_container_width=True)
+st.dataframe(csv("metric_dictionary.csv"), hide_index=True, width="stretch")
 
 st.subheader("How quarterly SEC values were obtained")
 methods = pd.DataFrame([{"metric": m, **v} for m, v in qa["financial"]["methods"].items()]).fillna(0)
-st.dataframe(methods, hide_index=True, use_container_width=True)
+st.dataframe(methods, hide_index=True, width="stretch")
 st.caption("reported: a three-month value in a filing. derived_fy_minus_9m: Q4 = full year minus nine months. "
            "derived_ytd_difference: cash-flow quarter = year-to-date minus prior year-to-date. "
            "derived_sum_of_components: total capex = flight equipment + ground and technology.")
