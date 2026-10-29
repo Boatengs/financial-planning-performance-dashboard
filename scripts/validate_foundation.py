@@ -86,8 +86,8 @@ def main():
            if s[("system", f)] != s[("domestic", f)] + s[("international", f)]]
     check("form41_system_equals_domestic_plus_international", not bad, str(bad[:5]))
     lo, hi = qa["form41"]["revenue_ratio_to_sec_min"], qa["form41"]["revenue_ratio_to_sec_max"]
-    check("form41_revenue_below_sec_consolidated", lo is not None and 0.5 <= lo and hi <= 1.0,
-          f"Form 41 / SEC revenue ratio range {lo}..{hi}")
+    check("form41_revenue_reconciles_to_sec_within_2pct", lo is not None and 0.98 <= lo and hi <= 1.02,
+          f"Form 41 system revenue / SEC consolidated revenue ranges {lo:.4f} to {hi:.4f}")
     ue = rows("fact_unit_economics_quarterly.csv")
     sys_q = sorted({r["period_label"] for r in ue if r["scope"] == "system"}, key=q_index)
     check("unit_economics_contiguous", [q_index(q) for q in sys_q] == list(range(q_index(sys_q[0]), q_index(sys_q[-1]) + 1)),

@@ -1,11 +1,11 @@
 # Starter SQL Queries
 
-These queries target `processed/delta_fpna_foundation.sqlite`.
+These queries target `processed/delta_fpna_foundation.sqlite`, built by `make build`.
 
-## Top routes by passengers
+## Top routes, latest twelve months
 
 ```sql
-SELECT route_id, origin, destination, scope, passengers, seats, load_factor
+SELECT route_id, scope, passengers, seats, load_factor, window_start, window_end
 FROM vw_route_12m
 ORDER BY passengers DESC
 LIMIT 25;
@@ -14,59 +14,61 @@ LIMIT 25;
 ## Monthly whole-network trend
 
 ```sql
-SELECT period, passengers, seats, asm, rpm, load_factor, completion_rate
+SELECT period, passengers, asm, rpm, load_factor, completion_rate
 FROM vw_network_monthly
 ORDER BY period;
 ```
 
-## 3D route layer with coordinate coverage
+## Consolidated quarterly results (SEC)
 
 ```sql
-SELECT
-  r.route_id,
-  r.origin,
-  o.latitude  AS origin_latitude,
-  o.longitude AS origin_longitude,
-  r.destination,
-  d.latitude  AS destination_latitude,
-  d.longitude AS destination_longitude,
-  r.passengers,
-  r.asm,
-  r.rpm,
-  r.load_factor
-FROM vw_route_12m r
-JOIN dim_airport o ON o.airport_code = r.origin
-JOIN dim_airport d ON d.airport_code = r.destination
-WHERE o.latitude IS NOT NULL
-  AND o.longitude IS NOT NULL
-  AND d.latitude IS NOT NULL
-  AND d.longitude IS NOT NULL
-ORDER BY r.passengers DESC;
+SELECT period_label, revenue, operating_income, net_income, operating_cash_flow, capex_total
+FROM vw_financial_quarterly_wide
+ORDER BY period_end;
 ```
 
-## Reported + safe derived financial KPI history
+## How each quarterly SEC value was obtained
 
 ```sql
-SELECT metric_id, metric_name, period_end, period_type, value, unit, source
-FROM vw_financial_kpi_long
-WHERE metric_id IN ('revenue','operating_income','operating_margin','revenue_growth_yoy')
-ORDER BY period_end, metric_id;
+SELECT metric_id, method, COUNT(*) AS quarters
+FROM fact_financial_actual
+WHERE period_type <> 'FY'
+GROUP BY metric_id, method
+ORDER BY metric_id, method;
 ```
 
-## Metrics intentionally unavailable from selected CompanyFacts tags
+## Mainline unit economics
 
 ```sql
-SELECT metric_id, metric_name, source_field, availability_count_2019_2026
-FROM dim_metric
-WHERE source_system = 'SEC CompanyFacts'
-  AND COALESCE(availability_count_2019_2026,0) = 0;
+SELECT period_label, scope, trasm_cents, casm_cents, casm_ex_fuel_cents, yield_cents, load_factor
+FROM fact_unit_economics_quarterly
+WHERE scope = 'system'
+ORDER BY year, quarter;
 ```
 
-## Coordinate control
+## Budget versus actual
 
 ```sql
-SELECT coordinate_status, COUNT(*) AS airport_count
-FROM dim_airport
-GROUP BY coordinate_status
-ORDER BY airport_count DESC;
+SELECT period, metric_id, budget, actual, actual_vs_budget, actual_vs_budget_pct
+FROM fact_budget_variance
+ORDER BY period;
+```
+
+## Next four quarters by scenario
+
+```sql
+SELECT scenario_id, SUM(value) AS operating_income
+FROM fact_budget_forecast
+WHERE metric_id = 'mainline_operating_income'
+  AND scenario_id IN ('FCT', 'UP', 'DOWN')
+  AND forecast_origin = (SELECT MAX(forecast_origin) FROM fact_budget_forecast WHERE scenario_id = 'FCT')
+GROUP BY scenario_id;
+```
+
+## Airports gaining and losing share since 2019
+
+```sql
+SELECT airport_code, departing_passengers_base, departing_passengers_ttm, share_change_pts
+FROM analysis_airport_ttm_vs_2019
+ORDER BY share_change_pts DESC;
 ```

@@ -98,7 +98,7 @@ def _row(metric_id, spec, tag, unit, *, period_type, year, quarter, start, end, 
         "period_label": label, "period_type": period_type, "fiscal_year": year,
         "fiscal_quarter": "" if period_type == "FY" else quarter,
         "period_start": start or "", "period_end": end, "value": value, "unit": unit, "method": method,
-        "taxonomy_namespace": spec["namespace"], "taxonomy_tag": tag,
+        "taxonomy_namespace": spec["namespace"], "taxonomy_tag": next((src["alt_tag"] for src in sources if src.get("alt_tag")), tag),
         "form": ";".join(sorted({s.get("form", "") for s in sources})),
         "filed_date": max((s.get("filed") or "") for s in sources),
         "accession_number": ";".join(sorted({s.get("accn", "") for s in sources})),
@@ -166,6 +166,13 @@ def extract_financial_actuals(data: dict, years=range(ANALYSIS_START_YEAR, ANALY
             continue
         instant = spec["kind"] == "instant"
         facts = _latest_by_period(units[unit], instant=instant)
+        if spec.get("fill_from_alternate_tags"):
+            # Use later tags only for periods the primary tag does not cover. Only enabled for metrics
+            # where the tags are the same measure (checked where they overlap in validation).
+            for alt in spec["tags"][spec["tags"].index(tag) + 1:]:
+                alt_units = namespace.get(alt, {}).get("units", {}).get(unit, [])
+                for key, item in _latest_by_period(alt_units, instant=instant).items():
+                    facts.setdefault(key, {**item, "alt_tag": alt})
         if instant:
             rows = _instant_rows(metric_id, spec, tag, unit, facts, years)
         else:

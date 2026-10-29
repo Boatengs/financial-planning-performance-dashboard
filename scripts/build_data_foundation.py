@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from pipeline.airports import build_airport_dimension
+from pipeline.airports import COORDINATE_DIAGNOSTICS, build_airport_dimension
 from pipeline.config import PROCESSED
 from pipeline.dimensions import build_dimensions, build_source_manifest
 from pipeline.financials import (build_financial_actuals, resolve_companyfacts_path, build_financial_derived, coverage_summary, latest_period,
@@ -69,6 +69,9 @@ def main():
         },
         "airports": {
             "observed": len(route_codes), "with_coordinates": len(resolved), "pending_codes": pending,
+            "pending_master_coordinate_rows": {c: COORDINATE_DIAGNOSTICS.get(c, {"rows": 0}) for c in pending},
+            "resolved_from_prior_record": [a["airport_code"] for a in airport_rows
+                                           if a.get("coordinate_status") == "resolved_bts_master_coordinate_prior_record"],
             "bts_master_coordinate_ingested": bool(bts_master_path),
             "ttm_passenger_share_on_mapped_routes": mapped_pax / ttm_pax if ttm_pax else None,
             "ttm_routes_without_coordinates": network["routes_without_coordinates"],
@@ -112,7 +115,7 @@ def main():
     ]}
     db = build_sqlite(table_files)
     published = publish()
-    print(json.dumps({"qa": qa, "sqlite": str(db.relative_to(ROOT)), "sources": len(source_rows),
+    print(json.dumps({"qa": qa, "model": model, "sqlite": str(db.relative_to(ROOT)), "sources": len(source_rows),
                       "metrics": len(metric_rows), "published_files": len(published)}, indent=2, default=str))
 
 
