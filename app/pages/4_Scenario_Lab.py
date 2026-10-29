@@ -39,7 +39,7 @@ for s in ("FCT", "FUEL", "UP", "DOWN"):
                     line=dict(color=SCENARIO_COLORS[s], dash="solid" if s == "FCT" else "dot"))
 fig.update_layout(height=420, margin=dict(l=10, r=10, t=20, b=10), yaxis_title="$B per quarter",
                   legend=dict(orientation="h", y=-0.2), xaxis=dict(tickangle=-45, nticks=20))
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 sc = summary["scenario_next4_operating_income"]
 c = st.columns(4)
@@ -78,14 +78,14 @@ with left:
     fig = go.Figure(go.Bar(x=sens["operating_income_change"] / 1e9, y=sens["shock"], orientation="h",
                            marker_color=[BLUE if v >= 0 else RED for v in sens["operating_income_change"]]))
     fig.update_layout(height=340, margin=dict(l=10, r=10, t=10, b=10), xaxis_title="$B change vs base")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 with right:
     st.markdown("**Budget versus actual (budget set each Q4 for the next year)**")
     var = csv("budget_variance.csv")
     var = var[var["metric_id"] == "mainline_operating_income"].copy()
     shown = pd.DataFrame({"Quarter": var["period"], "Budget": var["budget"].map(usd_b),
                           "Actual": var["actual"].map(usd_b), "Variance": var["actual_vs_budget"].map(usd_b)})
-    st.dataframe(shown, hide_index=True, use_container_width=True, height=320)
+    st.dataframe(shown, hide_index=True, width="stretch", height=320)
     footnote("Budget for each year is set at the prior Q4 with the base method, so it equals the prior year's "
              "drivers quarter by quarter; the variance is therefore the year-over-year change in operating income.")
 
@@ -97,7 +97,7 @@ overall["Operating income error ($B)"] = (overall["operating_income_mae"] / 1e9)
 overall["Margin error (pts)"] = overall["operating_margin_mae_pts"].round(2)
 overall["Base"] = overall["is_base_method"].map({True: "yes", False: ""})
 st.dataframe(overall[["method", "forecasts", "Revenue error (MAPE)", "Operating income error ($B)",
-                      "Margin error (pts)", "Base"]], hide_index=True, use_container_width=True)
+                      "Margin error (pts)", "Base"]], hide_index=True, width="stretch")
 footnote("Rolling-origin backtest from 2023Q4, one to four quarters ahead: at each origin a method sees only "
          "data up to that quarter. Methods that extrapolate recent year-over-year trends did worse than carrying "
          "each driver forward from the same quarter a year earlier, so that is the base. Earlier origins are "

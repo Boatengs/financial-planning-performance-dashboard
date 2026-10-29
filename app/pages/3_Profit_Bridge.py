@@ -32,7 +32,7 @@ fig = go.Figure(go.Waterfall(
     totals=dict(marker=dict(color=BLUE)), connector=dict(line=dict(color="#d1d5db")),
 ))
 fig.update_layout(height=460, margin=dict(l=10, r=10, t=20, b=10), yaxis_title="$B")
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 c = st.columns(3)
 c[0].metric(f"Operating income {frm}", usd_b(meta["start_operating_income"]))
@@ -50,7 +50,7 @@ table = pd.DataFrame({
     to: [UNITS[d][0].format(v * UNITS[d][1]) for d, v in zip(steps["driver"], steps["current_value"])],
     "Effect on operating income": [usd_b(v) for v in steps["operating_income_effect"]],
 })
-st.dataframe(table, hide_index=True, use_container_width=True)
+st.dataframe(table, hide_index=True, width="stretch")
 footnote("Order matters in sequential substitution: capacity first, then load factor, yield, non-passenger "
          "revenue, cost per ASM excluding fuel, fuel efficiency and fuel price. Each driver is computed from "
          "summed amounts for the period, not from averaged quarterly ratios.")

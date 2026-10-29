@@ -41,7 +41,7 @@ with left:
     fig.update_layout(title="Quarterly revenue and operating expense ($B)", barmode="group", height=360,
                       margin=dict(l=10, r=10, t=50, b=10), legend=dict(orientation="h", y=-0.3),
                       xaxis=dict(tickangle=-45, nticks=16))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 with right:
     fig = go.Figure()
     fig.add_scatter(x=fin["period_label"], y=fin["operating_margin"] * 100, name="Operating margin",
@@ -52,7 +52,7 @@ with right:
     fig.update_layout(title="Operating and net margin (%)", height=360, margin=dict(l=10, r=10, t=50, b=10),
                       legend=dict(orientation="h", y=-0.3), yaxis=dict(range=[-40, 25]),
                       xaxis=dict(tickangle=-45, nticks=16))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     low = fin.loc[fin["operating_margin"] * 100 < -40, ["period_label", "operating_margin"]]
     if not low.empty:
         footnote("Below the axis: " + ", ".join(f"{p} ({m:.0%})" for p, m in low.itertuples(index=False)) + ".")
@@ -65,7 +65,7 @@ fig.add_scatter(x=fin["period_label"], y=fin["free_cash_flow"] / 1e9, name="Free
                 line=dict(color=INK))
 fig.update_layout(barmode="relative", height=340, margin=dict(l=10, r=10, t=20, b=10),
                   yaxis_title="$B", legend=dict(orientation="h", y=-0.35), xaxis=dict(tickangle=-45, nticks=20))
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 summary = js("fpa_model_summary.json")
 qa = js("qa_summary.json")
