@@ -1,5 +1,5 @@
 {
-  "build_timestamp_utc": "2026-10-29T05:16:47Z",
+  "build_timestamp_utc": "2026-10-29T05:35:45Z",
   "financial": {
     "source": "SEC CompanyFacts (pinned snapshot 2026-10-29)",
     "fact_rows": 693,
