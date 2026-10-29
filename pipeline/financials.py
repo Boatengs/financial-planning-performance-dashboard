@@ -65,8 +65,25 @@ def _latest_by_period(items: list[dict], *, instant: bool) -> dict:
     return chosen
 
 
+def resolve_companyfacts_path() -> tuple[Path, str]:
+    """Prefer a fresh full download; otherwise use the newest pinned snapshot committed under raw/sec/.
+
+    SEC refuses requests from some cloud networks (including GitHub-hosted runners), so the
+    repository keeps a dated snapshot filtered to the concepts this model uses. It is made by
+    scripts/subset_companyfacts.py from a full CompanyFacts download.
+    """
+    full = RAW / "delta_companyfacts.json"
+    if full.exists():
+        return full, "SEC CompanyFacts (fresh download)"
+    snapshots = sorted((RAW / "sec").glob("companyfacts_subset_*.json"))
+    if not snapshots:
+        raise FileNotFoundError("No SEC CompanyFacts file; run scripts/download_official_sources.py --group financial")
+    latest = snapshots[-1]
+    return latest, f"SEC CompanyFacts (pinned snapshot {latest.stem.split('_')[-1]})"
+
+
 def load_companyfacts(path: Path | None = None) -> dict:
-    path = path or RAW / "delta_companyfacts.json"
+    path = path or resolve_companyfacts_path()[0]
     with path.open(encoding="utf-8") as handle:
         data = json.load(handle)
     if int(data.get("cik", -1)) != DELTA_CIK or "DELTA AIR LINES" not in data.get("entityName", "").upper():

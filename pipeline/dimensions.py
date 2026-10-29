@@ -103,8 +103,10 @@ def _t100_source_metadata(path):
 
 
 def build_source_manifest(t100_sources, bts_master_path, form41_sources=()):
+    from .financials import resolve_companyfacts_path
+    sec_path, sec_label = resolve_companyfacts_path()
     source_defs = [
-        (RAW / "delta_companyfacts.json", "SEC CompanyFacts", "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json", "Consolidated GAAP financial actuals", "used"),
+        (sec_path, sec_label, "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json", "Consolidated GAAP financial actuals", "used"),
     ]
     faa = RAW / "faa_airports_2026-09-03.zip"
     if faa.exists():
