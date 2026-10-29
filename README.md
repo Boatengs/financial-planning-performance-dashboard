@@ -3,7 +3,7 @@
 [![Python CI](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml)
 [![Full Data Build](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/data-build.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/data-build.yml)
 
-A reproducible FP&A model of Delta Air Lines built only from public filings. It joins SEC financial statements, DOT Form 41 airline accounts and BTS T-100 flight segment data, rebuilds operating income from seven operating drivers, and serves the results in a Streamlit dashboard with a 3D route map and a Tableau Public extract.
+A reproducible FP&A model of Delta Air Lines built only from public filings. It joins SEC financial statements, DOT Form 41 airline accounts and BTS T-100 flight segment data, rebuilds operating income from seven operating drivers, and serves the results in a Streamlit dashboard with a route network map and a Tableau Public extract.
 
 **Live dashboard:** [delta-fpna.streamlit.app](https://delta-fpna.streamlit.app)
 
@@ -90,7 +90,7 @@ streamlit run app/Home.py
 | Page | Shows |
 |---|---|
 | Home | Consolidated revenue, margins and cash generation |
-| Network 3D | Latest twelve months of routes as 3D arcs, airports sized by passengers, change versus 2019 |
+| Route Network | Busiest city pairs on a flat map, top routes and hubs, change versus 2019 |
 | Unit Economics | Mainline TRASM, CASM, CASM-ex, yield, load factor and fuel by domestic and international |
 | Profit Bridge | Operating income change by driver for any year pair |
 | Scenario Lab | Base, fuel, upside and downside paths, your own driver sliders, sensitivity, budget variance, method backtest |

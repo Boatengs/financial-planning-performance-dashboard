@@ -32,7 +32,7 @@ modeled rows carry a scenario ID and a forecast origin.
 | `analysis_market_ttm_vs_2019` | City-pair passengers, latest twelve months versus 2019, with new and exited markets |
 | `analysis_airport_ttm_vs_2019` | Departing passengers and network share by airport, latest twelve months versus 2019 |
 | `analysis_network_structure` | Passengers, international share, markets served and concentration by year and TTM |
-| `layer_route_ttm` | Latest-twelve-month directional routes with coordinates for the 3D map |
+| `layer_route_ttm` | Latest-twelve-month directional routes with coordinates for the route network map |
 | `check_form41_vs_sec` | Form 41 system revenue as a share of SEC consolidated revenue each quarter |
 
 ## Dimensions
