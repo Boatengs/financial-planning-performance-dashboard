@@ -1,0 +1,198 @@
+{
+  "model_version": "fpa-drivers-1.0",
+  "scope": "system",
+  "first_actual": "2019Q1",
+  "latest_actual": "2026Q2",
+  "forecast_quarters": [
+    "2026Q3",
+    "2026Q4",
+    "2027Q1",
+    "2027Q2"
+  ],
+  "base_next4_revenue": 55858079121.09062,
+  "base_next4_operating_income": -1759587951.329012,
+  "scenario_next4_operating_income": {
+    "UP": 1989422917.072609,
+    "DOWN": -7686092403.973536
+  },
+  "backtest": {
+    "mainline_revenue|h1": {
+      "n": 10,
+      "driver_mape": 0.057783425695606294,
+      "naive_mape": 0.03958013756478533,
+      "driver_mae": 749961629.7068186,
+      "naive_mae": 523150499.9999998,
+      "driver_bias": 0.019895004589875503,
+      "driver_wins": 5
+    },
+    "mainline_revenue|h2": {
+      "n": 9,
+      "driver_mape": 0.06392898139749306,
+      "naive_mape": 0.038321037473884365,
+      "driver_mae": 859946869.115238,
+      "naive_mae": 519067222.22222203,
+      "driver_bias": 0.026645603306927692,
+      "driver_wins": 5
+    },
+    "mainline_revenue|h3": {
+      "n": 8,
+      "driver_mape": 0.07431021688049264,
+      "naive_mape": 0.038199988016194994,
+      "driver_mae": 971262682.4404252,
+      "naive_mae": 517495249.99999976,
+      "driver_bias": 0.03316280908331889,
+      "driver_wins": 3
+    },
+    "mainline_revenue|h4": {
+      "n": 7,
+      "driver_mape": 0.08148399094334649,
+      "naive_mape": 0.04283438869556705,
+      "driver_mae": 1053241916.7639978,
+      "naive_mae": 580817142.8571423,
+      "driver_bias": 0.03311556314462414,
+      "driver_wins": 3
+    },
+    "mainline_revenue|hall": {
+      "n": 34,
+      "driver_mape": 0.06817837532884903,
+      "naive_mape": 0.039592098173863,
+      "driver_mae": 893586264.5875504,
+      "naive_mae": 532611529.4117645,
+      "driver_bias": 0.02752564383353013,
+      "driver_wins": 16
+    },
+    "mainline_operating_income|h1": {
+      "n": 10,
+      "driver_mape": 4.790080660519817,
+      "naive_mape": 3.3119097022625965,
+      "driver_mae": 263761706.19432393,
+      "naive_mae": 237434000.00000134,
+      "driver_bias": -4.624222978901065,
+      "driver_wins": 3
+    },
+    "mainline_operating_income|h2": {
+      "n": 9,
+      "driver_mape": 1.1410632164547403,
+      "naive_mape": 0.4988506896610766,
+      "driver_mae": 317081000.45166993,
+      "naive_mae": 243848111.1111126,
+      "driver_bias": -0.974319551150702,
+      "driver_wins": 5
+    },
+    "mainline_operating_income|h3": {
+      "n": 8,
+      "driver_mape": 1.4538749429511,
+      "naive_mape": 0.5339466573075556,
+      "driver_mae": 308822865.9417658,
+      "naive_mae": 235086625.00000167,
+      "driver_bias": -1.4210956980148994,
+      "driver_wins": 2
+    },
+    "mainline_operating_income|h4": {
+      "n": 7,
+      "driver_mape": 1.847216708206706,
+      "naive_mape": 0.45618303055485787,
+      "driver_mae": 479521338.8341729,
+      "naive_mae": 170791857.14285877,
+      "driver_bias": -1.847216708206706,
+      "driver_wins": 1
+    },
+    "mainline_operating_income|hall": {
+      "n": 34,
+      "driver_mape": 2.4332909427748994,
+      "naive_mape": 1.325694344174121,
+      "driver_mae": 332899363.68769425,
+      "naive_mae": 224859088.23529562,
+      "driver_bias": -2.3326584791450915,
+      "driver_wins": 11
+    },
+    "mainline_operating_margin|h1": {
+      "n": 10,
+      "driver_mae_pts": 2.0277998408144158,
+      "naive_mae_pts": 1.9730053046678317,
+      "driver_bias_pts": -1.4367275573626275
+    },
+    "mainline_operating_margin|h2": {
+      "n": 9,
+      "driver_mae_pts": 2.404349723660631,
+      "naive_mae_pts": 2.0005830415266144,
+      "driver_bias_pts": -1.8662595248767306
+    },
+    "mainline_operating_margin|h3": {
+      "n": 8,
+      "driver_mae_pts": 2.4151842723001193,
+      "naive_mae_pts": 1.8944017214305977,
+      "driver_bias_pts": -2.3968682120270075
+    },
+    "mainline_operating_margin|h4": {
+      "n": 7,
+      "driver_mae_pts": 3.7463393338120596,
+      "naive_mae_pts": 1.414135807343166,
+      "driver_bias_pts": -3.7463393338120596
+    },
+    "mainline_operating_margin|hall": {
+      "n": 34,
+      "driver_mae_pts": 2.572441042240447,
+      "naive_mae_pts": 1.8467489659783762,
+      "driver_bias_pts": -2.251850950894627
+    }
+  },
+  "bridges": [
+    {
+      "from_period": "2019",
+      "to_period": "2020",
+      "start_operating_income": 5932859899.999992,
+      "end_operating_income": -7139638000.0
+    },
+    {
+      "from_period": "2020",
+      "to_period": "2021",
+      "start_operating_income": -7139638000.0,
+      "end_operating_income": -3468169999.999996
+    },
+    {
+      "from_period": "2021",
+      "to_period": "2022",
+      "start_operating_income": -3468169999.999996,
+      "end_operating_income": 2173982999.9999924
+    },
+    {
+      "from_period": "2022",
+      "to_period": "2023",
+      "start_operating_income": 2173982999.9999924,
+      "end_operating_income": 3885416000.0
+    },
+    {
+      "from_period": "2023",
+      "to_period": "2024",
+      "start_operating_income": 3885416000.0,
+      "end_operating_income": 2895946000.0
+    },
+    {
+      "from_period": "2024",
+      "to_period": "2025",
+      "start_operating_income": 2895946000.0,
+      "end_operating_income": 2386024000.0
+    },
+    {
+      "from_period": "2024Q3-2025Q2",
+      "to_period": "2025Q3-2026Q2",
+      "start_operating_income": 2626780000.0,
+      "end_operating_income": 2117718000.0
+    }
+  ],
+  "budget_quarters": [
+    "2024Q1",
+    "2024Q2",
+    "2024Q3",
+    "2024Q4",
+    "2025Q1",
+    "2025Q2",
+    "2025Q3",
+    "2025Q4",
+    "2026Q1",
+    "2026Q2",
+    "2026Q3",
+    "2026Q4"
+  ]
+}
