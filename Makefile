@@ -1,47 +1,37 @@
-.PHONY: bootstrap bootstrap-network history-download build build-network validate validate-network test compile check all network-history clean
+.PHONY: download download-sec download-t100 download-bts build validate test compile check all app clean
 
-bootstrap:
-	python scripts/download_official_sources.py
-	python scripts/download_t100_history.py --years 2025 2026
+YEARS := 2019 2020 2021 2022 2023 2024 2025 2026
+CURRENT_YEAR := 2026
 
-bootstrap-network:
-	python scripts/download_official_sources.py --group network
+download: download-sec download-t100 download-bts
 
-history-download:
-	python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025 2026
+download-sec:
+	python scripts/download_official_sources.py --force
+
+download-t100:
+	python scripts/download_t100_history.py --years $(YEARS) --refresh-years $(CURRENT_YEAR)
+
+download-bts:
+	python scripts/download_bts_tables.py --years $(YEARS) --refresh-years $(CURRENT_YEAR)
 
 build:
 	python scripts/build_data_foundation.py
 
-build-network:
-	python scripts/build_network_history.py
-
 validate:
 	python scripts/validate_foundation.py
-
-validate-network:
-	python scripts/validate_network_history.py
 
 test:
 	python -m unittest discover -s tests -v
 
 compile:
-	python -m compileall -q pipeline scripts tests
+	python -m compileall -q pipeline scripts tests app
 
 check: compile test
 
-all: bootstrap build validate
+all: download build validate
 
-network-history: bootstrap-network history-download build-network validate-network
+app:
+	streamlit run app/Home.py
 
 clean:
-	rm -f processed/delta_fpna_foundation.sqlite \
-	      processed/fact_route_aircraft_monthly.csv \
-	      processed/fact_route_monthly.csv \
-	      processed/fact_network_kpi_monthly.csv \
-	      processed/dim_airport.csv \
-	      processed/dim_route.csv \
-	      processed/dim_date.csv \
-	      processed/network_source_manifest.csv \
-	      processed/network_history_summary.json \
-	      processed/network_history_validation.json
+	rm -rf processed/*.csv processed/*.json processed/*.sqlite

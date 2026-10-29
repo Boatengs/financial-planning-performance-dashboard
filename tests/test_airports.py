@@ -126,5 +126,52 @@ class AirportDimensionTests(unittest.TestCase):
         self.assertIsNone(by_code["LHR"]["longitude"])
 
 
+class MasterCoordinateZipTests(unittest.TestCase):
+    def test_transtats_master_coordinate_zip_is_read_with_display_headers(self):
+        with TemporaryDirectory() as tmp:
+            raw = Path(tmp)
+            buffer = io.StringIO()
+            fields = ["AIRPORT", "DISPLAY_AIRPORT_NAME", "DISPLAY_AIRPORT_CITY_NAME_FULL", "AIRPORT_COUNTRY_CODE_ISO",
+                      "AIRPORT_COUNTRY_NAME", "LATITUDE", "LONGITUDE", "AIRPORT_IS_LATEST", "AIRPORT_START_DATE"]
+            writer = csv.DictWriter(buffer, fieldnames=fields)
+            writer.writeheader()
+            writer.writerow({"AIRPORT": "CDG", "DISPLAY_AIRPORT_NAME": "Charles de Gaulle International",
+                             "DISPLAY_AIRPORT_CITY_NAME_FULL": "Paris, France", "AIRPORT_COUNTRY_CODE_ISO": "FR",
+                             "AIRPORT_COUNTRY_NAME": "France", "LATITUDE": "49.0097", "LONGITUDE": "2.5478",
+                             "AIRPORT_IS_LATEST": "1", "AIRPORT_START_DATE": "2007-01-01"})
+            writer.writerow({"AIRPORT": "CDG", "DISPLAY_AIRPORT_NAME": "Old record", "LATITUDE": "0", "LONGITUDE": "0",
+                             "AIRPORT_IS_LATEST": "0"})
+            (raw / "bts").mkdir()
+            with zipfile.ZipFile(raw / "bts" / "master_coordinate.zip", "w") as zf:
+                zf.writestr("T_MASTER_CORD.csv", buffer.getvalue())
+            with patch.object(airports, "RAW", raw):
+                result, path = airports.load_bts_master_coordinate({"CDG"})
+        self.assertEqual(path.name, "master_coordinate.zip")
+        self.assertEqual(result["CDG"]["airport_name"], "Charles de Gaulle International")
+        self.assertAlmostEqual(result["CDG"]["latitude"], 49.0097)
+        self.assertEqual(result["CDG"]["coordinate_status"], "resolved_bts_master_coordinate")
+
+    def test_prior_record_supplies_location_when_latest_has_none(self):
+        with TemporaryDirectory() as tmp:
+            raw = Path(tmp)
+            buffer = io.StringIO()
+            fields = ["AIRPORT", "DISPLAY_AIRPORT_NAME", "LATITUDE", "LONGITUDE", "AIRPORT_IS_LATEST", "AIRPORT_START_DATE"]
+            writer = csv.DictWriter(buffer, fieldnames=fields)
+            writer.writeheader()
+            writer.writerow({"AIRPORT": "PBI", "DISPLAY_AIRPORT_NAME": "New name", "LATITUDE": "", "LONGITUDE": "",
+                             "AIRPORT_IS_LATEST": "1", "AIRPORT_START_DATE": "2025-07-01"})
+            writer.writerow({"AIRPORT": "PBI", "DISPLAY_AIRPORT_NAME": "Old name", "LATITUDE": "26.68", "LONGITUDE": "-80.09",
+                             "AIRPORT_IS_LATEST": "0", "AIRPORT_START_DATE": "2007-01-01"})
+            (raw / "bts").mkdir()
+            with zipfile.ZipFile(raw / "bts" / "master_coordinate.zip", "w") as zf:
+                zf.writestr("T_MASTER_CORD.csv", buffer.getvalue())
+            with patch.object(airports, "RAW", raw):
+                result, _ = airports.load_bts_master_coordinate({"PBI"})
+        self.assertEqual(result["PBI"]["airport_name"], "New name")
+        self.assertAlmostEqual(result["PBI"]["latitude"], 26.68)
+        self.assertEqual(result["PBI"]["coordinate_status"], "resolved_bts_master_coordinate_prior_record")
+        self.assertEqual(airports.COORDINATE_DIAGNOSTICS["PBI"]["rows"], 2)
+
+
 if __name__ == "__main__":
     unittest.main()

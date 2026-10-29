@@ -1,216 +1,138 @@
-# Financial Planning & Performance Dashboard
+# Delta Air Lines: FP&A and Network Analytics
 
 [![Python CI](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/ci.yml)
-[![Historical Network Data Build](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/historical-data-build.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/historical-data-build.yml)
+[![Full Data Build](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/data-build.yml/badge.svg)](https://github.com/Boatengs/financial-planning-performance-dashboard/actions/workflows/data-build.yml)
 
-A reproducible FP&A and business-performance analytics project using Delta Air Lines as the operating case study. The project combines corporate financial statements with airline traffic and capacity data to support financial performance analysis, KPI monitoring, route-level diagnostics, scenario modeling, and an interactive 3D network experience.
+A reproducible FP&A model of Delta Air Lines built only from public filings. It joins SEC financial statements, DOT Form 41 airline accounts and BTS T-100 flight segment data, rebuilds operating income from seven operating drivers, and serves the results in a Streamlit dashboard with a 3D route map and a Tableau Public extract.
 
-## Project objectives
+## The question
 
-The analytical model is designed to answer five questions:
+**How well does Delta turn capacity into revenue and margin, which routes and airports drive its traffic since 2019, and what does the next year look like under different capacity, fuel and cost assumptions?**
 
-1. How is financial performance changing across revenue, margin, cash flow, and capital investment?
-2. Which operating KPIs explain changes in network performance?
-3. Which routes, airports, and geographic markets drive passenger volume, capacity, and utilization?
-4. How do changes in capacity, load factor, fuel, labor, and revenue assumptions affect forecast outcomes?
-5. Can the same governed data model support executive BI views and an interactive 3D route network?
+## What the data shows
 
-## Architecture
+Figures below come from the build committed in `data/published/` (SEC through Q3 2026, Form 41 through Q2 2026, T-100 through July 2026). "Mainline" means flights Delta operates itself; see [Scope](#scope).
+
+**1. Delta earns less margin on each seat mile than in 2019, because cost outside fuel grew faster than revenue.** Mainline revenue per available seat mile (TRASM) rose 16%, from 15.73¢ in 2019 to 18.19¢ in 2025. Cost per seat mile excluding fuel (CASM-ex) rose 36%, from 10.46¢ to 14.21¢. Mainline operating margin fell from 15.1% to 4.7%. Consolidated SEC figures tell the same story with smaller numbers: operating margin 14.1% in 2019 and 9.2% in 2025, while salaries and related costs went from $11.6B to $17.5B.
+
+**2. The domestic network carries most of that squeeze.** On Form 41's regional split, domestic mainline margin went from 13.5% in 2019 to 0.8% in 2025. International held up better, at 18.3% then and 11.9% now.
+
+**3. Fuel has hidden the cost problem, until 2026.** Year over year, cheaper fuel added $0.92B to mainline operating income in 2024 and $0.99B in 2025. Higher CASM-ex took back $1.09B and $0.82B. In 2025, a 1.5 point drop in load factor cost another $0.92B. In Q2 2026 fuel jumped to $3.91 a gallon, 73% above Q2 2025. Yield rose 11% in the same quarter, but mainline margin still fell from 9.1% to 6.8%.
+
+**4. The next four quarters depend mostly on whether fuel stays high.** The base forecast for Q3 2026 to Q2 2027 is $2.12B of mainline operating income. If fuel stays at the Q2 2026 price and nothing else adjusts, that becomes a $2.24B loss. The upside and downside cases give $5.35B and a $3.05B loss. Load factor and yield matter far more than growth: one point of load factor is worth $0.64B over the year and 1% of yield $0.53B, while 1% more capacity adds only $0.02B, because at today's margins an extra seat mile earns barely more than it costs.
+
+**5. The network is bigger but less full and less concentrated than in 2019.** Comparing the latest twelve months (August 2025 to July 2026) with 2019: seat miles up 11.8%, passengers up only 2.2%, and load factor down from 86.8% to 84.0%. The top 20 city pairs now carry 14.5% of passengers, down from 16.2%.
+
+**6. Growth has moved away from the big hubs.** Atlanta's share of departing passengers fell from 24.1% to 23.1%, Minneapolis from 6.4% to 6.0%, Detroit from 5.8% to 5.4%. Boston grew 47%, to 4.4 million departing passengers. Austin grew 51% and Salt Lake City 11%. Several of the fastest growing city pairs are short routes from Atlanta (Asheville, Lexington, Gainesville, Knoxville). T-100 for DL excludes Delta Connection partners, so part of that growth may be flying moved onto Delta's own aircraft rather than new demand. I haven't added partner carriers to test it.
+
+**7. Simple beats clever for the point forecast.** In a rolling origin backtest from Q4 2023 (34 forecasts, one to four quarters ahead), carrying each driver forward from the same quarter a year earlier had the lowest errors: 3.96% on revenue and $0.225B on operating income. Every method that extrapolated recent trends did worse; the closest, a two quarter trend, reached 4.89% and $0.246B. So the base case uses the simple method. The model's value is in the decomposition, scenarios and bridge, not in beating a naive baseline on point accuracy.
+
+## Scope
+
+Three sources, two reporting scopes. They are compared but never mixed in one ratio.
+
+| Source | Covers | Used for |
+|---|---|---|
+| SEC CompanyFacts | Delta Air Lines, Inc., consolidated | Revenue, costs, income, cash flow, capex, cash, debt |
+| DOT Form 41 (P-1.2, P-12(a)) | DL reporting carrier | Passenger revenue, operating revenue and expense by region, fuel gallons and cost |
+| BTS T-100 segments | DL reporting carrier | Seat miles, passenger miles, passengers, departures, routes |
+
+DL's Form 41 operating revenue equals 100.0% to 100.4% of SEC consolidated revenue in every quarter, so the two sources agree. Form 41 revenue includes partner flights that T-100 for DL doesn't count. Mainline unit measures therefore remove the Form 41 lines for transport related revenue and expense, the lines that hold regional partner flying. They are public measures matched to one scope, not Delta's investor relations TRASM and CASM.
+
+Budget, forecast and scenario values are my own models built on these public actuals. They are not Delta guidance.
+
+## How the model works
+
+Operating income is rebuilt exactly from seven drivers each quarter:
 
 ```text
-SEC CompanyFacts + Delta filings ─> financial pipeline ─> financial marts ─┐
-                                                                          ├─> governed KPI / FP&A model
-BTS TranStats T-100 + FAA/BTS geo ─> network pipeline ───> network marts ──┘            │
-                                                                                       ├─> executive BI
-                                                                                       └─> interactive 3D network
+revenue  = ASM x load factor x yield x (1 + other revenue ratio)
+expense  = ASM x CASM-ex fuel + (ASM / ASMs per gallon) x fuel price
+income   = revenue - expense
 ```
 
-Financial and network acquisition are independently executable source domains. T-100 is acquired as annual domestic and international extracts directly from the U.S. DOT BTS TranStats download forms, normalized into one canonical segment schema, and filtered to reporting carrier code `DL`.
+| Output | Method |
+|---|---|
+| Base forecast | Each driver equals the same quarter a year earlier (chosen by backtest) |
+| Budget | The base method run from Q4 of the prior year |
+| Fuel at latest price | Base, with fuel held at the latest quarter's actual price |
+| Upside / downside | Base with stated shocks: capacity +1% / -2%, load factor +1 / -2 pts, yield +2% / -3%, CASM-ex -1% / +2%, fuel -10% / +15% |
+| Sensitivity | Change in next four quarters' income for one unit of each driver |
+| Bridge | Year over year change in income split by driver, by sequential substitution |
+| Backtest | Eight methods, rolling origin from Q4 2023; earlier origins are excluded because their trends come from the pandemic recovery |
 
-The pipeline separates three metric classes:
+## Data fixes behind these numbers
 
-- **Reported** — values taken directly from SEC, Delta, BTS, or FAA source data.
-- **Derived** — values calculated from reported fields using documented formulas.
-- **Modeled** — budget, forecast, and scenario outputs generated by the FP&A model.
+The first version of this repository had gaps that would have distorted every chart. They are now fixed and checked by the validator.
 
-## Current validated dataset
+| Problem | Fix |
+|---|---|
+| SEC data selected by calendar "frame" dropped every Q4 and most quarterly cash flow | Read each fact's start and end dates; Q4 = full year minus nine months; Q2 and Q3 cash flow from year to date differences |
+| Annual net income missing for 2021 to 2025 | Same fix |
+| Total capex not tagged in 2026 filings | Flight equipment plus ground and technology (the identity holds within $2M where all three exist) |
+| Total debt not tagged for Q1 to Q3 2020 | Filled from a second SEC tag that matches wherever both exist |
+| 111 then 177 airports had no coordinates, including LHR, CDG and YYZ | Download the BTS Master Coordinate table; every airport in the latest twelve months is now mapped |
+| The "12 month" route view summed every loaded month | Now a true trailing twelve months |
+| Two separate builds wrote the same files and neither produced one database | One build, one SQLite database, one validator |
+| SEC refuses GitHub's cloud runners | A dated, filtered CompanyFacts snapshot is committed and used as a fallback; the build records which source it used |
 
-| Measure | Current committed foundation |
-|---|---:|
-| SEC financial facts | 315 |
-| Derived financial KPI observations | 57 |
-| T-100 aircraft-detail rows | 46,666 |
-| Route-month rows | 22,332 |
-| Directional routes | 5,017 |
-| Airports observed | 334 |
-| Airports with current coordinate coverage | 223 |
-| Passengers | 166,507,545 |
-| Seats | 200,719,700 |
-| Available seat miles (ASM) | 280.0B |
-| Revenue passenger miles (RPM) | 235.0B |
-| Load factor | 83.92% |
-| Departures performed | 1,179,217 |
-| Completion rate | 99.42% |
+## Dashboard
 
-The committed validation snapshot covers June 2025 through May 2026. The historical network workflow is designed to acquire annual TranStats extracts for 2019–2026 and validate the expanded operating series independently.
+```bash
+pip install -r requirements.txt
+streamlit run app/Home.py
+```
 
-## Core KPI framework
+| Page | Shows |
+|---|---|
+| Home | Consolidated revenue, margins and cash generation |
+| Network 3D | Latest twelve months of routes as 3D arcs, airports sized by passengers, change versus 2019 |
+| Unit Economics | Mainline TRASM, CASM, CASM-ex, yield, load factor and fuel by domestic and international |
+| Profit Bridge | Operating income change by driver for any year pair |
+| Scenario Lab | Base, fuel, upside and downside paths, your own driver sliders, sensitivity, budget variance, method backtest |
+| Methods and Data Quality | Validation checks, sources, metric dictionary |
 
-### Financial performance
-
-Revenue, revenue growth, passenger revenue, operating income, operating margin, net income, operating cash flow, free cash flow, capital expenditures, cash, and debt.
-
-### Airline operations
-
-Passengers, seats, RPM, ASM, load factor, scheduled departures, performed departures, completion rate, passenger yield, PRASM, TRASM, CASM, and CASM-Ex where supported by source data.
-
-### Network performance
-
-Passenger volume by route, capacity by route, route load factor, airport throughput, geographic mix, route concentration, and aircraft mix.
-
-### FP&A
-
-Actual vs. budget, actual vs. forecast, dollar variance, percentage variance, rolling forecast, forecast accuracy, forecast bias, revenue bridge, cost bridge, and driver sensitivities.
-
-Detailed definitions and formulas are maintained in [`docs/KPI_DICTIONARY.md`](docs/KPI_DICTIONARY.md).
-
-## Public data sources
-
-| Dataset | Publisher | Public source |
-|---|---|---|
-| CompanyFacts XBRL facts | U.S. Securities and Exchange Commission | https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json |
-| Delta 2025 Form 10-K | U.S. Securities and Exchange Commission | https://www.sec.gov/Archives/edgar/data/27904/000002790426000013/0000027904-26-000013-index.htm |
-| Delta Q2 2026 Form 10-Q | U.S. Securities and Exchange Commission | https://www.sec.gov/Archives/edgar/data/27904/000002790426000031/0000027904-26-000031-index.htm |
-| Delta SEC filings | Delta Air Lines Investor Relations | https://ir.delta.com/financials/sec-filings/default.aspx |
-| T-100 Domestic Segment, table 259 | U.S. DOT Bureau of Transportation Statistics — TranStats | https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FIM&QO_fu146_anzr=Nv4%20Pn44vr45 |
-| T-100 International Segment, table 261 | U.S. DOT Bureau of Transportation Statistics — TranStats | https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FJE&QO_fu146_anzr=Nv4%20Pn44vr45 |
-| Airport Master Coordinate | U.S. DOT Bureau of Transportation Statistics — TranStats | https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=N8vn6v10&gnoyr_VQ=FLL |
-| NASR airport data, effective Sep. 3, 2026 | Federal Aviation Administration | https://www.faa.gov/air_traffic/flight_info/aeronav/Aero_Data/NASR_Subscription/2026-09-03/ |
-
-Source roles, acquisition endpoints, field usage, and lineage notes are documented in [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
-
-## Data model
-
-The analytical model follows a dimensional structure centered on:
-
-- `fact_financial_actual`
-- `fact_financial_kpi_derived`
-- `fact_route_monthly`
-- `fact_route_aircraft_monthly`
-- `fact_network_kpi_monthly`
-- `fact_budget_forecast`
-- `fact_driver_assumption`
-- `dim_date`
-- `dim_metric`
-- `dim_airport`
-- `dim_route`
-- `dim_scenario`
-
-See [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) for grains, keys, relationships, and source precedence.
+The `tableau/` folder holds the same data as CSV files ready for Tableau Public, including a route file in Tableau's path format. See [tableau/README.md](tableau/README.md).
 
 ## Rebuild
 
-Python 3.11+ is recommended. The data pipeline uses the Python standard library.
-
-### Combined current foundation
+Python 3.11 or later. The pipeline uses only the standard library.
 
 ```bash
-python scripts/download_official_sources.py
-python scripts/download_t100_history.py --years 2025 2026
-python scripts/build_data_foundation.py
-python scripts/validate_foundation.py
+make download   # SEC, FAA, T-100 2019 to 2026, Form 41, Master Coordinate
+make build      # every mart, the model and processed/delta_fpna_foundation.sqlite
+make validate   # independent checks; fails the build on any error
+make check      # compile and run the unit tests
 ```
 
-Equivalent Makefile targets:
+The [Full Data Build](.github/workflows/data-build.yml) workflow runs the same steps monthly and commits refreshed `data/published/`, `tableau/` and the data quality docs.
 
-```bash
-make bootstrap
-make build
-make validate
-```
+## Validation
 
-`make all` executes the complete current-foundation sequence.
+The validator checks 24 conditions on every build, including: every quarter from Q1 2019 has the core SEC metrics; four quarters sum to the reported year within $3M; T-100 route and network totals reconcile; Form 41 domestic plus international equals system; Form 41 revenue is within 2% of SEC revenue; the map covers at least 99% of passengers; the drivers rebuild reported income to the dollar; every bridge closes. Results: [docs/DATA_QUALITY.md](docs/DATA_QUALITY.md).
 
-### Historical network series, 2019–2026
-
-```bash
-python scripts/download_official_sources.py --group network
-python scripts/download_t100_history.py --years 2019 2020 2021 2022 2023 2024 2025 2026
-python scripts/build_network_history.py
-python scripts/validate_network_history.py
-```
-
-Or run the complete network sequence:
-
-```bash
-make network-history
-```
-
-The T-100 downloader submits one annual request per scope/year to the official TranStats forms. Each downloaded ZIP is retained as a dated raw snapshot with table ID, source URL, file size, SHA-256 checksum, and acquisition timestamp in `raw/t100_history_download_manifest.csv`.
-
-The network build produces route-aircraft, route-month, monthly KPI, airport, route, and date tables plus `network_source_manifest.csv`, `network_history_summary.json`, and `network_history_validation.json`.
-
-## Tests
-
-The test suite uses small synthetic SEC, T-100, TranStats-form, and airport fixtures and does not require the large raw datasets. Coverage includes:
-
-- SEC period parsing and derived KPI compatibility;
-- TranStats form/table configuration and annual request construction;
-- legacy and headered TranStats T-100 parsing;
-- carrier filtering and domestic/international scope isolation;
-- release/snapshot precedence;
-- ASM, RPM, load factor, completion-rate, and passenger-per-departure reconciliation;
-- malformed-record failure behavior;
-- coordinate-source precedence and unresolved-coordinate handling;
-- source-manifest integrity;
-- historical-network table validation.
-
-```bash
-make check
-```
-
-or directly:
-
-```bash
-python -m compileall -q pipeline scripts tests
-python -m unittest discover -s tests -v
-```
-
-GitHub Actions executes the same checks on Python 3.11 and 3.12 for pushes to `main` and pull requests.
-
-## Validation and reproducibility
-
-The combined-foundation validation layer checks source-to-mart reconciliation, numeric SQL typing, carrier scope, dimensional completeness, scenario-table isolation, KPI formulas, and deterministic output generation.
-
-The historical-network validator additionally checks:
-
-- 2019–2026 calendar-year coverage;
-- T-100 natural-key uniqueness with domestic/international scope isolation;
-- source snapshot/release-date lineage;
-- exact airport and route dimension coverage;
-- route-to-network passenger, seat, ASM, RPM, departure, freight, and mail reconciliation;
-- load-factor and completion-rate formula reconciliation;
-- generated summary row-count consistency.
-
-Two consecutive clean builds of the committed current foundation reproduced all 13 deterministic CSV outputs byte-for-byte. Machine-readable QA evidence is stored under `processed/`.
-
-## Repository structure
+## Repository
 
 ```text
-.
-├── .github/workflows/ # automated Python and historical network checks
-├── pipeline/          # acquisition support, transformations, dimensions, QA, persistence
-├── scripts/           # acquisition, build, and validation entry points
-├── tests/             # synthetic-fixture unit and regression tests
-├── docs/              # data model, sources, KPI definitions, quality and dashboard design
-├── raw/               # source-data landing area; large source files are gitignored
-├── processed/         # compact validation and lineage artifacts; large marts are gitignored
-├── Makefile
-└── README.md
+app/              Streamlit dashboard (reads data/published only)
+pipeline/         acquisition, parsing, marts, unit economics, FP&A model, publishing
+scripts/          download, build, validate, regenerate docs
+tests/            unit tests on synthetic fixtures
+data/published/   compact validated outputs, committed
+tableau/          Tableau Public extract, committed
+raw/              source landing area; manifests and the SEC snapshot are committed, extracts are not
+processed/        full build outputs and the SQLite database, not committed
+docs/             data model, sources, KPI dictionary, data quality, dashboard, SQL examples
 ```
 
-## Scope notes
+## Limitations
 
-The T-100 implementation filters on `Unique Carrier = DL` and retains domestic/international source scope in the fact grain. This represents DL reporting-carrier segment operations; it is not equivalent to every Delta-marketed itinerary or every Delta Connection-operated flight. Corporate-to-network blended metrics are published only when numerator and denominator use compatible scopes and periods.
+- Mainline only. Delta Connection partners report under their own carrier codes, so network and unit measures exclude them.
+- Form 41 regional splits are Delta's own allocations; domestic versus international margins depend on them.
+- The fuel scenario holds price flat with no fare response. A futures curve would be a better input.
+- The backtest has 34 forecasts over ten origins, so the ranking of methods is itself uncertain.
+- The 2026 calendar year is partial in the network tables; compare the trailing twelve months with 2019.
 
-The next model extensions are BTS global airport-coordinate completion and Form 41 cost/fuel schedules, followed by the forecasting and scenario layer that consumes the governed financial and operating marts.
+## Sources
+
+SEC CompanyFacts for CIK 0000027904; BTS TranStats T-100 Domestic (table 259) and International (261) Segment; Form 41 Schedules P-1.2 (295) and P-12(a) (294); Aviation Support Tables Master Coordinate (288); FAA NASR airport data. Full URLs and roles: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).

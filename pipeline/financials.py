@@ -1,109 +1,310 @@
+"""Consolidated Delta Air Lines financial actuals from SEC CompanyFacts.
+
+CompanyFacts only assigns a calendar "frame" to one fact per period, and SEC does not
+publish standalone fourth quarters or standalone quarterly cash flows. Selecting facts by
+frame therefore drops every Q4 and every Q2/Q3 cash-flow quarter. This module works from
+each fact's reported start and end dates instead:
+
+* a reported three-month fact is used as is (method ``reported``);
+* Q2 and Q3 cash-flow amounts are the difference between consecutive year-to-date facts
+  (method ``derived_ytd_difference``);
+* Q4 is the full-year fact minus the nine-month year-to-date fact
+  (method ``derived_fy_minus_9m``).
+
+Balance-sheet (instant) facts are read at each quarter end.
+"""
 from __future__ import annotations
 
 import json
-import re
+from collections import defaultdict
+from datetime import date
+from pathlib import Path
 
-from .config import FINANCIAL_METRICS, PROCESSED, RAW
+from .config import ANALYSIS_END_YEAR, ANALYSIS_START_YEAR, DERIVED_KPIS, FINANCIAL_METRICS, PROCESSED, RAW
 from .io_utils import write_csv
 
+DELTA_CIK = 27904
+ANNUAL_AND_QUARTERLY_FORMS = {"10-K", "10-Q", "10-K/A", "10-Q/A"}
+QUARTER_ENDS = {1: (3, 31), 2: (6, 30), 3: (9, 30), 4: (12, 31)}
 
-def frame_period(frame: str | None):
-    if not frame:
-        return None, None
-    m = re.fullmatch(r"CY(\d{4})", frame)
-    if m:
-        return f"{m.group(1)}-12-31", "FY"
-    m = re.fullmatch(r"CY(\d{4})Q([1-4])I?", frame)
-    if m:
-        y, q = int(m.group(1)), int(m.group(2))
-        end_month = q * 3
-        end_day = {3: 31, 6: 30, 9: 30, 12: 31}[end_month]
-        return f"{y:04d}-{end_month:02d}-{end_day:02d}", f"Q{q}"
-    return None, None
+FINANCIAL_FIELDS = [
+    "metric_id", "metric_name", "domain", "period_label", "period_type", "fiscal_year", "fiscal_quarter",
+    "period_start", "period_end", "value", "unit", "method", "taxonomy_namespace", "taxonomy_tag",
+    "form", "filed_date", "accession_number", "source",
+]
+DERIVED_FIELDS = [
+    "metric_id", "metric_name", "domain", "period_label", "period_type", "fiscal_year", "fiscal_quarter",
+    "period_start", "period_end", "value", "unit", "formula", "input_metric_ids", "source",
+]
 
 
-def build_financial_actuals():
-    d = json.load((RAW / "delta_companyfacts.json").open(encoding="utf-8"))
-    if int(d.get("cik", -1)) != 27904 or "DELTA AIR LINES" not in d.get("entityName", "").upper():
+def quarter_bounds(year: int, quarter: int) -> tuple[str, str]:
+    start_month = (quarter - 1) * 3 + 1
+    end_month, end_day = QUARTER_ENDS[quarter]
+    return date(year, start_month, 1).isoformat(), date(year, end_month, end_day).isoformat()
+
+
+def _duration_days(item: dict) -> int | None:
+    if not item.get("start") or not item.get("end"):
+        return None
+    return (date.fromisoformat(item["end"]) - date.fromisoformat(item["start"])).days
+
+
+def _latest_by_period(items: list[dict], *, instant: bool) -> dict:
+    """Keep the most recently filed fact for each reported period."""
+    chosen: dict = {}
+    for item in items:
+        if item.get("form") not in ANNUAL_AND_QUARTERLY_FORMS or item.get("val") is None:
+            continue
+        key = item["end"] if instant else (item.get("start"), item["end"])
+        if not instant and key[0] is None:
+            continue
+        current = chosen.get(key)
+        if current is None or (item.get("filed") or "") >= (current.get("filed") or ""):
+            chosen[key] = item
+    return chosen
+
+
+def resolve_companyfacts_path() -> tuple[Path, str]:
+    """Prefer a fresh full download; otherwise use the newest pinned snapshot committed under raw/sec/.
+
+    SEC refuses requests from some cloud networks (including GitHub-hosted runners), so the
+    repository keeps a dated snapshot filtered to the concepts this model uses. It is made by
+    scripts/subset_companyfacts.py from a full CompanyFacts download.
+    """
+    full = RAW / "delta_companyfacts.json"
+    if full.exists():
+        return full, "SEC CompanyFacts (fresh download)"
+    snapshots = sorted((RAW / "sec").glob("companyfacts_subset_*.json"))
+    if not snapshots:
+        raise FileNotFoundError("No SEC CompanyFacts file; run scripts/download_official_sources.py --group financial")
+    latest = snapshots[-1]
+    return latest, f"SEC CompanyFacts (pinned snapshot {latest.stem.split('_')[-1]})"
+
+
+def load_companyfacts(path: Path | None = None) -> dict:
+    path = path or resolve_companyfacts_path()[0]
+    with path.open(encoding="utf-8") as handle:
+        data = json.load(handle)
+    if int(data.get("cik", -1)) != DELTA_CIK or "DELTA AIR LINES" not in data.get("entityName", "").upper():
         raise AssertionError("CompanyFacts entity check failed; expected Delta Air Lines CIK 27904")
-    facts = d["facts"]
+    return data
+
+
+def _row(metric_id, spec, tag, unit, *, period_type, year, quarter, start, end, value, method, sources):
+    label = f"{year}FY" if period_type == "FY" else f"{year}Q{quarter}"
+    return {
+        "metric_id": metric_id, "metric_name": spec["label"], "domain": spec["domain"],
+        "period_label": label, "period_type": period_type, "fiscal_year": year,
+        "fiscal_quarter": "" if period_type == "FY" else quarter,
+        "period_start": start or "", "period_end": end, "value": value, "unit": unit, "method": method,
+        "taxonomy_namespace": spec["namespace"], "taxonomy_tag": next((src["alt_tag"] for src in sources if src.get("alt_tag")), tag),
+        "form": ";".join(sorted({s.get("form", "") for s in sources})),
+        "filed_date": max((s.get("filed") or "") for s in sources),
+        "accession_number": ";".join(sorted({s.get("accn", "") for s in sources})),
+        "source": "SEC CompanyFacts",
+    }
+
+
+def _duration_rows(metric_id, spec, tag, unit, facts, years):
+    rows = []
+    for year in years:
+        jan1 = date(year, 1, 1).isoformat()
+        fy = facts.get((jan1, date(year, 12, 31).isoformat()))
+        if fy and 350 <= _duration_days(fy) <= 380:
+            rows.append(_row(metric_id, spec, tag, unit, period_type="FY", year=year, quarter=None,
+                             start=jan1, end=fy["end"], value=fy["val"], method="reported", sources=[fy]))
+        for quarter in range(1, 5):
+            start, end = quarter_bounds(year, quarter)
+            direct = facts.get((start, end))
+            if direct is not None:
+                rows.append(_row(metric_id, spec, tag, unit, period_type=f"Q{quarter}", year=year, quarter=quarter,
+                                 start=start, end=end, value=direct["val"], method="reported", sources=[direct]))
+                continue
+            if quarter == 4:
+                nine = facts.get((jan1, quarter_bounds(year, 3)[1]))
+                if fy is not None and nine is not None:
+                    rows.append(_row(metric_id, spec, tag, unit, period_type="Q4", year=year, quarter=4,
+                                     start=start, end=end, value=fy["val"] - nine["val"],
+                                     method="derived_fy_minus_9m", sources=[fy, nine]))
+                continue
+            ytd = facts.get((jan1, end))
+            prior_end = quarter_bounds(year, quarter - 1)[1] if quarter > 1 else None
+            prior_ytd = facts.get((jan1, prior_end)) if prior_end else None
+            if ytd is not None and prior_ytd is not None:
+                rows.append(_row(metric_id, spec, tag, unit, period_type=f"Q{quarter}", year=year, quarter=quarter,
+                                 start=start, end=end, value=ytd["val"] - prior_ytd["val"],
+                                 method="derived_ytd_difference", sources=[ytd, prior_ytd]))
+    return rows
+
+
+def _instant_rows(metric_id, spec, tag, unit, facts, years):
+    rows = []
+    for year in years:
+        for quarter in range(1, 5):
+            _, end = quarter_bounds(year, quarter)
+            item = facts.get(end)
+            if item is None:
+                continue
+            rows.append(_row(metric_id, spec, tag, unit, period_type=f"Q{quarter}", year=year, quarter=quarter,
+                             start=None, end=end, value=item["val"], method="reported", sources=[item]))
+            if quarter == 4:
+                rows.append(_row(metric_id, spec, tag, unit, period_type="FY", year=year, quarter=None,
+                                 start=None, end=end, value=item["val"], method="reported", sources=[item]))
+    return rows
+
+
+def extract_financial_actuals(data: dict, years=range(ANALYSIS_START_YEAR, ANALYSIS_END_YEAR + 1)):
     output, metric_meta = [], []
     for metric_id, spec in FINANCIAL_METRICS.items():
-        ns = facts.get(spec["namespace"], {})
-        selected_tag = next((t for t in spec["tags"] if t in ns), None)
-        if not selected_tag:
-            metric_meta.append({**spec, "metric_id": metric_id, "selected_tag": "", "available": 0})
+        namespace = data["facts"].get(spec["namespace"], {})
+        tag = next((t for t in spec["tags"] if t in namespace), None)
+        units = namespace[tag].get("units", {}) if tag else {}
+        unit = spec["unit"] if spec["unit"] in units else next(iter(units), None)
+        if not tag or not unit:
+            metric_meta.append({**spec, "metric_id": metric_id, "selected_tag": tag or "", "available": 0})
             continue
-        fact = ns[selected_tag]
-        units = fact.get("units", {})
-        unit_key = spec["unit"] if spec["unit"] in units else next(iter(units), None)
-        if not unit_key:
-            metric_meta.append({**spec, "metric_id": metric_id, "selected_tag": selected_tag, "available": 0})
-            continue
-        candidates = {}
-        for item in units[unit_key]:
-            period_end, period_type = frame_period(item.get("frame"))
-            if not period_end or not (2019 <= int(period_end[:4]) <= 2026):
-                continue
-            if item.get("form") not in {"10-K", "10-Q", "10-K/A", "10-Q/A"}:
-                continue
-            key = (metric_id, period_end, period_type)
-            filed = item.get("filed") or ""
-            if key not in candidates or filed >= (candidates[key].get("filed") or ""):
-                candidates[key] = item
-        for (mid, period_end, period_type), item in candidates.items():
-            output.append({
-                "metric_id": mid, "metric_name": spec["label"], "domain": spec["domain"], "period_end": period_end,
-                "period_type": period_type, "value": item.get("val"), "unit": unit_key,
-                "taxonomy_namespace": spec["namespace"], "taxonomy_tag": selected_tag,
-                "form": item.get("form"), "fiscal_year": item.get("fy"), "fiscal_period": item.get("fp"),
-                "filed_date": item.get("filed"), "accession_number": item.get("accn"), "frame": item.get("frame"),
-                "source": "SEC CompanyFacts"
-            })
-        metric_meta.append({**spec, "metric_id": metric_id, "selected_tag": selected_tag, "available": len(candidates)})
-    output.sort(key=lambda r: (r["period_end"], r["metric_id"]))
-    write_csv(PROCESSED / "fact_financial_actual.csv", output)
+        instant = spec["kind"] == "instant"
+        facts = _latest_by_period(units[unit], instant=instant)
+        if spec.get("fill_from_alternate_tags"):
+            # Use later tags only for periods the primary tag does not cover. Only enabled for metrics
+            # where the tags are the same measure (checked where they overlap in validation).
+            for alt in spec["tags"][spec["tags"].index(tag) + 1:]:
+                alt_units = namespace.get(alt, {}).get("units", {}).get(unit, [])
+                for key, item in _latest_by_period(alt_units, instant=instant).items():
+                    facts.setdefault(key, {**item, "alt_tag": alt})
+        if instant:
+            rows = _instant_rows(metric_id, spec, tag, unit, facts, years)
+        else:
+            rows = _duration_rows(metric_id, spec, tag, unit, facts, years)
+        output.extend(rows)
+        metric_meta.append({**spec, "metric_id": metric_id, "selected_tag": tag, "available": len(rows)})
+    added = _fill_capex_total_from_components(output)
+    for meta in metric_meta:
+        if meta["metric_id"] == "capex_total":
+            meta["available"] += added
+    output.sort(key=lambda r: (r["period_end"], r["period_type"] == "FY", r["metric_id"]))
     return output, metric_meta
 
 
+def _fill_capex_total_from_components(rows) -> int:
+    """Delta stopped tagging total capex in 2026 filings but still tags both components.
+
+    Total capex = flight equipment + ground property, equipment and technology. Where all three
+    are tagged, the identity holds to within $2 million of rounding (SEC values are in millions).
+    """
+    by_key = {(r["metric_id"], r["period_label"]): r for r in rows}
+    labels = {r["period_label"] for r in rows if r["metric_id"] == "capex_flight_equipment"}
+    added = 0
+    for label in sorted(labels):
+        if ("capex_total", label) in by_key:
+            continue
+        flight = by_key.get(("capex_flight_equipment", label))
+        ground = by_key.get(("capex_ground_technology", label))
+        if flight is None or ground is None:
+            continue
+        spec = FINANCIAL_METRICS["capex_total"]
+        row = dict(flight)
+        row.update({
+            "metric_id": "capex_total", "metric_name": spec["label"], "domain": spec["domain"],
+            "value": flight["value"] + ground["value"], "method": "derived_sum_of_components",
+            "taxonomy_tag": f'{flight["taxonomy_tag"]}+{ground["taxonomy_tag"]}',
+            "accession_number": ";".join(sorted(set(flight["accession_number"].split(";"))
+                                                | set(ground["accession_number"].split(";")))),
+        })
+        rows.append(row)
+        added += 1
+    return added
+
+
+def build_financial_actuals(path: Path | None = None):
+    output, metric_meta = extract_financial_actuals(load_companyfacts(path))
+    write_csv(PROCESSED / "fact_financial_actual.csv", output, FINANCIAL_FIELDS)
+    return output, metric_meta
+
+
+def quarterly_reconciliation(rows):
+    """Sum of four quarters versus the reported full year, for every duration metric and year."""
+    by_key = {(r["metric_id"], r["period_label"]): r for r in rows}
+    checks = []
+    for metric_id, spec in FINANCIAL_METRICS.items():
+        if spec["kind"] != "duration":
+            continue
+        years = {r["fiscal_year"] for r in rows if r["metric_id"] == metric_id and r["period_type"] == "FY"}
+        for year in sorted(years):
+            quarters = [by_key.get((metric_id, f"{year}Q{q}")) for q in range(1, 5)]
+            if any(q is None for q in quarters):
+                continue
+            fy = by_key[(metric_id, f"{year}FY")]["value"]
+            total = sum(q["value"] for q in quarters)
+            checks.append({"metric_id": metric_id, "fiscal_year": year, "full_year": fy,
+                           "sum_of_quarters": total, "difference": total - fy})
+    return checks
+
+
 def build_financial_derived(financial_rows):
-    by_key = {(r["metric_id"], r["period_end"], r["period_type"]): r for r in financial_rows}
+    by_key = {(r["metric_id"], r["period_label"]): r for r in financial_rows}
+    periods = {(r["period_label"], r["period_type"], r["fiscal_year"], r["fiscal_quarter"],
+                r["period_start"], r["period_end"]) for r in financial_rows if r["metric_id"] == "revenue"}
+    periods |= {(r["period_label"], r["period_type"], r["fiscal_year"], r["fiscal_quarter"],
+                 "", r["period_end"]) for r in financial_rows if r["metric_id"] == "stockholders_equity"}
+    meta = {m[0]: m for m in DERIVED_KPIS}
     rows = []
 
-    for (metric_id, period_end, period_type), revenue in sorted(by_key.items()):
-        if metric_id != "revenue":
-            continue
-        op = by_key.get(("operating_income", period_end, period_type))
-        rev = revenue.get("value")
-        if op is None or rev in (None, 0):
-            continue
+    def value(metric_id, label):
+        row = by_key.get((metric_id, label))
+        return None if row is None or row["value"] in (None, "") else float(row["value"])
+
+    def add(metric_id, period, result, inputs):
+        _, label_text, unit, _, formula, domain, source = meta[metric_id]
+        label, period_type, year, quarter, start, end = period
         rows.append({
-            "metric_id": "operating_margin", "metric_name": "Operating Margin", "domain": "Profitability",
-            "period_end": period_end, "period_type": period_type, "value": float(op["value"]) / float(rev), "unit": "%",
-            "formula": "operating_income / revenue", "input_metric_ids": "operating_income,revenue",
-            "source": "Derived from SEC CompanyFacts"
+            "metric_id": metric_id, "metric_name": label_text, "domain": domain, "period_label": label,
+            "period_type": period_type, "fiscal_year": year, "fiscal_quarter": quarter, "period_start": start,
+            "period_end": end, "value": result, "unit": unit, "formula": formula,
+            "input_metric_ids": ",".join(inputs), "source": source,
         })
 
-    for (metric_id, period_end, period_type), revenue in sorted(by_key.items()):
-        if metric_id != "revenue":
+    seen = set()
+    for period in sorted(periods, key=lambda p: (p[5], p[1] == "FY")):
+        label, period_type, year = period[0], period[1], period[2]
+        if (label, period[5]) in seen:
             continue
-        year = int(period_end[:4])
-        prior_end = f"{year-1:04d}{period_end[4:]}"
-        prior = by_key.get(("revenue", prior_end, period_type))
-        cur = revenue.get("value")
-        prev = prior.get("value") if prior else None
-        if cur is None or prev in (None, 0):
-            continue
-        rows.append({
-            "metric_id": "revenue_growth_yoy", "metric_name": "Revenue Growth YoY", "domain": "Financial Performance",
-            "period_end": period_end, "period_type": period_type, "value": float(cur) / float(prev) - 1.0, "unit": "%",
-            "formula": "revenue_t / revenue_t-1year - 1", "input_metric_ids": "revenue",
-            "source": "Derived from SEC CompanyFacts"
-        })
+        seen.add((label, period[5]))
+        revenue = value("revenue", label)
+        prior_label = f"{int(year) - 1}FY" if period_type == "FY" else f"{int(year) - 1}{period_type}"
+        ocf, capex = value("operating_cash_flow", label), value("capex_total", label)
+        if ocf is not None and capex is not None:
+            add("free_cash_flow", period, ocf - capex, ["operating_cash_flow", "capex_total"])
+        le, se = value("liabilities_and_equity", label), value("stockholders_equity", label)
+        if le is not None and se is not None:
+            add("total_liabilities", period, le - se, ["liabilities_and_equity", "stockholders_equity"])
+        if revenue:
+            op = value("operating_income", label)
+            if op is not None:
+                add("operating_margin", period, op / revenue, ["operating_income", "revenue"])
+            ni = value("net_income", label)
+            if ni is not None:
+                add("net_margin", period, ni / revenue, ["net_income", "revenue"])
+            prior = value("revenue", prior_label)
+            if prior:
+                add("revenue_growth_yoy", period, revenue / prior - 1.0, ["revenue"])
+        fuel, opex = value("fuel_costs", label), value("operating_expenses", label)
+        if fuel is not None and opex:
+            add("fuel_share_of_opex", period, fuel / opex, ["fuel_costs", "operating_expenses"])
 
-    rows.sort(key=lambda r: (r["period_end"], r["metric_id"]))
-    write_csv(PROCESSED / "fact_financial_kpi_derived.csv", rows, [
-        "metric_id", "metric_name", "domain", "period_end", "period_type", "value", "unit",
-        "formula", "input_metric_ids", "source"
-    ])
+    rows.sort(key=lambda r: (r["period_end"], r["period_type"] == "FY", r["metric_id"]))
+    write_csv(PROCESSED / "fact_financial_kpi_derived.csv", rows, DERIVED_FIELDS)
     return rows
+
+
+def latest_period(rows) -> str | None:
+    quarters = [r["period_end"] for r in rows if r["metric_id"] == "revenue" and r["period_type"] != "FY"]
+    return max(quarters) if quarters else None
+
+
+def coverage_summary(rows):
+    counts = defaultdict(lambda: defaultdict(int))
+    for r in rows:
+        counts[r["metric_id"]][r["method"]] += 1
+    return {metric: dict(methods) for metric, methods in sorted(counts.items())}

@@ -1,0 +1,92 @@
+name: Full Data Build
+
+# Downloads every public source, rebuilds the model, validates it, and commits the compact
+# published outputs (data/published, tableau, raw download manifests) back to the branch.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 11 12 * *"  # monthly, after BTS and SEC monthly releases
+  push:
+    branches: [main, feature/complete-fpna]
+    paths:
+      - ".github/workflows/data-build.yml"
+      - "pipeline/**"
+      - "scripts/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: full-data-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Run code checks
+        run: make check
+
+      - name: Download SEC CompanyFacts
+        # SEC refuses some cloud networks; the build then uses the pinned snapshot in raw/sec/.
+        continue-on-error: true
+        run: python scripts/download_official_sources.py --group financial --force --retries 5
+
+      - name: Download FAA airport fallback
+        continue-on-error: true
+        run: python scripts/download_official_sources.py --group network --retries 3
+
+      - name: Download T-100 segment data 2019-2026
+        run: >-
+          python scripts/download_t100_history.py
+          --years 2019 2020 2021 2022 2023 2024 2025 2026
+          --refresh-years 2026 --retries 3
+
+      - name: Download Form 41 schedules and Master Coordinate
+        run: >-
+          python scripts/download_bts_tables.py
+          --years 2019 2020 2021 2022 2023 2024 2025 2026
+          --refresh-years 2026 --retries 3
+
+      - name: Build model
+        run: python scripts/build_data_foundation.py
+
+      - name: Validate model
+        run: python scripts/validate_foundation.py
+
+      - name: Regenerate data-quality and KPI docs
+        run: python scripts/render_docs.py
+
+      - name: Upload full build outputs
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: delta-fpna-build-${{ github.sha }}
+          path: |
+            processed/
+            raw/*.csv
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Commit published outputs
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/published tableau docs/KPI_DICTIONARY.md docs/DATA_QUALITY.md raw/t100_history_download_manifest.csv raw/bts_download_manifest.csv
+          if git diff --cached --quiet; then
+            echo "No changes to published outputs."
+          else
+            git commit -m "Refresh published outputs from data build ${GITHUB_RUN_ID}"
+            git push
+          fi
