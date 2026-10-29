@@ -5,6 +5,8 @@
 
 A reproducible FP&A model of Delta Air Lines built only from public filings. It joins SEC financial statements, DOT Form 41 airline accounts and BTS T-100 flight segment data, rebuilds operating income from seven operating drivers, and serves the results in a Streamlit dashboard with a 3D route map and a Tableau Public extract.
 
+**Live dashboard:** [delta-fpna.streamlit.app](https://delta-fpna.streamlit.app)
+
 ## The question
 
 **How well does Delta turn capacity into revenue and margin, which routes and airports drive its traffic since 2019, and what does the next year look like under different capacity, fuel and cost assumptions?**
@@ -77,6 +79,8 @@ The first version of this repository had gaps that would have distorted every ch
 | SEC refuses GitHub's cloud runners | A dated, filtered CompanyFacts snapshot is committed and used as a fallback; the build records which source it used |
 
 ## Dashboard
+
+Live at [delta-fpna.streamlit.app](https://delta-fpna.streamlit.app). To run it locally:
 
 ```bash
 pip install -r requirements.txt
