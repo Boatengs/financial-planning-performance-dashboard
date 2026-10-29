@@ -71,6 +71,19 @@ class FinancialExtractionTests(unittest.TestCase):
         self.assertEqual(capex[0]["value"], 42)
         self.assertEqual(capex[0]["method"], "derived_sum_of_components")
 
+    def test_alternate_debt_tag_fills_only_missing_periods(self):
+        data = companyfacts([])
+        usd = data["facts"]["us-gaap"]
+        usd["LongTermDebt"] = {"units": {"USD": [
+            {"end": "2020-12-31", "val": 28, "form": "10-K", "filed": "2021-02-01", "accn": "a"}]}}
+        usd["DebtLongtermAndShorttermCombinedAmount"] = {"units": {"USD": [
+            {"end": "2020-06-30", "val": 23, "form": "10-Q", "filed": "2020-07-15", "accn": "b"},
+            {"end": "2020-12-31", "val": 99, "form": "10-Q", "filed": "2021-04-15", "accn": "c"}]}}
+        rows, _ = financials.extract_financial_actuals(data, years=[2020])
+        debt = {r["period_label"]: (r["value"], r["taxonomy_tag"]) for r in rows if r["metric_id"] == "debt_total"}
+        self.assertEqual(debt["2020Q2"], (23, "DebtLongtermAndShorttermCombinedAmount"))
+        self.assertEqual(debt["2020Q4"], (28, "LongTermDebt"))
+
     def test_entity_check_rejects_other_companies(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "facts.json"

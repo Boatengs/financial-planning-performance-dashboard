@@ -2,7 +2,7 @@
 import plotly.graph_objects as go
 import streamlit as st
 
-from data import BLUE, INK, MUTED, RED, csv, financial_wide, footnote, js, page_setup, pct, require_data, usd_b
+from data import BLUE, INK, MUTED, RED, financial_wide, footnote, js, page_setup, pct, require_data, usd_b
 
 page_setup("Executive Performance")
 require_data()

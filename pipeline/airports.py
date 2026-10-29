@@ -85,20 +85,31 @@ def _pick(row, *names):
     return ""
 
 
+COORDINATE_DIAGNOSTICS: dict = {}
+
+
 def load_bts_master_coordinate(route_codes: set[str]):
+    """Latest Master Coordinate record per airport; fall back to the newest earlier record with coordinates.
+
+    An airport keeps its location when it is renamed or re-sequenced, so an earlier record's latitude and
+    longitude is a sound fallback when the latest record has none. Such rows are flagged separately.
+    """
     path = _find_master_coordinate_file()
+    COORDINATE_DIAGNOSTICS.clear()
     if path is None:
         return {}, None
-    result = {}
+    latest, prior = {}, {}
     for r in _master_coordinate_rows(path):
         code = _pick(r, "AIRPORT", "Airport", "airport").upper()
         if code not in route_codes:
             continue
-        is_latest = _pick(r, "AIRPORT_IS_LATEST", "AirportIsLatest")
-        if is_latest not in ("", "1", "1.0", "1.00", "True", "TRUE", "true"):
-            continue
+        is_latest = _pick(r, "AIRPORT_IS_LATEST", "AirportIsLatest") in ("", "1", "1.0", "1.00", "True", "TRUE", "true")
         lat = _safe_float(_pick(r, "LATITUDE", "Latitude"))
         lon = _safe_float(_pick(r, "LONGITUDE", "Longitude"))
+        diag = COORDINATE_DIAGNOSTICS.setdefault(code, {"rows": 0, "latest_rows": 0, "rows_with_coordinates": 0})
+        diag["rows"] += 1
+        diag["latest_rows"] += int(is_latest)
+        diag["rows_with_coordinates"] += int(lat is not None and lon is not None)
         row = {
             "airport_code": code,
             "airport_name": _pick(r, "DISPLAY_AIRPORT_NAME", "AIRPORT_NAME", "AirportName"),
@@ -114,8 +125,20 @@ def load_bts_master_coordinate(route_codes: set[str]):
             else "bts_master_coordinate_missing_latlon",
             "effective_date": _pick(r, "AIRPORT_START_DATE", "AirportStartDate"),
         }
-        if code not in result or (result[code]["latitude"] is None and lat is not None):
-            result[code] = row
+        if is_latest:
+            if code not in latest or (latest[code]["latitude"] is None and lat is not None):
+                latest[code] = row
+        elif lat is not None and lon is not None:
+            if code not in prior or row["effective_date"] > prior[code]["effective_date"]:
+                prior[code] = row
+    result = dict(latest)
+    for code, row in prior.items():
+        if code not in result or result[code]["latitude"] is None:
+            fallback = dict(row)
+            if code in result:  # keep the current name and attributes, borrow only the location
+                fallback = {**result[code], "latitude": row["latitude"], "longitude": row["longitude"]}
+            fallback["coordinate_status"] = "resolved_bts_master_coordinate_prior_record"
+            result[code] = fallback
     return result, path
 
 

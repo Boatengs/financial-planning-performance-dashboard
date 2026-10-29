@@ -1,14 +1,14 @@
 """Quarterly mainline unit economics for the DL reporting carrier.
 
 Numerators come from Form 41 (P-1.2 profit and loss, P-12(a) fuel) and denominators from
-T-100 segment capacity and traffic. Both are filed by the same DOT reporting entity, so
-per-ASM measures are scope-consistent. They are not Delta's investor-relations TRASM/CASM:
-those are consolidated and include regional capacity purchase flying, refinery sales and
-special items.
+T-100 segment capacity and traffic, both filed for the DL reporting carrier. DL's Form 41
+total operating revenue reconciles to SEC consolidated revenue (see check_form41_vs_sec), so
+it includes revenue earned on regional partner flights, which T-100 for DL does not count.
 
-"Mainline" here excludes Form 41 transport-related revenue and expense. For a network
-carrier those lines mainly carry regional capacity purchase flying and other transport
-services that do not run on DL-operated seat-miles.
+"Mainline" therefore excludes Form 41 transport-related revenue and expense, the lines that
+carry regional capacity purchase flying and other transport services not flown on
+DL-operated seat-miles. These are not Delta's investor-relations TRASM and CASM, which use
+consolidated capacity and exclude special items.
 """
 from __future__ import annotations
 
