@@ -1,0 +1,407 @@
+period,driver_id,driver_name,scenario_id,value,unit,forecast_origin,source_or_rationale,model_version
+2019Q1,asm,Capacity (ASMs),ACT,56058188294.0,seat-miles,2019Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q1,load_factor,Load factor,ACT,0.8355172213978436,ratio,2019Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q1,yield,Passenger yield,ACT,0.15228377807034227,USD per RPM,2019Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.21530131513401438,ratio,2019Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.10695143805854512,USD per ASM,2019Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,68.86202899693673,seat-miles per gallon,2019Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q1,fuel_price,Fuel price,ACT,2.044935642140747,USD per gallon,2019Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q2,asm,Capacity (ASMs),ACT,65189616054.0,seat-miles,2019Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q2,load_factor,Load factor,ACT,0.8847614614760559,ratio,2019Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q2,yield,Passenger yield,ACT,0.1540195564795992,USD per RPM,2019Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.18267141528504882,ratio,2019Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.10321975485215519,USD per ASM,2019Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,68.96911514998725,seat-miles per gallon,2019Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q2,fuel_price,Fuel price,ACT,2.0652047821043342,USD per gallon,2019Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q3,asm,Capacity (ASMs),ACT,69356998349.0,seat-miles,2019Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q3,load_factor,Load factor,ACT,0.8868953398541489,ratio,2019Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q3,yield,Passenger yield,ACT,0.14548084939739972,USD per RPM,2019Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.18588133302998053,ratio,2019Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q3,casm_ex,Cost per ASM excluding fuel,ACT,0.0983514955718719,USD per ASM,2019Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,69.19692033859323,seat-miles per gallon,2019Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q3,fuel_price,Fuel price,ACT,1.9445739668668431,USD per gallon,2019Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q4,asm,Capacity (ASMs),ACT,59493808808.0,seat-miles,2019Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q4,load_factor,Load factor,ACT,0.8597768668850427,ratio,2019Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q4,yield,Passenger yield,ACT,0.1541116942526721,USD per RPM,2019Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.21234286972685246,ratio,2019Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q4,casm_ex,Cost per ASM excluding fuel,ACT,0.11115313834320815,USD per ASM,2019Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,69.72378422642623,seat-miles per gallon,2019Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2019Q4,fuel_price,Fuel price,ACT,1.9763211658879878,USD per gallon,2019Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q1,asm,Capacity (ASMs),ACT,53064566795.0,seat-miles,2020Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q1,load_factor,Load factor,ACT,0.7421239086551936,ratio,2020Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q1,yield,Passenger yield,ACT,0.14702330832245492,USD per RPM,2020Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.24622559241182282,ratio,2020Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.11677772636756716,USD per ASM,2020Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,71.29115240301617,seat-miles per gallon,2020Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q1,fuel_price,Fuel price,ACT,1.8353091248967748,USD per gallon,2020Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q2,asm,Capacity (ASMs),ACT,9171661803.0,seat-miles,2020Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q2,load_factor,Load factor,ACT,0.34817374316565824,ratio,2020Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q2,yield,Passenger yield,ACT,0.1496715740146066,USD per RPM,2020Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,1.0163719711853307,ratio,2020Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.4163954980056955,USD per ASM,2020Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,77.60112935466731,seat-miles per gallon,2020Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q2,fuel_price,Fuel price,ACT,2.427200324007661,USD per gallon,2020Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q3,asm,Capacity (ASMs),ACT,25152893750.0,seat-miles,2020Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q3,load_factor,Load factor,ACT,0.406682711208924,ratio,2020Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q3,yield,Passenger yield,ACT,0.13607687805349486,USD per RPM,2020Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.5306961961659928,ratio,2020Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q3,casm_ex,Cost per ASM excluding fuel,ACT,0.15305985614478254,USD per ASM,2020Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,80.2346906034005,seat-miles per gallon,2020Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q3,fuel_price,Fuel price,ACT,1.2620651507737994,USD per gallon,2020Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q4,asm,Capacity (ASMs),ACT,32689424432.0,seat-miles,2020Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q4,load_factor,Load factor,ACT,0.41152014162816997,ratio,2020Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q4,yield,Passenger yield,ACT,0.14192227137168098,USD per RPM,2020Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.4944806407327928,ratio,2020Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q4,casm_ex,Cost per ASM excluding fuel,ACT,0.11613501191791188,USD per ASM,2020Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,81.01653042659112,seat-miles per gallon,2020Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2020Q4,fuel_price,Fuel price,ACT,1.4673353355318288,USD per gallon,2020Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q1,asm,Capacity (ASMs),ACT,36086654373.0,seat-miles,2021Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q1,load_factor,Load factor,ACT,0.44382648229045346,ratio,2021Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q1,yield,Passenger yield,ACT,0.12173420870894484,USD per RPM,2021Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.4838220442822332,ratio,2021Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.1255780708058824,USD per ASM,2021Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,80.81630823416154,seat-miles per gallon,2021Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q1,fuel_price,Fuel price,ACT,1.9453802025828748,USD per gallon,2021Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q2,asm,Capacity (ASMs),ACT,43526800731.0,seat-miles,2021Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q2,load_factor,Load factor,ACT,0.6814322642113139,ratio,2021Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q2,yield,Passenger yield,ACT,0.13188810862240696,USD per RPM,2021Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.3140050962760578,ratio,2021Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.10851100463802658,USD per ASM,2021Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,77.83289944576005,seat-miles per gallon,2021Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q2,fuel_price,Fuel price,ACT,2.472954466238229,USD per gallon,2021Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q3,asm,Capacity (ASMs),ACT,48841046148.0,seat-miles,2021Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q3,load_factor,Load factor,ACT,0.7955589352704951,ratio,2021Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q3,yield,Passenger yield,ACT,0.14035525351784464,USD per RPM,2021Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.25852193234822873,ratio,2021Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q3,casm_ex,Cost per ASM excluding fuel,ACT,0.11389661536207273,USD per ASM,2021Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.23597453053114,seat-miles per gallon,2021Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q3,fuel_price,Fuel price,ACT,1.918996573779904,USD per gallon,2021Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q4,asm,Capacity (ASMs),ACT,46976525433.0,seat-miles,2021Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q4,load_factor,Load factor,ACT,0.7815716129828567,ratio,2021Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q4,yield,Passenger yield,ACT,0.15144773078394164,USD per RPM,2021Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.276419202507984,ratio,2021Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q4,casm_ex,Cost per ASM excluding fuel,ACT,0.12346433395275498,USD per ASM,2021Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.60349073091005,seat-miles per gallon,2021Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2021Q4,fuel_price,Fuel price,ACT,2.0579644508579653,USD per gallon,2021Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q1,asm,Capacity (ASMs),ACT,47509949380.0,seat-miles,2022Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q1,load_factor,Load factor,ACT,0.7528250581141748,ratio,2022Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q1,yield,Passenger yield,ACT,0.15370817023150057,USD per RPM,2022Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.27480509332110503,ratio,2022Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.12857445846009444,USD per ASM,2022Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.75962677682236,seat-miles per gallon,2022Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q1,fuel_price,Fuel price,ACT,2.767071029812249,USD per gallon,2022Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q2,asm,Capacity (ASMs),ACT,54343947957.0,seat-miles,2022Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q2,load_factor,Load factor,ACT,0.8769377574060008,ratio,2022Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q2,yield,Passenger yield,ACT,0.18707336723572107,USD per RPM,2022Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.19140285648683594,ratio,2022Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.12318488418060738,USD per ASM,2022Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,72.43691024456805,seat-miles per gallon,2022Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q2,fuel_price,Fuel price,ACT,3.7319667656727584,USD per gallon,2022Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q3,asm,Capacity (ASMs),ACT,58564524038.0,seat-miles,2022Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q3,load_factor,Load factor,ACT,0.8732000109796573,ratio,2022Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q3,yield,Passenger yield,ACT,0.18395711809641144,USD per RPM,2022Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.18527262713771508,ratio,2022Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q3,casm_ex,Cost per ASM excluding fuel,ACT,0.12417286576565416,USD per ASM,2022Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,71.42947220221227,seat-miles per gallon,2022Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q3,fuel_price,Fuel price,ACT,3.5071579200230687,USD per gallon,2022Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q4,asm,Capacity (ASMs),ACT,55588445971.0,seat-miles,2022Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q4,load_factor,Load factor,ACT,0.8506585428142586,ratio,2022Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q4,yield,Passenger yield,ACT,0.18754488656022078,USD per RPM,2022Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.21486492200674417,ratio,2022Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q4,casm_ex,Cost per ASM excluding fuel,ACT,0.13362911641522132,USD per ASM,2022Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,72.28773860983193,seat-miles per gallon,2022Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2022Q4,fuel_price,Fuel price,ACT,3.1460129875763685,USD per gallon,2022Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q1,asm,Capacity (ASMs),ACT,57476811603.0,seat-miles,2023Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q1,load_factor,Load factor,ACT,0.8145756601877386,ratio,2023Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q1,yield,Passenger yield,ACT,0.1792834540565501,USD per RPM,2023Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.24346091392450003,ratio,2023Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.13695401781105648,USD per ASM,2023Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,72.77774356012674,seat-miles per gallon,2023Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q1,fuel_price,Fuel price,ACT,3.0133717604928156,USD per gallon,2023Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q2,asm,Capacity (ASMs),ACT,65050781869.0,seat-miles,2023Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q2,load_factor,Load factor,ACT,0.8831641714267864,ratio,2023Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q2,yield,Passenger yield,ACT,0.1890344077751511,USD per RPM,2023Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.19702185748322418,ratio,2023Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.13813583537083066,USD per ASM,2023Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,72.40843574584811,seat-miles per gallon,2023Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q2,fuel_price,Fuel price,ACT,2.516153331979217,USD per gallon,2023Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q3,asm,Capacity (ASMs),ACT,69257630617.0,seat-miles,2023Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q3,load_factor,Load factor,ACT,0.8766196175082182,ratio,2023Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q3,yield,Passenger yield,ACT,0.177152854833437,USD per RPM,2023Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.20546831780471408,ratio,2023Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q3,casm_ex,Cost per ASM excluding fuel,ACT,0.12987241958566467,USD per ASM,2023Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,71.99235241778538,seat-miles per gallon,2023Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q3,fuel_price,Fuel price,ACT,2.7547392385521055,USD per gallon,2023Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q4,asm,Capacity (ASMs),ACT,64402333284.0,seat-miles,2023Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q4,load_factor,Load factor,ACT,0.8430433042010403,ratio,2023Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q4,yield,Passenger yield,ACT,0.1800665994389871,USD per RPM,2023Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.22881875856132156,ratio,2023Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q4,casm_ex,Cost per ASM excluding fuel,ACT,0.1360957128734578,USD per ASM,2023Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.49148516393842,seat-miles per gallon,2023Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2023Q4,fuel_price,Fuel price,ACT,2.9935335712951616,USD per gallon,2023Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q1,asm,Capacity (ASMs),ACT,61391680344.0,seat-miles,2024Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q1,load_factor,Load factor,ACT,0.8304943230305792,ratio,2024Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q1,yield,Passenger yield,ACT,0.180034155607394,USD per RPM,2024Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.19808846620498846,ratio,2024Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.14191012591906454,USD per ASM,2024Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,74.03729568353553,seat-miles per gallon,2024Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q1,fuel_price,Fuel price,ACT,2.748459468534413,USD per gallon,2024Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q2,asm,Capacity (ASMs),ACT,70220775537.0,seat-miles,2024Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q2,load_factor,Load factor,ACT,0.8755963104908024,ratio,2024Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q2,yield,Passenger yield,ACT,0.18574329259272426,USD per RPM,2024Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.18484530713188183,ratio,2024Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.13635997058953986,USD per ASM,2024Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.35269187580725,seat-miles per gallon,2024Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q2,fuel_price,Fuel price,ACT,2.6288461115659287,USD per gallon,2024Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q3,asm,Capacity (ASMs),ACT,71725928471.0,seat-miles,2024Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q3,load_factor,Load factor,ACT,0.8731272819189883,ratio,2024Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q3,yield,Passenger yield,ACT,0.17300874016451942,USD per RPM,2024Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.18978087503421837,ratio,2024Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q3,casm_ex,Cost per ASM excluding fuel,ACT,0.13604786784942613,USD per ASM,2024Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,72.81169064984695,seat-miles per gallon,2024Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q3,fuel_price,Fuel price,ACT,2.535307669680977,USD per gallon,2024Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q4,asm,Capacity (ASMs),ACT,67429405465.0,seat-miles,2024Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q4,load_factor,Load factor,ACT,0.8401610464355294,ratio,2024Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q4,yield,Passenger yield,ACT,0.18221812473018237,USD per RPM,2024Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.21742718475287226,ratio,2024Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q4,casm_ex,Cost per ASM excluding fuel,ACT,0.1427878756545996,USD per ASM,2024Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,74.44434845667175,seat-miles per gallon,2024Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2024Q4,fuel_price,Fuel price,ACT,2.345636394007131,USD per gallon,2024Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q1,asm,Capacity (ASMs),ACT,63734210479.0,seat-miles,2025Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q1,load_factor,Load factor,ACT,0.8189391558431202,ratio,2025Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q1,yield,Passenger yield,ACT,0.18005214549542953,USD per RPM,2025Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.20351636316932584,ratio,2025Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.14528676218639316,USD per ASM,2025Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,74.0535995741264,seat-miles per gallon,2025Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q1,fuel_price,Fuel price,ACT,2.4509226523547505,USD per gallon,2025Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q2,asm,Capacity (ASMs),ACT,72609772085.0,seat-miles,2025Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q2,load_factor,Load factor,ACT,0.8578410807857034,ratio,2025Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q2,yield,Passenger yield,ACT,0.18343008366718214,USD per RPM,2025Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.18213584646457007,ratio,2025Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.13820527364075116,USD per ASM,2025Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.59660593828886,seat-miles per gallon,2025Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q2,fuel_price,Fuel price,ACT,2.2662753569167093,USD per gallon,2025Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q3,asm,Capacity (ASMs),ACT,73958576906.0,seat-miles,2025Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q3,load_factor,Load factor,ACT,0.8580523678363488,ratio,2025Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q3,yield,Passenger yield,ACT,0.17445263276781636,USD per RPM,2025Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.19030240030957052,ratio,2025Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q3,casm_ex,Cost per ASM excluding fuel,ACT,0.13750829856996546,USD per ASM,2025Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.11217697346596,seat-miles per gallon,2025Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q3,fuel_price,Fuel price,ACT,2.2324662658066483,USD per gallon,2025Q3,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q4,asm,Capacity (ASMs),ACT,68079213159.0,seat-miles,2025Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q4,load_factor,Load factor,ACT,0.8232171736930695,ratio,2025Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q4,yield,Passenger yield,ACT,0.1864702056602305,USD per RPM,2025Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.20855703805318238,ratio,2025Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q4,casm_ex,Cost per ASM excluding fuel,ACT,0.14815682712787917,USD per ASM,2025Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.87797995249011,seat-miles per gallon,2025Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2025Q4,fuel_price,Fuel price,ACT,2.2611738998785382,USD per gallon,2025Q4,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q1,asm,Capacity (ASMs),ACT,64399624697.0,seat-miles,2026Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q1,load_factor,Load factor,ACT,0.8219367187937325,ratio,2026Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q1,yield,Passenger yield,ACT,0.18983350314457206,USD per RPM,2026Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.22109588981111916,ratio,2026Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q1,casm_ex,Cost per ASM excluding fuel,ACT,0.15750702755993734,USD per ASM,2026Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,74.02296722724373,seat-miles per gallon,2026Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q1,fuel_price,Fuel price,ACT,2.609925422805216,USD per gallon,2026Q1,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q2,asm,Capacity (ASMs),ACT,73423495796.0,seat-miles,2026Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q2,load_factor,Load factor,ACT,0.8516108970312258,ratio,2026Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q2,yield,Passenger yield,ACT,0.20429243070429645,USD per RPM,2026Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,ACT,0.20333397839118814,ratio,2026Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q2,casm_ex,Cost per ASM excluding fuel,ACT,0.14209456293101722,USD per ASM,2026Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),ACT,73.9254778080729,seat-miles per gallon,2026Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q2,fuel_price,Fuel price,ACT,3.9125632432833632,USD per gallon,2026Q2,Reported Form 41 and T-100 actuals,fpa-drivers-1.0
+2026Q3,asm,Capacity (ASMs),FCT,73958576906.0,seat-miles,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q3,load_factor,Load factor,FCT,0.8580523678363488,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q3,yield,Passenger yield,FCT,0.17445263276781636,USD per RPM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FCT,0.19030240030957052,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q3,casm_ex,Cost per ASM excluding fuel,FCT,0.13750829856996546,USD per ASM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),FCT,73.11217697346596,seat-miles per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q3,fuel_price,Fuel price,FCT,2.2324662658066483,USD per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q4,asm,Capacity (ASMs),FCT,68079213159.0,seat-miles,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q4,load_factor,Load factor,FCT,0.8232171736930695,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q4,yield,Passenger yield,FCT,0.1864702056602305,USD per RPM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FCT,0.20855703805318238,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q4,casm_ex,Cost per ASM excluding fuel,FCT,0.14815682712787917,USD per ASM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),FCT,73.87797995249011,seat-miles per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q4,fuel_price,Fuel price,FCT,2.2611738998785382,USD per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q1,asm,Capacity (ASMs),FCT,64399624697.0,seat-miles,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q1,load_factor,Load factor,FCT,0.8219367187937325,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q1,yield,Passenger yield,FCT,0.18983350314457206,USD per RPM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FCT,0.22109588981111916,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q1,casm_ex,Cost per ASM excluding fuel,FCT,0.15750702755993734,USD per ASM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),FCT,74.02296722724373,seat-miles per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q1,fuel_price,Fuel price,FCT,2.609925422805216,USD per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q2,asm,Capacity (ASMs),FCT,73423495796.0,seat-miles,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q2,load_factor,Load factor,FCT,0.8516108970312258,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q2,yield,Passenger yield,FCT,0.20429243070429645,USD per RPM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FCT,0.20333397839118814,ratio,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q2,casm_ex,Cost per ASM excluding fuel,FCT,0.14209456293101722,USD per ASM,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),FCT,73.9254778080729,seat-miles per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2027Q2,fuel_price,Fuel price,FCT,3.9125632432833632,USD per gallon,2026Q2,Base: seasonal naive by driver (same quarter one year earlier),fpa-drivers-1.0
+2026Q3,asm,Capacity (ASMs),FUEL,73958576906.0,seat-miles,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q3,load_factor,Load factor,FUEL,0.8580523678363488,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q3,yield,Passenger yield,FUEL,0.17445263276781636,USD per RPM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FUEL,0.19030240030957052,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q3,casm_ex,Cost per ASM excluding fuel,FUEL,0.13750829856996546,USD per ASM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),FUEL,73.11217697346596,seat-miles per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q3,fuel_price,Fuel price,FUEL,3.9125632432833632,USD per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q4,asm,Capacity (ASMs),FUEL,68079213159.0,seat-miles,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q4,load_factor,Load factor,FUEL,0.8232171736930695,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q4,yield,Passenger yield,FUEL,0.1864702056602305,USD per RPM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FUEL,0.20855703805318238,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q4,casm_ex,Cost per ASM excluding fuel,FUEL,0.14815682712787917,USD per ASM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),FUEL,73.87797995249011,seat-miles per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q4,fuel_price,Fuel price,FUEL,3.9125632432833632,USD per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q1,asm,Capacity (ASMs),FUEL,64399624697.0,seat-miles,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q1,load_factor,Load factor,FUEL,0.8219367187937325,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q1,yield,Passenger yield,FUEL,0.18983350314457206,USD per RPM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FUEL,0.22109588981111916,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q1,casm_ex,Cost per ASM excluding fuel,FUEL,0.15750702755993734,USD per ASM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),FUEL,74.02296722724373,seat-miles per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q1,fuel_price,Fuel price,FUEL,3.9125632432833632,USD per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q2,asm,Capacity (ASMs),FUEL,73423495796.0,seat-miles,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q2,load_factor,Load factor,FUEL,0.8516108970312258,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q2,yield,Passenger yield,FUEL,0.20429243070429645,USD per RPM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,FUEL,0.20333397839118814,ratio,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q2,casm_ex,Cost per ASM excluding fuel,FUEL,0.14209456293101722,USD per ASM,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),FUEL,73.9254778080729,seat-miles per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2027Q2,fuel_price,Fuel price,FUEL,3.9125632432833632,USD per gallon,2026Q2,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.,fpa-drivers-1.0
+2026Q3,asm,Capacity (ASMs),UP,74698162675.06,seat-miles,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q3,load_factor,Load factor,UP,0.8680523678363488,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q3,yield,Passenger yield,UP,0.17794168542317268,USD per RPM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,UP,0.19030240030957052,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q3,casm_ex,Cost per ASM excluding fuel,UP,0.1361332155842658,USD per ASM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),UP,73.11217697346596,seat-miles per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q3,fuel_price,Fuel price,UP,2.0092196392259836,USD per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q4,asm,Capacity (ASMs),UP,68760005290.59,seat-miles,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q4,load_factor,Load factor,UP,0.8332171736930695,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q4,yield,Passenger yield,UP,0.1901996097734351,USD per RPM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,UP,0.20855703805318238,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q4,casm_ex,Cost per ASM excluding fuel,UP,0.14667525885660038,USD per ASM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),UP,73.87797995249011,seat-miles per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q4,fuel_price,Fuel price,UP,2.0350565098906843,USD per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q1,asm,Capacity (ASMs),UP,65043620943.97,seat-miles,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q1,load_factor,Load factor,UP,0.8319367187937325,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q1,yield,Passenger yield,UP,0.1936301732074635,USD per RPM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,UP,0.22109588981111916,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q1,casm_ex,Cost per ASM excluding fuel,UP,0.15593195728433795,USD per ASM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),UP,74.02296722724373,seat-miles per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q1,fuel_price,Fuel price,UP,2.3489328805246945,USD per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q2,asm,Capacity (ASMs),UP,74157730753.96,seat-miles,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q2,load_factor,Load factor,UP,0.8616108970312258,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q2,yield,Passenger yield,UP,0.20837827931838238,USD per RPM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,UP,0.20333397839118814,ratio,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q2,casm_ex,Cost per ASM excluding fuel,UP,0.14067361730170705,USD per ASM,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),UP,73.9254778080729,seat-miles per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2027Q2,fuel_price,Fuel price,UP,3.521306918955027,USD per gallon,2026Q2,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",fpa-drivers-1.0
+2026Q3,asm,Capacity (ASMs),DOWN,72479405367.88,seat-miles,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q3,load_factor,Load factor,DOWN,0.8380523678363487,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q3,yield,Passenger yield,DOWN,0.16921905378478186,USD per RPM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,DOWN,0.19030240030957052,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q3,casm_ex,Cost per ASM excluding fuel,DOWN,0.14025846454136479,USD per ASM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),DOWN,73.11217697346596,seat-miles per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q3,fuel_price,Fuel price,DOWN,2.567336205677645,USD per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q4,asm,Capacity (ASMs),DOWN,66717628895.82,seat-miles,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q4,load_factor,Load factor,DOWN,0.8032171736930694,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q4,yield,Passenger yield,DOWN,0.18087609949042358,USD per RPM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,DOWN,0.20855703805318238,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q4,casm_ex,Cost per ASM excluding fuel,DOWN,0.15111996367043676,USD per ASM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),DOWN,73.87797995249011,seat-miles per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2026Q4,fuel_price,Fuel price,DOWN,2.6003499848603187,USD per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q1,asm,Capacity (ASMs),DOWN,63111632203.06,seat-miles,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q1,load_factor,Load factor,DOWN,0.8019367187937325,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q1,yield,Passenger yield,DOWN,0.18413849805023488,USD per RPM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,DOWN,0.22109588981111916,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q1,casm_ex,Cost per ASM excluding fuel,DOWN,0.1606571681111361,USD per ASM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),DOWN,74.02296722724373,seat-miles per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q1,fuel_price,Fuel price,DOWN,3.0014142362259983,USD per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q2,asm,Capacity (ASMs),DOWN,71955025880.08,seat-miles,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q2,load_factor,Load factor,DOWN,0.8316108970312258,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q2,yield,Passenger yield,DOWN,0.19816365778316755,USD per RPM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,DOWN,0.20333397839118814,ratio,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q2,casm_ex,Cost per ASM excluding fuel,DOWN,0.14493645418963758,USD per ASM,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),DOWN,73.9254778080729,seat-miles per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2027Q2,fuel_price,Fuel price,DOWN,4.499447729775867,USD per gallon,2026Q2,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",fpa-drivers-1.0
+2024Q1,asm,Capacity (ASMs),BUD,57476811603.0,seat-miles,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q1,load_factor,Load factor,BUD,0.8145756601877386,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q1,yield,Passenger yield,BUD,0.1792834540565501,USD per RPM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.24346091392450003,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q1,casm_ex,Cost per ASM excluding fuel,BUD,0.13695401781105648,USD per ASM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,72.77774356012674,seat-miles per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q1,fuel_price,Fuel price,BUD,3.0133717604928156,USD per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q2,asm,Capacity (ASMs),BUD,65050781869.0,seat-miles,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q2,load_factor,Load factor,BUD,0.8831641714267864,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q2,yield,Passenger yield,BUD,0.1890344077751511,USD per RPM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.19702185748322418,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q2,casm_ex,Cost per ASM excluding fuel,BUD,0.13813583537083066,USD per ASM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,72.40843574584811,seat-miles per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q2,fuel_price,Fuel price,BUD,2.516153331979217,USD per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q3,asm,Capacity (ASMs),BUD,69257630617.0,seat-miles,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q3,load_factor,Load factor,BUD,0.8766196175082182,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q3,yield,Passenger yield,BUD,0.177152854833437,USD per RPM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.20546831780471408,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q3,casm_ex,Cost per ASM excluding fuel,BUD,0.12987241958566467,USD per ASM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,71.99235241778538,seat-miles per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q3,fuel_price,Fuel price,BUD,2.7547392385521055,USD per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q4,asm,Capacity (ASMs),BUD,64402333284.0,seat-miles,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q4,load_factor,Load factor,BUD,0.8430433042010403,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q4,yield,Passenger yield,BUD,0.1800665994389871,USD per RPM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.22881875856132156,ratio,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q4,casm_ex,Cost per ASM excluding fuel,BUD,0.1360957128734578,USD per ASM,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,73.49148516393842,seat-miles per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2024Q4,fuel_price,Fuel price,BUD,2.9935335712951616,USD per gallon,2023Q4,Budget: base method run from 2023Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q1,asm,Capacity (ASMs),BUD,61391680344.0,seat-miles,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q1,load_factor,Load factor,BUD,0.8304943230305792,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q1,yield,Passenger yield,BUD,0.180034155607394,USD per RPM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.19808846620498846,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q1,casm_ex,Cost per ASM excluding fuel,BUD,0.14191012591906454,USD per ASM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,74.03729568353553,seat-miles per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q1,fuel_price,Fuel price,BUD,2.748459468534413,USD per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q2,asm,Capacity (ASMs),BUD,70220775537.0,seat-miles,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q2,load_factor,Load factor,BUD,0.8755963104908024,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q2,yield,Passenger yield,BUD,0.18574329259272426,USD per RPM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.18484530713188183,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q2,casm_ex,Cost per ASM excluding fuel,BUD,0.13635997058953986,USD per ASM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,73.35269187580725,seat-miles per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q2,fuel_price,Fuel price,BUD,2.6288461115659287,USD per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q3,asm,Capacity (ASMs),BUD,71725928471.0,seat-miles,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q3,load_factor,Load factor,BUD,0.8731272819189883,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q3,yield,Passenger yield,BUD,0.17300874016451942,USD per RPM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.18978087503421837,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q3,casm_ex,Cost per ASM excluding fuel,BUD,0.13604786784942613,USD per ASM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,72.81169064984695,seat-miles per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q3,fuel_price,Fuel price,BUD,2.535307669680977,USD per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q4,asm,Capacity (ASMs),BUD,67429405465.0,seat-miles,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q4,load_factor,Load factor,BUD,0.8401610464355294,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q4,yield,Passenger yield,BUD,0.18221812473018237,USD per RPM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.21742718475287226,ratio,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q4,casm_ex,Cost per ASM excluding fuel,BUD,0.1427878756545996,USD per ASM,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,74.44434845667175,seat-miles per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2025Q4,fuel_price,Fuel price,BUD,2.345636394007131,USD per gallon,2024Q4,Budget: base method run from 2024Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q1,asm,Capacity (ASMs),BUD,63734210479.0,seat-miles,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q1,load_factor,Load factor,BUD,0.8189391558431202,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q1,yield,Passenger yield,BUD,0.18005214549542953,USD per RPM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q1,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.20351636316932584,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q1,casm_ex,Cost per ASM excluding fuel,BUD,0.14528676218639316,USD per ASM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q1,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,74.0535995741264,seat-miles per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q1,fuel_price,Fuel price,BUD,2.4509226523547505,USD per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q2,asm,Capacity (ASMs),BUD,72609772085.0,seat-miles,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q2,load_factor,Load factor,BUD,0.8578410807857034,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q2,yield,Passenger yield,BUD,0.18343008366718214,USD per RPM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q2,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.18213584646457007,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q2,casm_ex,Cost per ASM excluding fuel,BUD,0.13820527364075116,USD per ASM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q2,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,73.59660593828886,seat-miles per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q2,fuel_price,Fuel price,BUD,2.2662753569167093,USD per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q3,asm,Capacity (ASMs),BUD,73958576906.0,seat-miles,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q3,load_factor,Load factor,BUD,0.8580523678363488,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q3,yield,Passenger yield,BUD,0.17445263276781636,USD per RPM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q3,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.19030240030957052,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q3,casm_ex,Cost per ASM excluding fuel,BUD,0.13750829856996546,USD per ASM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q3,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,73.11217697346596,seat-miles per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q3,fuel_price,Fuel price,BUD,2.2324662658066483,USD per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q4,asm,Capacity (ASMs),BUD,68079213159.0,seat-miles,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q4,load_factor,Load factor,BUD,0.8232171736930695,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q4,yield,Passenger yield,BUD,0.1864702056602305,USD per RPM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q4,non_pax_ratio,Non-passenger revenue as share of passenger revenue,BUD,0.20855703805318238,ratio,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q4,casm_ex,Cost per ASM excluding fuel,BUD,0.14815682712787917,USD per ASM,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q4,asm_per_gallon,Fuel efficiency (ASMs per gallon),BUD,73.87797995249011,seat-miles per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
+2026Q4,fuel_price,Fuel price,BUD,2.2611738998785382,USD per gallon,2025Q4,Budget: base method run from 2025Q4 (prior-year drivers),fpa-drivers-1.0
