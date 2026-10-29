@@ -11,15 +11,18 @@ Operating income is rebuilt exactly from seven drivers each quarter:
 
 Everything here is analyst-modeled from public actuals. Nothing is Delta guidance.
 
-* Base forecast: each driver for a future quarter equals the same quarter one year earlier,
-  scaled by the median year-over-year change of that driver over the four quarters ending
-  at the forecast origin (seasonal naive with drift). Fuel price is held flat at the origin
-  quarter's actual price because no public forward curve is ingested.
-* Budget: the base forecast made from Q4 of the prior year for the four quarters of a year.
+* Base forecast: seasonal naive by driver. Each driver for a future quarter equals the same
+  quarter one year earlier. This was chosen after a rolling-origin backtest (2023Q4 onward)
+  in which every trend-extrapolating alternative (median, latest and two-quarter
+  year-over-year drift, with fuel either seasonal or held at the origin price) had larger
+  errors. The comparison is published in analysis_forecast_method_comparison.
+* Budget: the base forecast made from Q4 of the prior year, which equals the prior year's
+  actual drivers quarter by quarter.
 * Upside / downside: explicit shocks to the base drivers (SCENARIO_SHOCKS).
-* Backtest: rolling-origin from 2023Q4, one to four quarters ahead, against a seasonal naive
-  baseline (same quarter last year) for revenue and operating income.
-* Bridge: change in annual operating income split by driver using sequential substitution.
+* Fuel-at-origin: the base path with fuel held at the latest quarter's actual price and no
+  other driver adjusting. It isolates fuel-price exposure when fuel moves sharply.
+* Bridge: change in operating income between two periods split by driver using sequential
+  substitution.
 """
 from __future__ import annotations
 
@@ -40,7 +43,18 @@ DRIVER_LABELS = {
     "asm_per_gallon": ("Fuel efficiency (ASMs per gallon)", "seat-miles per gallon"),
     "fuel_price": ("Fuel price", "USD per gallon"),
 }
-FLAT_DRIVERS = {"fuel_price"}
+# Candidate base methods compared in the backtest: (drift rule, fuel rule).
+METHODS = {
+    "seasonal_naive": ("none", "seasonal"),
+    "seasonal_naive_fuel_at_origin": ("none", "origin"),
+    "median_4q_yoy_drift": ("median4", "seasonal"),
+    "median_4q_yoy_drift_fuel_at_origin": ("median4", "origin"),
+    "latest_yoy_drift": ("latest", "seasonal"),
+    "latest_yoy_drift_fuel_at_origin": ("latest", "origin"),
+    "two_quarter_yoy_drift": ("mean2", "seasonal"),
+    "two_quarter_yoy_drift_fuel_at_origin": ("mean2", "origin"),
+}
+BASE_METHOD = "seasonal_naive"
 # Origins before 2023Q4 would take their year-over-year drift from pandemic-recovery quarters
 # (2022 versus 2021), which is not a repeatable trend. Budgets start the year after this origin.
 BACKTEST_FIRST_ORIGIN = "2023Q4"
@@ -53,6 +67,7 @@ SCENARIO_SHOCKS = {
              "casm_ex": ("mult", 1.02), "fuel_price": ("mult", 1.15)},
 }
 SCENARIO_RATIONALE = {
+    "FUEL": "Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.",
     "UP": "Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base.",
     "DOWN": "Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base.",
 }
@@ -104,29 +119,32 @@ def outcomes(d: dict) -> dict:
             "expense": expense, "operating_income": income, "operating_margin": income / revenue if revenue else None}
 
 
-def _yoy_drift(history: dict, driver: str, origin: int) -> float:
+def _yoy_drift(history: dict, driver: str, origin: int, rule: str) -> float:
+    if rule == "none":
+        return 0.0
+    quarters = {"median4": range(origin - 3, origin + 1), "latest": [origin], "mean2": [origin - 1, origin]}[rule]
     changes = []
-    for i in range(origin - 3, origin + 1):
+    for i in quarters:
         cur, prev = history.get(i), history.get(i - 4)
         if cur is None or prev is None or not prev[driver]:
             raise ValueError(f"Need eight quarters of history before {q_label(origin)} to forecast")
         changes.append(cur[driver] / prev[driver] - 1)
-    return median(changes)
+    return median(changes) if rule == "median4" else sum(changes) / len(changes)
 
 
-def forecast(history: dict, origin: int, horizon: int = 4) -> dict:
-    """Base driver forecast for quarters origin+1 .. origin+horizon (history keyed by quarter index)."""
-    drift = {d: (0.0 if d in FLAT_DRIVERS else _yoy_drift(history, d, origin)) for d in DRIVERS}
+def forecast(history: dict, origin: int, horizon: int = 4, method: str = BASE_METHOD) -> dict:
+    """Driver path for quarters origin+1 .. origin+horizon using only history up to origin."""
+    drift_rule, fuel_rule = METHODS[method]
+    if origin - 4 not in history:
+        raise ValueError(f"Need at least five quarters of history up to {q_label(origin)} to forecast")
+    drift = {d: _yoy_drift(history, d, origin, drift_rule) for d in DRIVERS}
     path = {}
     for h in range(1, horizon + 1):
         target = origin + h
         reference = history.get(target - 4) if target - 4 <= origin else path[target - 4]
-        point = {}
-        for d in DRIVERS:
-            if d in FLAT_DRIVERS:
-                point[d] = history[origin][d]
-            else:
-                point[d] = reference[d] * (1 + drift[d])
+        point = {d: reference[d] * (1 + drift[d]) for d in DRIVERS}
+        if fuel_rule == "origin":
+            point["fuel_price"] = history[origin]["fuel_price"]
         path[target] = point
     return path
 
@@ -139,15 +157,6 @@ def apply_shocks(path: dict, shocks: dict) -> dict:
             p[driver] = p[driver] * amount if kind == "mult" else p[driver] + amount
         shocked[idx] = p
     return shocked
-
-
-def naive_forecast(actual: dict, origin: int, horizon: int = 4) -> dict:
-    """Seasonal naive: each metric equals the same quarter one year earlier."""
-    out = {}
-    for h in range(1, horizon + 1):
-        target = origin + h
-        out[target] = actual[target - 4] if target - 4 <= origin else out[target - 4]
-    return out
 
 
 # ---------------------------------------------------------------- bridge
@@ -214,8 +223,11 @@ def build_fpa_model(unit_rows, scope: str = "system", horizon: int = 4):
         record("ACT", idx, history[idx], "Reported Form 41 and T-100 actuals", idx)
 
     base = forecast(history, latest, horizon)
+    fuel_at_origin = forecast(history, latest, horizon, method="seasonal_naive_fuel_at_origin")
     for idx, point in base.items():
-        record("FCT", idx, point, "Base: seasonal naive with median YoY drift; fuel price flat at origin quarter", latest)
+        record("FCT", idx, point, "Base: seasonal naive by driver (same quarter one year earlier)", latest)
+    for idx, point in fuel_at_origin.items():
+        record("FUEL", idx, point, SCENARIO_RATIONALE["FUEL"], latest)
     for scenario, shocks in SCENARIO_SHOCKS.items():
         for idx, point in apply_shocks(base, shocks).items():
             record(scenario, idx, point, SCENARIO_RATIONALE[scenario], latest)
@@ -223,10 +235,10 @@ def build_fpa_model(unit_rows, scope: str = "system", horizon: int = 4):
     budgets, variances = [], []
     for year in sorted({i // 4 for i in indexes}):
         origin = year * 4 - 1  # Q4 of prior year
-        if origin < q_index(BACKTEST_FIRST_ORIGIN) or origin not in history or origin - 7 not in history:
+        if origin < q_index(BACKTEST_FIRST_ORIGIN) or origin not in history or origin - 4 not in history:
             continue
         for idx, point in forecast(history, origin, 4).items():
-            record("BUD", idx, point, f"Budget: base model run from {q_label(origin)}", origin)
+            record("BUD", idx, point, f"Budget: base method run from {q_label(origin)} (prior-year drivers)", origin)
             budgets.append(idx)
             if idx in actual:
                 b, a = outcomes(point), actual[idx]
@@ -237,21 +249,19 @@ def build_fpa_model(unit_rows, scope: str = "system", horizon: int = 4):
 
     backtest = []
     first = max(q_index(BACKTEST_FIRST_ORIGIN), indexes[0] + 7)
-    for origin in range(first, latest):
-        path = forecast(history, origin, horizon)
-        naive = naive_forecast(actual, origin, horizon)
-        for idx, point in path.items():
-            if idx not in actual:
-                continue
-            f, a, n = outcomes(point), actual[idx], naive[idx]
-            for metric, key in (("mainline_revenue", "revenue"), ("mainline_operating_income", "operating_income"),
-                                ("mainline_operating_margin", "operating_margin")):
-                backtest.append({"origin": q_label(origin), "target": q_label(idx), "horizon": idx - origin,
-                                 "metric_id": metric, "actual": a[key], "driver_forecast": f[key],
-                                 "naive_forecast": n[key], "driver_error": f[key] - a[key],
-                                 "naive_error": n[key] - a[key]})
-
-    summary = backtest_summary(backtest)
+    for method in METHODS:
+        for origin in range(first, latest):
+            for idx, point in forecast(history, origin, horizon, method=method).items():
+                if idx not in actual:
+                    continue
+                f, a = outcomes(point), actual[idx]
+                for metric, key in (("mainline_revenue", "revenue"), ("mainline_operating_income", "operating_income"),
+                                    ("mainline_operating_margin", "operating_margin")):
+                    backtest.append({"method": method, "origin": q_label(origin), "target": q_label(idx),
+                                     "horizon": idx - origin, "metric_id": metric, "actual": a[key],
+                                     "forecast": f[key], "error": f[key] - a[key]})
+    comparison = method_comparison(backtest)
+    summary = {r["method"] + (f'|h{r["horizon"]}' if r["horizon"] != "all" else ""): r for r in comparison}
 
     base_total = {k: sum(outcomes(p)[k] for p in base.values()) for k in ("revenue", "operating_income")}
     sensitivity = []
@@ -283,15 +293,18 @@ def build_fpa_model(unit_rows, scope: str = "system", horizon: int = 4):
     write_csv(PROCESSED / "fact_driver_assumption.csv", assumption_rows)
     write_csv(PROCESSED / "fact_budget_variance.csv", variances)
     write_csv(PROCESSED / "fact_forecast_backtest.csv", backtest)
+    write_csv(PROCESSED / "analysis_forecast_method_comparison.csv", comparison)
     write_csv(PROCESSED / "analysis_sensitivity.csv", sensitivity)
     write_csv(PROCESSED / "analysis_operating_income_bridge.csv", bridge_rows)
     result = {
         "model_version": MODEL_VERSION, "scope": scope, "first_actual": q_label(indexes[0]),
         "latest_actual": q_label(latest), "forecast_quarters": [q_label(i) for i in sorted(base)],
         "base_next4_revenue": base_total["revenue"], "base_next4_operating_income": base_total["operating_income"],
+        "base_method": BASE_METHOD,
         "scenario_next4_operating_income": {
-            s: sum(outcomes(p)["operating_income"] for p in apply_shocks(base, sh).values())
-            for s, sh in SCENARIO_SHOCKS.items()},
+            **{s: sum(outcomes(p)["operating_income"] for p in apply_shocks(base, sh).values())
+               for s, sh in SCENARIO_SHOCKS.items()},
+            "FUEL": sum(outcomes(p)["operating_income"] for p in fuel_at_origin.values())},
         "backtest": summary, "bridges": [{k: v for k, v in b.items() if k != "steps"} for b in bridges],
         "budget_quarters": [q_label(i) for i in sorted(set(budgets))],
     }
@@ -299,29 +312,23 @@ def build_fpa_model(unit_rows, scope: str = "system", horizon: int = 4):
     return result
 
 
-def backtest_summary(backtest):
-    out = {}
-    for metric in ("mainline_revenue", "mainline_operating_income", "mainline_operating_margin"):
-        for horizon in (1, 2, 3, 4, "all"):
-            rows = [r for r in backtest if r["metric_id"] == metric and (horizon == "all" or r["horizon"] == horizon)]
-            if not rows:
+def method_comparison(backtest):
+    """Mean errors by method, overall and by horizon. Lower is better on every column."""
+    out = []
+    for method in METHODS:
+        for horizon in ("all", 1, 2, 3, 4):
+            sel = [r for r in backtest if r["method"] == method and (horizon == "all" or r["horizon"] == horizon)]
+            rev = [r for r in sel if r["metric_id"] == "mainline_revenue"]
+            inc = [r for r in sel if r["metric_id"] == "mainline_operating_income"]
+            mar = [r for r in sel if r["metric_id"] == "mainline_operating_margin"]
+            if not rev:
                 continue
-            key = f"{metric}|h{horizon}"
-            if metric == "mainline_operating_margin":
-                out[key] = {
-                    "n": len(rows),
-                    "driver_mae_pts": sum(abs(r["driver_error"]) for r in rows) / len(rows) * 100,
-                    "naive_mae_pts": sum(abs(r["naive_error"]) for r in rows) / len(rows) * 100,
-                    "driver_bias_pts": sum(r["driver_error"] for r in rows) / len(rows) * 100,
-                }
-            else:
-                out[key] = {
-                    "n": len(rows),
-                    "driver_mape": sum(abs(r["driver_error"]) / abs(r["actual"]) for r in rows) / len(rows),
-                    "naive_mape": sum(abs(r["naive_error"]) / abs(r["actual"]) for r in rows) / len(rows),
-                    "driver_mae": sum(abs(r["driver_error"]) for r in rows) / len(rows),
-                    "naive_mae": sum(abs(r["naive_error"]) for r in rows) / len(rows),
-                    "driver_bias": sum(r["driver_error"] / abs(r["actual"]) for r in rows) / len(rows),
-                    "driver_wins": sum(abs(r["driver_error"]) < abs(r["naive_error"]) for r in rows),
-                }
+            out.append({
+                "method": method, "horizon": horizon, "forecasts": len(rev),
+                "revenue_mape": sum(abs(r["error"]) / abs(r["actual"]) for r in rev) / len(rev),
+                "revenue_bias": sum(r["error"] / abs(r["actual"]) for r in rev) / len(rev),
+                "operating_income_mae": sum(abs(r["error"]) for r in inc) / len(inc),
+                "operating_margin_mae_pts": sum(abs(r["error"]) for r in mar) / len(mar) * 100,
+                "is_base_method": method == BASE_METHOD,
+            })
     return out

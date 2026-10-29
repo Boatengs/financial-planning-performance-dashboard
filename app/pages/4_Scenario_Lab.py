@@ -31,7 +31,7 @@ fig.add_scatter(x=act["period"], y=act["value"] / 1e9, name="Actual", line=dict(
 bud = income[income["scenario_id"] == "BUD"].sort_values("order")
 fig.add_scatter(x=bud["period"], y=bud["value"] / 1e9, name="Budget (set each Q4)", mode="markers",
                 marker=dict(color=SCENARIO_COLORS["BUD"], size=7, symbol="diamond"))
-for s in ("FCT", "UP", "DOWN"):
+for s in ("FCT", "FUEL", "UP", "DOWN"):
     rows = income[(income["scenario_id"] == s) & (income["forecast_origin"] == origin)].sort_values("order")
     anchor = act.tail(1)
     fig.add_scatter(x=pd.concat([anchor["period"], rows["period"]]),
@@ -41,10 +41,12 @@ fig.update_layout(height=420, margin=dict(l=10, r=10, t=20, b=10), yaxis_title="
                   legend=dict(orientation="h", y=-0.15))
 st.plotly_chart(fig, use_container_width=True)
 
-c = st.columns(3)
+sc = summary["scenario_next4_operating_income"]
+c = st.columns(4)
 c[0].metric("Base, next 4 quarters", usd_b(summary["base_next4_operating_income"]))
-c[1].metric("Upside", usd_b(summary["scenario_next4_operating_income"]["UP"]))
-c[2].metric("Downside", usd_b(summary["scenario_next4_operating_income"]["DOWN"]))
+c[1].metric("Fuel stays at latest price", usd_b(sc["FUEL"]), usd_b(sc["FUEL"] - summary["base_next4_operating_income"]))
+c[2].metric("Upside", usd_b(sc["UP"]))
+c[3].metric("Downside", usd_b(sc["DOWN"]))
 
 st.subheader("Try your own assumptions")
 drivers = csv("driver_assumptions.csv")
@@ -85,18 +87,16 @@ with right:
     st.dataframe(var[["period", "budget", "actual", "actual_vs_budget", "actual_vs_budget_pct"]],
                  hide_index=True, use_container_width=True, height=320)
 
-st.subheader("How accurate is the model?")
-bt = summary["backtest"]
-rows = []
-for h in (1, 2, 3, 4):
-    r, m = bt.get(f"mainline_revenue|h{h}"), bt.get(f"mainline_operating_margin|h{h}")
-    if r and m:
-        rows.append({"Quarters ahead": h, "Forecasts": r["n"],
-                     "Revenue MAPE, driver model": f"{r['driver_mape']:.1%}",
-                     "Revenue MAPE, same quarter last year": f"{r['naive_mape']:.1%}",
-                     "Margin error, driver model (pts)": f"{m['driver_mae_pts']:.1f}",
-                     "Margin error, same quarter last year (pts)": f"{m['naive_mae_pts']:.1f}"})
-st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
-footnote("Rolling-origin backtest from 2023Q4: at each origin the model sees only data up to that quarter. "
-         "Base method: each driver equals the same quarter a year earlier, scaled by the median year-over-year "
-         "change over the last four quarters; fuel price is held at the origin quarter's actual.")
+st.subheader("Why the base case is 'same quarter last year'")
+comp = csv("forecast_method_comparison.csv")
+overall = comp[comp["horizon"] == "all"].copy().sort_values("operating_income_mae")
+overall["Revenue error (MAPE)"] = (overall["revenue_mape"] * 100).round(2).astype(str) + "%"
+overall["Operating income error ($B)"] = (overall["operating_income_mae"] / 1e9).round(3)
+overall["Margin error (pts)"] = overall["operating_margin_mae_pts"].round(2)
+overall["Base"] = overall["is_base_method"].map({True: "yes", False: ""})
+st.dataframe(overall[["method", "forecasts", "Revenue error (MAPE)", "Operating income error ($B)",
+                      "Margin error (pts)", "Base"]], hide_index=True, use_container_width=True)
+footnote("Rolling-origin backtest from 2023Q4, one to four quarters ahead: at each origin a method sees only "
+         "data up to that quarter. Methods that extrapolate recent year-over-year trends did worse than carrying "
+         "each driver forward from the same quarter a year earlier, so that is the base. Earlier origins are "
+         "excluded because their trends come from the pandemic recovery.")

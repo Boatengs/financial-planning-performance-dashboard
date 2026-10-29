@@ -25,6 +25,7 @@ PUBLISHED_FILES = {
     "fact_driver_assumption.csv": "driver_assumptions.csv",
     "fact_budget_variance.csv": "budget_variance.csv",
     "fact_forecast_backtest.csv": "forecast_backtest.csv",
+    "analysis_forecast_method_comparison.csv": "forecast_method_comparison.csv",
     "analysis_sensitivity.csv": "sensitivity.csv",
     "analysis_operating_income_bridge.csv": "operating_income_bridge.csv",
     "check_form41_vs_sec.csv": "check_form41_vs_sec.csv",
@@ -84,10 +85,10 @@ related tables where you need them.
 | route_paths_ttm.csv | route x endpoint | Route map: Marks = Line, Path = path_order, Detail = route_id |
 | airport_ttm_vs_2019.csv | airport | Departing passengers, latest 12 months versus 2019 |
 | market_ttm_vs_2019.csv | market | Passenger change by city pair versus 2019 |
-| budget_forecast.csv | quarter x metric x scenario | Actual, budget, forecast, upside, downside |
+| budget_forecast.csv | quarter x metric x scenario | Actual, budget, forecast, fuel at latest price, upside, downside |
 | operating_income_bridge.csv | period pair x driver | Waterfall of operating income change by driver |
 
-All Budget, Forecast, Upside and Downside values are analyst-modeled from public data. They are
+All Budget, Forecast, Fuel, Upside and Downside values are analyst-modeled from public data. They are
 not Delta guidance.
 """
 
