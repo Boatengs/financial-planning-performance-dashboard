@@ -9,6 +9,7 @@
     "financial_actual.csv",
     "financial_derived.csv",
     "forecast_backtest.csv",
+    "forecast_method_comparison.csv",
     "fpa_model_summary.json",
     "market_ttm_vs_2019.csv",
     "metric_dictionary.csv",
