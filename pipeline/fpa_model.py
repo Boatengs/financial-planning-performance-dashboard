@@ -17,8 +17,8 @@ Everything here is analyst-modeled from public actuals. Nothing is Delta guidanc
   quarter's actual price because no public forward curve is ingested.
 * Budget: the base forecast made from Q4 of the prior year for the four quarters of a year.
 * Upside / downside: explicit shocks to the base drivers (SCENARIO_SHOCKS).
-* Backtest: rolling-origin, one to four quarters ahead, against a seasonal naive baseline
-  (same quarter last year) for revenue and operating income.
+* Backtest: rolling-origin from 2023Q4, one to four quarters ahead, against a seasonal naive
+  baseline (same quarter last year) for revenue and operating income.
 * Bridge: change in annual operating income split by driver using sequential substitution.
 """
 from __future__ import annotations
@@ -41,7 +41,9 @@ DRIVER_LABELS = {
     "fuel_price": ("Fuel price", "USD per gallon"),
 }
 FLAT_DRIVERS = {"fuel_price"}
-BACKTEST_FIRST_ORIGIN = "2023Q1"
+# Origins before 2023Q4 would take their year-over-year drift from pandemic-recovery quarters
+# (2022 versus 2021), which is not a repeatable trend. Budgets start the year after this origin.
+BACKTEST_FIRST_ORIGIN = "2023Q4"
 
 # Analyst assumptions, applied to the base driver path. Not company guidance.
 SCENARIO_SHOCKS = {
@@ -221,7 +223,7 @@ def build_fpa_model(unit_rows, scope: str = "system", horizon: int = 4):
     budgets, variances = [], []
     for year in sorted({i // 4 for i in indexes}):
         origin = year * 4 - 1  # Q4 of prior year
-        if origin not in history or origin - 7 not in history:
+        if origin < q_index(BACKTEST_FIRST_ORIGIN) or origin not in history or origin - 7 not in history:
             continue
         for idx, point in forecast(history, origin, 4).items():
             record("BUD", idx, point, f"Budget: base model run from {q_label(origin)}", origin)
