@@ -1,6 +1,6 @@
 # The data pipeline uses only the Python standard library.
 # These packages are for the Streamlit dashboard in app/.
-streamlit==1.39.0
-pandas==2.2.3
+streamlit==1.66.1
+pandas==2.3.3
 plotly==5.24.1
 pydeck==0.9.1
