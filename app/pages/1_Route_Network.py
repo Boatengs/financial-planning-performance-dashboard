@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+from plotly.colors import sample_colorscale
 
 from data import AMBER, BLUE, INK, csv, footnote, js, page_setup, pct, require_data
 
@@ -53,59 +54,147 @@ m[2].metric(f"Busiest airport ({top_hub.airport_code})", pct(top_hub.share_ttm),
 intl = pairs.loc[pairs["scope"] == "international", "passengers"].sum() / total
 m[3].metric("International share of passengers", pct(intl))
 
-st.subheader("Where Delta flies")
-st.markdown("Each line is one **city pair**, flights in both directions combined. **Thicker lines carry more "
-            "passengers.** Circles are airports, sized by how many passengers depart from them; the largest "
-            "are labeled. Hover over a line's midpoint or an airport for its numbers.")
-c1, c2 = st.columns([1, 1])
-view_choice = c1.radio("Map", ["Domestic routes (U.S.)", "International routes (world)"], horizontal=True)
-top_n = c2.slider("Busiest city pairs shown", 10, 100, 30, step=5)
-domestic = view_choice.startswith("Domestic")
-shown = pairs[pairs["scope"] == ("domestic" if domestic else "international")].head(top_n)
-color = BLUE if domestic else AMBER
-
-fig = go.Figure()
-peak = shown["passengers"].max()
-for row in shown.itertuples():
-    fig.add_trace(go.Scattergeo(
-        lon=[row.origin_lon, row.destination_lon], lat=[row.origin_lat, row.destination_lat], mode="lines",
-        line=dict(width=1 + 7 * np.sqrt(row.passengers / peak), color=color), opacity=0.55,
-        hoverinfo="skip", showlegend=False))
-mid_lat, mid_lon = great_circle_midpoint(shown["origin_lat"], shown["origin_lon"],
-                                         shown["destination_lat"], shown["destination_lon"])
-fig.add_trace(go.Scattergeo(
-    lon=mid_lon, lat=mid_lat, mode="markers",
-    marker=dict(size=7, color=color, opacity=0.9), showlegend=False,
-    text=[f"<b>{r.pair}</b><br>{r.origin_name} \u2013 {r.destination_name}<br>{millions(r.passengers)} passengers"
-          f"<br>{r.flights:,.0f} flights" for r in shown.itertuples()],
-    hovertemplate="%{text}<extra></extra>"))
-codes = set(shown["origin"]) | set(shown["destination"])
-hubs = airports[airports["airport_code"].isin(codes)].sort_values("departing_passengers_ttm", ascending=False)
-hub_peak = hubs["departing_passengers_ttm"].max()
-labels = set(hubs.head(8)["airport_code"])
-fig.add_trace(go.Scattergeo(
-    lon=hubs["longitude"], lat=hubs["latitude"],
-    mode="markers+text", text=[c if c in labels else "" for c in hubs["airport_code"]],
-    textposition="top center", textfont=dict(size=12, color=INK),
-    marker=dict(size=6 + 22 * np.sqrt(hubs["departing_passengers_ttm"] / hub_peak), color=INK,
-                opacity=0.75, line=dict(width=1, color="white")),
-    customdata=np.stack([hubs["airport_name"], hubs["departing_passengers_ttm"].map(millions)], axis=1),
-    hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]} departing passengers<extra></extra>",
-    showlegend=False))
-geo = dict(showland=True, landcolor="#f3f4f6", showcountries=True, countrycolor="#d1d5db",
+GEO = dict(showland=True, landcolor="#f3f4f6", showcountries=True, countrycolor="#d1d5db",
            showsubunits=True, subunitcolor="#e5e7eb", showocean=True, oceancolor="#ffffff",
            showlakes=False, coastlinecolor="#d1d5db")
-if domestic:
-    geo.update(scope="usa")
+
+
+def hub_map(hub: str, us_only: bool) -> None:
+    """Every route from one airport, shaded and sized by passengers."""
+    mine = pairs[(pairs["origin"] == hub) | (pairs["destination"] == hub)].copy()
+    if us_only:
+        mine = mine[mine["scope"] == "domestic"]
+    if mine.empty:
+        st.info("No routes to show for this choice.")
+        return
+    at_origin = mine["origin"] == hub
+    mine["dest"] = np.where(at_origin, mine["destination"], mine["origin"])
+    mine["dest_name"] = np.where(at_origin, mine["destination_name"], mine["origin_name"])
+    mine["dest_lat"] = np.where(at_origin, mine["destination_lat"], mine["origin_lat"])
+    mine["dest_lon"] = np.where(at_origin, mine["destination_lon"], mine["origin_lon"])
+    hub_row = airports.set_index("airport_code").loc[hub]
+    mine = mine.sort_values("passengers")  # draw busy routes last so they sit on top
+    level = np.sqrt(mine["passengers"] / mine["passengers"].max())
+    colors = sample_colorscale("Blues", list(0.3 + 0.7 * level))
+    # The U.S. map shows the lower 48 with Alaska and Hawaii as insets; a line to an inset or to
+    # Puerto Rico would run off the frame, so those destinations keep their marker but no line.
+    lower48 = mine["dest_lat"].between(24, 50) & mine["dest_lon"].between(-125, -66)
+    fig = go.Figure()
+    for row, lvl, col, draw in zip(mine.itertuples(), level, colors, lower48 | (not us_only), strict=True):
+        if not draw:
+            continue
+        fig.add_trace(go.Scattergeo(
+            lon=[hub_row.longitude, row.dest_lon], lat=[hub_row.latitude, row.dest_lat], mode="lines",
+            line=dict(width=0.6 + 5 * lvl, color=col), opacity=0.35 + 0.6 * lvl,
+            hoverinfo="skip", showlegend=False))
+    intl = mine[mine["scope"] == "international"]
+    # Worldwide, U.S. destinations crowd together, so label the busiest international ones.
+    labels = set((intl if (not us_only and len(intl)) else mine).nlargest(10, "passengers")["dest"])
+    fig.add_trace(go.Scattergeo(
+        lon=mine["dest_lon"], lat=mine["dest_lat"], mode="markers+text",
+        text=[d if d in labels else "" for d in mine["dest"]], textposition="top center",
+        textfont=dict(size=11, color=INK),
+        marker=dict(size=4 + 14 * level, color=mine["passengers"], colorscale="Blues", cmin=0,
+                    cmax=mine["passengers"].max(), line=dict(width=0.5, color="white"),
+                    colorbar=dict(title="Passengers", thickness=12, len=0.6, tickformat=".2s")),
+        customdata=np.stack([mine["dest_name"], mine["passengers"].map(millions),
+                             mine["flights"].map("{:,.0f}".format), mine["dest"]], axis=1),
+        hovertemplate=(f"<b>{hub} \u2013 %{{customdata[3]}}</b><br>%{{customdata[0]}}<br>"
+                       "%{customdata[1]} passengers<br>%{customdata[2]} flights<extra></extra>"),
+        showlegend=False))
+    fig.add_trace(go.Scattergeo(
+        lon=[hub_row.longitude], lat=[hub_row.latitude], mode="markers+text", text=[hub],
+        textposition="bottom center", textfont=dict(size=14, color=INK),
+        marker=dict(size=18, color=INK, line=dict(width=2, color="white")),
+        hovertemplate=f"<b>{hub_row.airport_name}</b><extra></extra>", showlegend=False))
+    geo = dict(GEO)
+    if us_only:
+        geo.update(scope="usa")
+    else:
+        geo.update(projection_type="natural earth", center=dict(lat=25, lon=float(hub_row.longitude) + 35),
+                   projection_scale=1.25)
+    fig.update_layout(geo=geo, height=580, margin=dict(l=0, r=0, t=10, b=0))
+    st.plotly_chart(fig, width="stretch")
+    top10 = mine.nlargest(10, "passengers")
+    off_map = int((~lower48).sum()) if us_only else 0
+    where = " in the U.S." if us_only else "."
+    note = (f"{hub} connects to {len(mine)} destinations{where} Its ten busiest "
+            f"({', '.join(top10['dest'])}) carry {pct(top10['passengers'].sum() / mine['passengers'].sum())} "
+            "of its passengers on these routes. Darker, thicker lines carry more passengers; both directions "
+            "are combined.")
+    if not us_only and len(intl):
+        note += " Labels show the busiest international destinations."
+    if off_map:
+        note += (f" {off_map} destinations in Alaska, Hawaii, Puerto Rico or the U.S. Virgin Islands appear "
+                 "without a line.")
+    footnote(note)
+
+
+def busiest_map(domestic: bool, top_n: int) -> None:
+    shown = pairs[pairs["scope"] == ("domestic" if domestic else "international")].head(top_n)
+    color = BLUE if domestic else AMBER
+    fig = go.Figure()
+    peak = shown["passengers"].max()
+    for row in shown.itertuples():
+        fig.add_trace(go.Scattergeo(
+            lon=[row.origin_lon, row.destination_lon], lat=[row.origin_lat, row.destination_lat], mode="lines",
+            line=dict(width=1 + 7 * np.sqrt(row.passengers / peak), color=color), opacity=0.55,
+            hoverinfo="skip", showlegend=False))
+    mid_lat, mid_lon = great_circle_midpoint(shown["origin_lat"], shown["origin_lon"],
+                                             shown["destination_lat"], shown["destination_lon"])
+    fig.add_trace(go.Scattergeo(
+        lon=mid_lon, lat=mid_lat, mode="markers",
+        marker=dict(size=7, color=color, opacity=0.9), showlegend=False,
+        text=[f"<b>{r.pair}</b><br>{r.origin_name} \u2013 {r.destination_name}<br>{millions(r.passengers)} passengers"
+              f"<br>{r.flights:,.0f} flights" for r in shown.itertuples()],
+        hovertemplate="%{text}<extra></extra>"))
+    codes = set(shown["origin"]) | set(shown["destination"])
+    hubs = airports[airports["airport_code"].isin(codes)].sort_values("departing_passengers_ttm", ascending=False)
+    hub_peak = hubs["departing_passengers_ttm"].max()
+    labels = set(hubs.head(8)["airport_code"])
+    fig.add_trace(go.Scattergeo(
+        lon=hubs["longitude"], lat=hubs["latitude"],
+        mode="markers+text", text=[c if c in labels else "" for c in hubs["airport_code"]],
+        textposition="top center", textfont=dict(size=12, color=INK),
+        marker=dict(size=6 + 22 * np.sqrt(hubs["departing_passengers_ttm"] / hub_peak), color=INK,
+                    opacity=0.75, line=dict(width=1, color="white")),
+        customdata=np.stack([hubs["airport_name"], hubs["departing_passengers_ttm"].map(millions)], axis=1),
+        hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]} departing passengers<extra></extra>",
+        showlegend=False))
+    geo = dict(GEO)
+    if domestic:
+        geo.update(scope="usa")
+    else:
+        geo.update(projection_type="natural earth", center=dict(lat=15, lon=-20), projection_scale=1.0)
+    fig.update_layout(geo=geo, height=560, margin=dict(l=0, r=0, t=10, b=0))
+    st.plotly_chart(fig, width="stretch")
+    shown_share = shown["passengers"].sum() / total
+    missing = qa["airports"]["ttm_routes_without_coordinates"]
+    footnote(f"The {len(shown)} pairs shown carry {pct(shown_share)} of all passengers in the window. Lines are "
+             "the shortest path between airports, not actual flight tracks."
+             + (f" {missing} routes lack coordinates and are left off." if missing else ""))
+
+
+st.subheader("Where Delta flies")
+view_choice = st.radio("Map", ["Routes from one airport", "Busiest routes (U.S.)", "Busiest routes (world)"],
+                       horizontal=True)
+if view_choice == "Routes from one airport":
+    st.markdown("Pick an airport to see **every route Delta flies from it**. Darker, thicker lines carry more "
+                "passengers; the ten busiest destinations are labeled. Hover over any destination for its "
+                "numbers.")
+    ranked = airports.sort_values("departing_passengers_ttm", ascending=False).head(30)
+    city = ranked.set_index("airport_code")["city"].fillna("").to_dict()
+    h1, h2 = st.columns([2, 1])
+    hub = h1.selectbox("Airport", ranked["airport_code"],
+                       format_func=lambda c: f"{c}  {city.get(c, '')}")
+    extent = h2.radio("Destinations", ["Worldwide", "U.S. only"], horizontal=True)
+    hub_map(hub, extent == "U.S. only")
 else:
-    geo.update(projection_type="natural earth", center=dict(lat=15, lon=-20), projection_scale=1.0)
-fig.update_layout(geo=geo, height=560, margin=dict(l=0, r=0, t=10, b=0))
-st.plotly_chart(fig, width="stretch")
-shown_share = shown["passengers"].sum() / total
-missing = qa["airports"]["ttm_routes_without_coordinates"]
-footnote(f"The {len(shown)} pairs shown carry {pct(shown_share)} of all passengers in the window. Lines are "
-         "the shortest path between airports, not actual flight tracks."
-         + (f" {missing} routes lack coordinates and are left off." if missing else ""))
+    st.markdown("Each line is one **city pair**, flights in both directions combined. **Thicker lines carry "
+                "more passengers.** Circles are airports, sized by how many passengers depart from them; the "
+                "largest are labeled. Hover over a line's midpoint or an airport for its numbers.")
+    top_n = st.slider("Busiest city pairs shown", 10, 100, 30, step=5)
+    busiest_map(view_choice.endswith("(U.S.)"), top_n)
 
 b1, b2 = st.columns(2)
 with b1:
@@ -114,7 +203,7 @@ with b1:
         x=top15["passengers"] / 1e6, y=top15["pair"], orientation="h",
         marker_color=[BLUE if s == "domestic" else AMBER for s in top15["scope"]],
         text=[millions(v) for v in top15["passengers"]], textposition="outside",
-        hovertext=[f"{a} \u2013 {b}" for a, b in zip(top15["origin_name"], top15["destination_name"])]))
+        hovertext=[f"{a} \u2013 {b}" for a, b in zip(top15["origin_name"], top15["destination_name"], strict=True)]))
     fig.update_layout(title="Busiest city pairs (millions of passengers)", height=470,
                       margin=dict(l=10, r=10, t=50, b=10),
                       xaxis=dict(title=None, range=[0, top15["passengers"].max() / 1e6 * 1.18]))
