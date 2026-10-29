@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from .config import FPNA_KPIS, NETWORK_KPIS, PROCESSED, RAW, ROOT
+from .config import DERIVED_KPIS, FPNA_KPIS, NETWORK_KPIS, PROCESSED, RAW, ROOT, UNIT_ECONOMICS_KPIS
 from .io_utils import sha256_file, write_csv
 from .transtats import form_url
 
@@ -41,7 +41,7 @@ def build_route_dimension(route_rows):
 
 
 def build_dimensions(fin_meta, route_rows):
-    dates = build_date_dimension()
+    dates = build_date_dimension(2019, 2027)
     route_dim = build_route_dimension(route_rows)
 
     metric_rows = []
@@ -55,22 +55,28 @@ def build_dimensions(fin_meta, route_rows):
     for mid, label, unit, typ, formula in NETWORK_KPIS:
         metric_rows.append({"metric_id": mid, "metric_name": label, "domain": "Network / Operations", "unit": unit, "metric_type": typ,
                             "formula": formula, "source_system": "BTS T-100 Segment", "source_field": mid if typ == "Reported" else "derived from T-100 reported fields", "availability_count_2019_2026": ""})
+    for mid, label, unit, typ, formula, domain, source in DERIVED_KPIS:
+        metric_rows.append({"metric_id": mid, "metric_name": label, "domain": domain, "unit": unit, "metric_type": typ,
+                            "formula": formula, "source_system": source, "source_field": "derived",
+                            "availability_count_2019_2026": ""})
+    for mid, label, unit, typ, formula in UNIT_ECONOMICS_KPIS:
+        metric_rows.append({"metric_id": mid, "metric_name": label, "domain": "Unit Economics (Mainline)", "unit": unit,
+                            "metric_type": typ, "formula": formula, "source_system": "BTS Form 41 + T-100",
+                            "source_field": "Form 41 P-1.2, P-12(a); T-100 segment", "availability_count_2019_2026": ""})
     for mid, label, unit, typ, formula, domain in FPNA_KPIS:
         metric_rows.append({"metric_id": mid, "metric_name": label, "domain": domain, "unit": unit, "metric_type": typ,
-                            "formula": formula, "source_system": "Analytical model" if typ == "Modeled" else "Derived from reported facts",
+                            "formula": formula, "source_system": "Analytical model",
                             "source_field": "model formula", "availability_count_2019_2026": ""})
     write_csv(PROCESSED / "dim_metric.csv", metric_rows)
 
     scenarios = [
-        {"scenario_id": "ACT", "scenario_name": "Actual", "scenario_type": "Reported", "editable": 0, "description": "Reported historical actuals only."},
-        {"scenario_id": "BUD", "scenario_name": "Budget", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created budget based on documented assumptions."},
-        {"scenario_id": "FCT", "scenario_name": "Forecast", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created rolling forecast based on public actuals and documented assumptions."},
-        {"scenario_id": "UP", "scenario_name": "Upside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created upside scenario."},
-        {"scenario_id": "DOWN", "scenario_name": "Downside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-created downside scenario."},
+        {"scenario_id": "ACT", "scenario_name": "Actual", "scenario_type": "Reported", "editable": 0, "description": "Reported historical actuals (Form 41 and T-100)."},
+        {"scenario_id": "BUD", "scenario_name": "Budget", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled budget: base driver model run from Q4 of the prior year."},
+        {"scenario_id": "FCT", "scenario_name": "Forecast", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled rolling forecast from the latest actual quarter (seasonal naive with drift)."},
+        {"scenario_id": "UP", "scenario_name": "Upside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled upside: explicit driver shocks to the base forecast; not company guidance."},
+        {"scenario_id": "DOWN", "scenario_name": "Downside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled downside: explicit driver shocks to the base forecast; not company guidance."},
     ]
     write_csv(PROCESSED / "dim_scenario.csv", scenarios)
-    write_csv(PROCESSED / "fact_budget_forecast_template.csv", [], ["period", "metric_id", "scenario_id", "value", "unit", "assumption_set_id", "model_version", "notes"])
-    write_csv(PROCESSED / "fact_driver_assumption_template.csv", [], ["period", "driver_id", "driver_name", "scenario_id", "value", "unit", "source_or_rationale", "model_version"])
     return dates, route_dim, metric_rows, scenarios
 
 
@@ -96,18 +102,22 @@ def _t100_source_metadata(path):
     )
 
 
-def build_source_manifest(t100_sources, bts_master_path):
+def build_source_manifest(t100_sources, bts_master_path, form41_sources=()):
     source_defs = [
-        (RAW / "delta_companyfacts.json", "SEC CompanyFacts", "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json", "Core GAAP financial actuals", "used"),
-        (RAW / "delta_2025_10k.xls", "Delta 2025 10-K XBRL workbook", "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000027904/0db061b6-3e78-4a3a-8131-9b65c5210ab7.xls", "Retained raw filing workbook for cross-checks and future management-KPI extraction", "retained_raw"),
-        (RAW / "delta_2026_q2_10q.xls", "Delta 2026 Q2 10-Q XBRL workbook", "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000027904/47a4a84f-7c64-4145-b2b4-288bed9a4037.xls", "Retained raw filing workbook for current-quarter cross-checks and future management-KPI extraction", "retained_raw"),
-        (RAW / "faa_airports_2026-09-03.zip", "FAA NASR airport CSV", "https://nfdc.faa.gov/webContent/28DaySub/extra/03_Sep_2026_APT_CSV.zip", "U.S. airport coordinate fallback/enrichment", "used_fallback"),
+        (RAW / "delta_companyfacts.json", "SEC CompanyFacts", "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json", "Consolidated GAAP financial actuals", "used"),
     ]
+    faa = RAW / "faa_airports_2026-09-03.zip"
+    if faa.exists():
+        source_defs.append((faa, "FAA NASR airport CSV", "https://nfdc.faa.gov/webContent/28DaySub/extra/03_Sep_2026_APT_CSV.zip", "U.S. airport coordinate fallback/enrichment", "used_fallback"))
     for p in t100_sources:
         source_name, url = _t100_source_metadata(p)
         source_defs.append((p, source_name, url, "DL-reported segment traffic and capacity", "used"))
+    from .transtats import TABLES, table_url
+    for p in form41_sources:
+        key = "form41_p12" if p.parent.name == "p12" else "form41_fuel"
+        source_defs.append((p, TABLES[key].title, table_url(TABLES[key]), "DL mainline revenue, cost and fuel", "used"))
     if bts_master_path:
-        source_defs.append((bts_master_path, "BTS Master Coordinate", "https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=N8vn6v10&gnoyr_VQ=FLL", "Canonical global airport coordinates", "used"))
+        source_defs.append((bts_master_path, "BTS Master Coordinate", "https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FLL&QO_fu146_anzr=N8vn6v10", "Canonical global airport coordinates", "used"))
     rows = []
     for p, name, url, role, status in source_defs:
         rows.append({"source_name": name, "local_file": str(p.relative_to(ROOT)), "size_bytes": p.stat().st_size,

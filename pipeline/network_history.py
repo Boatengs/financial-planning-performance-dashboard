@@ -1,3 +1,4 @@
+"""Validation of the 2019-2026 T-100 network marts written by scripts/build_data_foundation.py."""
 from __future__ import annotations
 
 import csv
@@ -5,12 +6,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-from .airports import build_airport_dimension
-from .config import PROCESSED, RAW, ROOT
-from .dimensions import build_date_dimension, build_route_dimension
-from .io_utils import sha256_file, write_csv
-from .t100 import build_t100
-from .transtats import form_url
+from .config import PROCESSED, ROOT
 
 DETAIL_KEY_FIELDS = [
     "year",
@@ -38,136 +34,6 @@ CORE_NONNEGATIVE_FIELDS = [
     "freight_pounds",
     "mail_pounds",
 ]
-
-
-def _t100_public_url(path: Path) -> str:
-    scope = path.parent.name
-    if path.name.startswith("transtats_"):
-        return form_url(scope)
-    folder = "domestic-segments" if scope == "domestic" else "international-segments"
-    if path.name == "current_202506_202605.zip":
-        basename = (
-            "DB28SEG.DD.WAC.202506.202605.REL01.04AUG2026.zip"
-            if scope == "domestic"
-            else "DB28SEG.FD.WAC.202506.202605.REL01.04AUG2026.zip"
-        )
-    else:
-        basename = path.name
-    return f"https://www.bts.gov/sites/bts.dot.gov/files/docs/airline-data/{folder}/{basename}"
-
-
-def build_network_source_manifest(t100_sources, bts_master_path):
-    source_defs = [
-        (
-            RAW / "faa_airports_2026-09-03.zip",
-            "FAA NASR airport CSV",
-            "https://nfdc.faa.gov/webContent/28DaySub/extra/03_Sep_2026_APT_CSV.zip",
-            "U.S. airport coordinate fallback and enrichment",
-        )
-    ]
-    for path in t100_sources:
-        scope = path.parent.name
-        source_name = (
-            f"BTS TranStats T-100 {scope.title()} Segment"
-            if path.name.startswith("transtats_")
-            else f"BTS T-100 {scope.title()} Segment"
-        )
-        source_defs.append(
-            (
-                path,
-                source_name,
-                _t100_public_url(path),
-                "DL reporting-carrier segment traffic and capacity",
-            )
-        )
-    if bts_master_path:
-        source_defs.append(
-            (
-                bts_master_path,
-                "BTS Airport Master Coordinate",
-                "https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=N8vn6v10&gnoyr_VQ=FLL",
-                "Global airport coordinates",
-            )
-        )
-
-    rows = []
-    for path, source_name, url, role in source_defs:
-        rows.append(
-            {
-                "source_name": source_name,
-                "local_file": str(path.relative_to(ROOT)),
-                "size_bytes": path.stat().st_size,
-                "sha256": sha256_file(path),
-                "public_url": url,
-                "role": role,
-            }
-        )
-    write_csv(PROCESSED / "network_source_manifest.csv", rows)
-    return rows
-
-
-def build_network_history():
-    detailed, route_rows, system_rows, t100_sources = build_t100()
-    if not detailed or not route_rows or not system_rows:
-        raise AssertionError("T-100 network build produced no data")
-
-    airport_rows, route_codes, bts_master_path = build_airport_dimension(detailed, route_rows)
-    date_rows = build_date_dimension()
-    route_dim = build_route_dimension(route_rows)
-    source_manifest = build_network_source_manifest(t100_sources, bts_master_path)
-
-    periods = sorted({row["period"] for row in route_rows})
-    years = sorted({int(row["year"]) for row in route_rows})
-    resolved = [
-        row
-        for row in airport_rows
-        if row.get("latitude") is not None and row.get("longitude") is not None
-    ]
-
-    passengers = sum(int(row["passengers"]) for row in route_rows)
-    seats = sum(int(row["seats"]) for row in route_rows)
-    asm = sum(int(row["asm"]) for row in route_rows)
-    rpm = sum(int(row["rpm"]) for row in route_rows)
-    departures_performed = sum(int(row["departures_performed"]) for row in route_rows)
-    departures_scheduled = sum(int(row["departures_scheduled"]) for row in route_rows)
-
-    output_paths = [
-        PROCESSED / "fact_route_aircraft_monthly.csv",
-        PROCESSED / "fact_route_monthly.csv",
-        PROCESSED / "fact_network_kpi_monthly.csv",
-        PROCESSED / "dim_airport.csv",
-        PROCESSED / "dim_route.csv",
-        PROCESSED / "dim_date.csv",
-        PROCESSED / "network_source_manifest.csv",
-    ]
-    summary = {
-        "period_min": periods[0],
-        "period_max": periods[-1],
-        "years_observed": years,
-        "t100_source_files": len(t100_sources),
-        "source_manifest_rows": len(source_manifest),
-        "aircraft_detail_rows": len(detailed),
-        "route_month_rows": len(route_rows),
-        "network_month_rows": len(system_rows),
-        "directional_routes": len(route_dim),
-        "airports_observed": len(route_codes),
-        "airports_with_coordinates": len(resolved),
-        "airports_pending_coordinates": len(route_codes) - len(resolved),
-        "passengers": passengers,
-        "seats": seats,
-        "asm": asm,
-        "rpm": rpm,
-        "load_factor": rpm / asm if asm else None,
-        "departures_performed": departures_performed,
-        "departures_scheduled": departures_scheduled,
-        "completion_rate": departures_performed / departures_scheduled if departures_scheduled else None,
-        "bts_master_coordinate_ingested": bool(bts_master_path),
-        "output_sha256": {path.name: sha256_file(path) for path in output_paths},
-    }
-    (PROCESSED / "network_history_summary.json").write_text(
-        json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
-    return summary
 
 
 def _read_csv(path: Path):

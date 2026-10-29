@@ -38,6 +38,8 @@ def main() -> None:
     ap.add_argument("--years", nargs="*", type=int, default=list(SUPPORTED_YEARS))
     ap.add_argument("--scope", choices=["domestic", "international", "both"], default="both")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--refresh-years", nargs="*", type=int, default=[],
+                    help="Years to re-download even if a snapshot exists (e.g. the current year)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--retries", type=int, default=3)
     args = ap.parse_args()
@@ -55,14 +57,20 @@ def main() -> None:
     for scope in scopes:
         for year in years:
             url = form_url(scope)
-            dest = RAW / scope / f"transtats_{scope}_{year}.snapshot_{snapshot_tag}.zip"
+            # Reuse any earlier snapshot of this scope-year instead of downloading a duplicate
+            # under a new date; --force or --refresh-years replaces it with a fresh snapshot.
+            existing = sorted((RAW / scope).glob(f"transtats_{scope}_{year}.snapshot_*.zip"))
+            refresh = args.force or year in args.refresh_years
+            dest = existing[-1] if existing and not refresh else (
+                RAW / scope / f"transtats_{scope}_{year}.snapshot_{snapshot_tag}.zip"
+            )
             status = "planned"
             error = ""
             if args.dry_run:
                 print(f"DRY RUN {scope} {year}: {url} -> {dest}")
             else:
                 try:
-                    if dest.exists() and not args.force:
+                    if existing and not refresh:
                         status = "existing"
                     else:
                         print(f"Downloading TranStats {scope} T-100 Segment {year}")
@@ -72,6 +80,9 @@ def main() -> None:
                             dest,
                             retries=max(1, args.retries),
                         )
+                        for old in existing:
+                            if old != dest:
+                                old.unlink()
                         status = "downloaded"
                 except Exception as exc:
                     status = "failed"
