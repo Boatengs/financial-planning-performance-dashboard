@@ -128,7 +128,7 @@ def network_structure_by_year(route_rows, ttm_start, ttm_end):
 
 
 def route_layer(route_rows, airports, ttm_start, ttm_end):
-    """Directional TTM route layer with coordinates for the 3D map."""
+    """Directional TTM route layer with coordinates for the route network map."""
     coords = {a["airport_code"]: a for a in airports}
     ttm = _sum(_window_rows(route_rows, ttm_start, ttm_end),
                lambda r: (r["route_id"], r["origin"], r["destination"], r["scope"]))
