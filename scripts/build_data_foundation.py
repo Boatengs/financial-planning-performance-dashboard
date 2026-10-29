@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
 from pipeline.airports import build_airport_dimension
 from pipeline.config import PROCESSED
 from pipeline.dimensions import build_dimensions, build_source_manifest
-from pipeline.financials import (build_financial_actuals, build_financial_derived, coverage_summary, latest_period,
+from pipeline.financials import (build_financial_actuals, resolve_companyfacts_path, build_financial_derived, coverage_summary, latest_period,
                                  quarterly_reconciliation)
 from pipeline.form41 import build_form41
 from pipeline.fpa_model import build_fpa_model
@@ -54,6 +54,7 @@ def main():
     qa = {
         "build_timestamp_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "financial": {
+            "source": resolve_companyfacts_path()[1],
             "fact_rows": len(financial_rows), "derived_rows": len(derived_rows),
             "latest_quarter_end": latest_period(financial_rows), "methods": coverage_summary(financial_rows),
             "fy_reconciliation_checks": len(recon),
