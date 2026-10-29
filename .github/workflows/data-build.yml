@@ -38,6 +38,8 @@ jobs:
         run: make check
 
       - name: Download SEC CompanyFacts
+        # SEC refuses some cloud networks; the build then uses the pinned snapshot in raw/sec/.
+        continue-on-error: true
         run: python scripts/download_official_sources.py --group financial --force --retries 5
 
       - name: Download FAA airport fallback
