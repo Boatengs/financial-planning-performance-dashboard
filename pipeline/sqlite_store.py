@@ -34,6 +34,8 @@ def build_sqlite(table_files):
     conn.execute("CREATE INDEX idx_fin_period ON fact_financial_actual(period_end, metric_id)")
     conn.execute("CREATE INDEX idx_fin_derived_period ON fact_financial_kpi_derived(period_end, metric_id)")
     conn.execute("CREATE INDEX idx_airport_code ON dim_airport(airport_code)")
+    if "fact_unit_economics_quarterly" in table_files:
+        conn.execute("CREATE INDEX idx_unit_econ ON fact_unit_economics_quarterly(period_label, scope)")
 
     conn.executescript("""
     CREATE VIEW vw_network_monthly AS
@@ -54,6 +56,7 @@ def build_sqlite(table_files):
     CREATE VIEW vw_route_12m AS
     SELECT
         route_id, origin, destination, scope, MAX(distance_miles) AS distance_miles,
+        MIN(period) AS window_start, MAX(period) AS window_end,
         SUM(passengers) AS passengers,
         SUM(seats) AS seats,
         SUM(asm) AS asm,
@@ -63,24 +66,31 @@ def build_sqlite(table_files):
         SUM(departures_scheduled) AS departures_scheduled,
         CASE WHEN SUM(departures_scheduled) <> 0 THEN 1.0 * SUM(departures_performed) / SUM(departures_scheduled) END AS completion_rate
     FROM fact_route_monthly
+    WHERE period > date((SELECT MAX(period) FROM fact_route_monthly), '-12 months')
     GROUP BY route_id, origin, destination, scope;
 
     CREATE VIEW vw_financial_kpi_long AS
-    SELECT metric_id, metric_name, domain, period_end, period_type, value, unit, source
+    SELECT metric_id, metric_name, domain, period_label, period_end, period_type, value, unit, method AS lineage, source
     FROM fact_financial_actual
     UNION ALL
-    SELECT metric_id, metric_name, domain, period_end, period_type, value, unit, source
+    SELECT metric_id, metric_name, domain, period_label, period_end, period_type, value, unit, formula AS lineage, source
     FROM fact_financial_kpi_derived;
 
-    CREATE VIEW vw_financial_actual_latest AS
-    SELECT f.*
-    FROM fact_financial_actual f
-    JOIN (
-        SELECT metric_id, period_end, MAX(filed_date) AS max_filed_date
-        FROM fact_financial_actual
-        GROUP BY metric_id, period_end
-    ) x
-    ON f.metric_id = x.metric_id AND f.period_end = x.period_end AND f.filed_date = x.max_filed_date;
+    CREATE VIEW vw_financial_quarterly_wide AS
+    SELECT period_label, period_end,
+        MAX(CASE WHEN metric_id = 'revenue' THEN value END) AS revenue,
+        MAX(CASE WHEN metric_id = 'operating_expenses' THEN value END) AS operating_expenses,
+        MAX(CASE WHEN metric_id = 'operating_income' THEN value END) AS operating_income,
+        MAX(CASE WHEN metric_id = 'net_income' THEN value END) AS net_income,
+        MAX(CASE WHEN metric_id = 'fuel_costs' THEN value END) AS fuel_costs,
+        MAX(CASE WHEN metric_id = 'labor_costs' THEN value END) AS labor_costs,
+        MAX(CASE WHEN metric_id = 'operating_cash_flow' THEN value END) AS operating_cash_flow,
+        MAX(CASE WHEN metric_id = 'capex_total' THEN value END) AS capex_total,
+        MAX(CASE WHEN metric_id = 'cash' THEN value END) AS cash,
+        MAX(CASE WHEN metric_id = 'debt_total' THEN value END) AS debt_total
+    FROM fact_financial_actual
+    WHERE period_type <> 'FY'
+    GROUP BY period_label, period_end;
     """)
     conn.commit()
     conn.close()

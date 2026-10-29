@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Download fixed raw inputs required by the financial and network data models.
 
-SEC and Delta filing inputs plus the FAA NASR reference file are acquired here.
-T-100 annual extracts are acquired separately from the official BTS TranStats form
-by ``download_t100_history.py``.
+SEC CompanyFacts and the FAA NASR airport reference file are acquired here.
+T-100, Form 41 and Master Coordinate extracts come from the BTS TranStats forms via
+``download_t100_history.py`` and ``download_bts_tables.py``.
 """
 from __future__ import annotations
 
@@ -26,18 +26,6 @@ SOURCES = [
         "financial",
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json",
         RAW / "delta_companyfacts.json",
-    ),
-    (
-        "Delta 2025 10-K XBRL workbook",
-        "financial",
-        "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000027904/0db061b6-3e78-4a3a-8131-9b65c5210ab7.xls",
-        RAW / "delta_2025_10k.xls",
-    ),
-    (
-        "Delta 2026 Q2 10-Q XBRL workbook",
-        "financial",
-        "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000027904/47a4a84f-7c64-4145-b2b4-288bed9a4037.xls",
-        RAW / "delta_2026_q2_10q.xls",
     ),
     (
         "FAA NASR airport CSV",
