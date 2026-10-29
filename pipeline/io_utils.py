@@ -4,7 +4,7 @@ import csv
 import hashlib
 import math
 import re
-from datetime import date, datetime
+from datetime import datetime
 from pathlib import Path
 
 
