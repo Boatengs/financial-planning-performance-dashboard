@@ -71,8 +71,9 @@ def build_dimensions(fin_meta, route_rows):
 
     scenarios = [
         {"scenario_id": "ACT", "scenario_name": "Actual", "scenario_type": "Reported", "editable": 0, "description": "Reported historical actuals (Form 41 and T-100)."},
-        {"scenario_id": "BUD", "scenario_name": "Budget", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled budget: base driver model run from Q4 of the prior year."},
-        {"scenario_id": "FCT", "scenario_name": "Forecast", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled rolling forecast from the latest actual quarter (seasonal naive with drift)."},
+        {"scenario_id": "BUD", "scenario_name": "Budget", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled budget: base method run from Q4 of the prior year, i.e. prior-year drivers by quarter."},
+        {"scenario_id": "FCT", "scenario_name": "Forecast", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled rolling forecast from the latest actual quarter: seasonal naive by driver."},
+        {"scenario_id": "FUEL", "scenario_name": "Fuel at latest price", "scenario_type": "Modeled", "editable": 1, "description": "Base forecast with fuel held at the latest quarter's actual price and no other driver adjusting."},
         {"scenario_id": "UP", "scenario_name": "Upside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled upside: explicit driver shocks to the base forecast; not company guidance."},
         {"scenario_id": "DOWN", "scenario_name": "Downside", "scenario_type": "Modeled", "editable": 1, "description": "Analyst-modeled downside: explicit driver shocks to the base forecast; not company guidance."},
     ]
