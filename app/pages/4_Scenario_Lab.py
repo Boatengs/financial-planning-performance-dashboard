@@ -17,8 +17,8 @@ require_data()
 summary = js("fpa_model_summary.json")
 
 st.title("Scenario lab")
-st.caption(f"DL mainline operating income. Forecast origin {summary['latest_actual']}; all forward values are "
-           "analyst-modeled from public data and are not Delta guidance.")
+st.caption(f"DL mainline operating income. Forecast origin {summary['latest_actual']}. Forward values are "
+           "modeled from public data and are not Delta guidance.")
 
 plan = csv("budget_forecast.csv")
 plan["order"] = plan["period"].map(q_sort_key)
@@ -38,7 +38,7 @@ for s in ("FCT", "FUEL", "UP", "DOWN"):
                     y=pd.concat([anchor["value"], rows["value"]]) / 1e9, name=SCENARIO_NAMES[s],
                     line=dict(color=SCENARIO_COLORS[s], dash="solid" if s == "FCT" else "dot"))
 fig.update_layout(height=420, margin=dict(l=10, r=10, t=20, b=10), yaxis_title="$B per quarter",
-                  legend=dict(orientation="h", y=-0.15))
+                  legend=dict(orientation="h", y=-0.2), xaxis=dict(tickangle=-45, nticks=20))
 st.plotly_chart(fig, use_container_width=True)
 
 sc = summary["scenario_next4_operating_income"]
@@ -83,9 +83,11 @@ with right:
     st.markdown("**Budget versus actual (budget set each Q4 for the next year)**")
     var = csv("budget_variance.csv")
     var = var[var["metric_id"] == "mainline_operating_income"].copy()
-    var["actual_vs_budget_pct"] = (var["actual_vs_budget_pct"] * 100).round(1)
-    st.dataframe(var[["period", "budget", "actual", "actual_vs_budget", "actual_vs_budget_pct"]],
-                 hide_index=True, use_container_width=True, height=320)
+    shown = pd.DataFrame({"Quarter": var["period"], "Budget": var["budget"].map(usd_b),
+                          "Actual": var["actual"].map(usd_b), "Variance": var["actual_vs_budget"].map(usd_b)})
+    st.dataframe(shown, hide_index=True, use_container_width=True, height=320)
+    footnote("Budget for each year is set at the prior Q4 with the base method, so it equals the prior year's "
+             "drivers quarter by quarter; the variance is therefore the year-over-year change in operating income.")
 
 st.subheader("Why the base case is 'same quarter last year'")
 comp = csv("forecast_method_comparison.csv")

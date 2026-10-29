@@ -1,4 +1,5 @@
 """Which drivers moved mainline operating income from one period to the next."""
+import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
@@ -11,7 +12,7 @@ st.title("Operating income bridge")
 st.caption("Change in DL mainline operating income split into seven drivers by sequential substitution, "
            "in the order shown. The steps add up exactly to the total change.")
 
-bridge = csv("operating_income_bridge.csv")
+bridge = csv("operating_income_bridge.csv").astype({"from_period": str, "to_period": str})
 summary = js("fpa_model_summary.json")
 pairs = [(b["from_period"], b["to_period"]) for b in summary["bridges"]]
 labels = [f"{a} to {b}" for a, b in pairs]
@@ -20,8 +21,10 @@ frm, to = pairs[labels.index(choice)]
 meta = next(b for b in summary["bridges"] if b["from_period"] == frm and b["to_period"] == to)
 steps = bridge[(bridge["from_period"] == frm) & (bridge["to_period"] == to)]
 
+SHORT = {"asm": "Capacity", "load_factor": "Load factor", "yield": "Yield", "non_pax_ratio": "Other revenue",
+         "casm_ex": "CASM-ex fuel", "asm_per_gallon": "Fuel efficiency", "fuel_price": "Fuel price"}
 fig = go.Figure(go.Waterfall(
-    x=[f"{frm}"] + steps["driver_label"].tolist() + [f"{to}"],
+    x=[f"{frm}"] + steps["driver"].map(SHORT).tolist() + [f"{to}"],
     y=[meta["start_operating_income"] / 1e9] + (steps["operating_income_effect"] / 1e9).tolist()
       + [meta["end_operating_income"] / 1e9],
     measure=["absolute"] + ["relative"] * len(steps) + ["total"],
@@ -38,8 +41,15 @@ c[1].metric(f"Operating income {to}", usd_b(meta["end_operating_income"]),
 largest = steps.loc[steps["operating_income_effect"].abs().idxmax()]
 c[2].metric("Largest single driver", largest["driver_label"], usd_b(largest["operating_income_effect"]))
 
-table = steps[["driver_label", "prior_value", "current_value", "operating_income_effect"]].copy()
-table.columns = ["Driver", f"{frm}", f"{to}", "Effect on operating income ($)"]
+UNITS = {"asm": ("{:,.1f}B", 1e-9), "load_factor": ("{:.1%}", 1), "yield": ("{:.2f}¢", 100),
+         "non_pax_ratio": ("{:.1%}", 1), "casm_ex": ("{:.2f}¢", 100), "asm_per_gallon": ("{:.1f}", 1),
+         "fuel_price": ("${:.2f}", 1)}
+table = pd.DataFrame({
+    "Driver": steps["driver_label"],
+    frm: [UNITS[d][0].format(v * UNITS[d][1]) for d, v in zip(steps["driver"], steps["prior_value"])],
+    to: [UNITS[d][0].format(v * UNITS[d][1]) for d, v in zip(steps["driver"], steps["current_value"])],
+    "Effect on operating income": [usd_b(v) for v in steps["operating_income_effect"]],
+})
 st.dataframe(table, hide_index=True, use_container_width=True)
 footnote("Order matters in sequential substitution: capacity first, then load factor, yield, non-passenger "
          "revenue, cost per ASM excluding fuel, fuel efficiency and fuel price. Each driver is computed from "

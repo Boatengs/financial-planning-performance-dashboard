@@ -4,3 +4,8 @@ primaryColor = "#1d4ed8"
 backgroundColor = "#ffffff"
 secondaryBackgroundColor = "#f3f4f6"
 textColor = "#1f2937"
+
+[mapbox]
+# The 3D map uses free CARTO basemap tiles (map_provider="carto"), not Mapbox. A placeholder
+# stops Streamlit from requesting its shared Mapbox token, which fails when offline.
+token = "unused-carto-basemap"
