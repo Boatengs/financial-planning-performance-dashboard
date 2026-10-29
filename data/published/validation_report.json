@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "checks": {
+    "financial_quarters_contiguous_from_2019Q1": {
+      "pass": true,
+      "detail": "2019Q1..2026Q3 (31 quarters)"
+    },
+    "financial_required_metrics_every_quarter": {
+      "pass": true,
+      "detail": "0 gaps []"
+    },
+    "financial_quarters_sum_to_full_year": {
+      "pass": true,
+      "detail": "max difference $2,000,000"
+    },
+    "financial_q4_present": {
+      "pass": true,
+      "detail": "81 Q4 values derived as FY minus 9M"
+    },
+    "network_history_reconciles": {
+      "pass": true,
+      "detail": "2019-01-01..2026-07-01, 142164 route-months"
+    },
+    "bts_master_coordinate_ingested": {
+      "pass": true,
+      "detail": ""
+    },
+    "map_layer_covers_99pct_of_ttm_passengers": {
+      "pass": true,
+      "detail": "100.0000% of TTM passengers mapped"
+    },
+    "form41_no_unmapped_regions": {
+      "pass": true,
+      "detail": "{}"
+    },
+    "form41_system_equals_domestic_plus_international": {
+      "pass": true,
+      "detail": "[]"
+    },
+    "form41_revenue_reconciles_to_sec_within_2pct": {
+      "pass": true,
+      "detail": "Form 41 system revenue / SEC consolidated revenue ranges 1.0002 to 1.0038"
+    },
+    "unit_economics_contiguous": {
+      "pass": true,
+      "detail": "2019Q1..2026Q2"
+    },
+    "unit_economics_plausible_ranges": {
+      "pass": true,
+      "detail": "load factor 0.313..0.906; fuel $/gal 1.26..3.91"
+    },
+    "scenario_ordering": {
+      "pass": true,
+      "detail": "DOWN -7,686,092,404 < BASE -1,759,587,951 < UP 1,989,422,917"
+    },
+    "bridge_closes_2020": {
+      "pass": true,
+      "detail": ""
+    },
+    "bridge_closes_2021": {
+      "pass": true,
+      "detail": ""
+    },
+    "bridge_closes_2022": {
+      "pass": true,
+      "detail": ""
+    },
+    "bridge_closes_2023": {
+      "pass": true,
+      "detail": ""
+    },
+    "bridge_closes_2024": {
+      "pass": true,
+      "detail": ""
+    },
+    "bridge_closes_2025": {
+      "pass": true,
+      "detail": ""
+    },
+    "bridge_closes_2025Q3-2026Q2": {
+      "pass": true,
+      "detail": ""
+    },
+    "model_actuals_match_unit_economics": {
+      "pass": true,
+      "detail": "max difference $0.00"
+    },
+    "sqlite_route_totals_match_csv": {
+      "pass": true,
+      "detail": ""
+    },
+    "route_12m_view_is_twelve_months": {
+      "pass": true,
+      "detail": "2025-08-01..2026-07-01"
+    },
+    "published_outputs_present": {
+      "pass": true,
+      "detail": "[]"
+    }
+  },
+  "errors": []
+}
