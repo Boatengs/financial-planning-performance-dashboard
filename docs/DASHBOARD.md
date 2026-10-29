@@ -16,7 +16,7 @@ files on its next restart.
 | Page | Question it answers | Main data |
 |---|---|---|
 | Home | How are Delta's consolidated revenue, margin and cash generation trending? | `financial_actual.csv`, `financial_derived.csv` |
-| Network 3D | Where is DL capacity and demand today, and what changed since 2019? | `route_layer_ttm.csv`, `airport_ttm_vs_2019.csv`, `market_ttm_vs_2019.csv`, `network_structure.csv` |
+| Route Network | Where is DL capacity and demand today, and what changed since 2019? | `route_layer_ttm.csv`, `airport_ttm_vs_2019.csv`, `market_ttm_vs_2019.csv`, `network_structure.csv` |
 | Unit Economics | How do mainline revenue and cost per seat-mile move, by domestic and international? | `unit_economics_quarterly.csv` |
 | Profit Bridge | Which drivers moved mainline operating income between two periods? | `operating_income_bridge.csv` |
 | Scenario Lab | What do the next four quarters look like under base, upside, downside or your own assumptions, and how accurate has the model been? | `budget_forecast.csv`, `driver_assumptions.csv`, `sensitivity.csv`, `budget_variance.csv`, `fpa_model_summary.json` |

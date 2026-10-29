@@ -10,7 +10,7 @@
 - Network shift analysis: latest twelve months versus 2019 by airport and city pair
 - Driver-based FP&A model: rolling forecast, budget, upside and downside, sensitivity, operating income
   bridge, rolling-origin backtest against a seasonal naive baseline
-- Streamlit dashboard with a 3D route map, and a Tableau Public extract
+- Streamlit dashboard with a route network map, and a Tableau Public extract
 - Monthly scheduled rebuild in GitHub Actions that commits refreshed published outputs
 
 ## Possible next steps

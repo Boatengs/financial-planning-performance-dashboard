@@ -3,4 +3,3 @@
 streamlit==1.66.1
 pandas==2.3.3
 plotly==5.24.1
-pydeck==0.9.1

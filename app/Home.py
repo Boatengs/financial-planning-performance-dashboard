@@ -71,7 +71,7 @@ summary = js("fpa_model_summary.json")
 qa = js("qa_summary.json")
 st.subheader("Where to look next")
 st.markdown(
-    f"- **Network 3D**: DL-operated routes for {qa['network']['ttm_start'][:7]} to {qa['network']['ttm_end'][:7]} "
+    f"- **Route Network**: DL-operated routes for {qa['network']['ttm_start'][:7]} to {qa['network']['ttm_end'][:7]} "
     "compared with 2019.\n"
     f"- **Unit economics**: mainline revenue and cost per seat-mile through {summary['latest_actual']}.\n"
     "- **Profit bridge**: which drivers moved mainline operating income year over year.\n"
