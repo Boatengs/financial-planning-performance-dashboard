@@ -51,7 +51,7 @@
     },
     "scenario_ordering": {
       "pass": true,
-      "detail": "DOWN -7,686,092,404 < BASE -1,759,587,951 < UP 1,989,422,917"
+      "detail": "DOWN -3,050,305,353 < BASE 2,117,718,000 < UP 5,347,349,423"
     },
     "bridge_closes_2020": {
       "pass": true,

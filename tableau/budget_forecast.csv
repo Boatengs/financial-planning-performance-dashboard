@@ -149,123 +149,143 @@ period,metric_id,scenario_id,value,unit,assumption_set_id,forecast_origin,model_
 2026Q2,mainline_operating_income,ACT,1052370999.9999981,USD,ACT-2026Q2,2026Q2,fpa-drivers-1.0,Reported Form 41 and T-100 actuals
 2026Q2,mainline_operating_margin,ACT,0.06846271977275256,%,ACT-2026Q2,2026Q2,fpa-drivers-1.0,Reported Form 41 and T-100 actuals
 2026Q2,fuel_cost,ACT,3885995456.0000005,USD,ACT-2026Q2,2026Q2,fpa-drivers-1.0,Reported Form 41 and T-100 actuals
-2026Q3,mainline_revenue,FCT,13765158426.1277,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q3,mainline_expense,FCT,14611190974.552637,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q3,mainline_operating_income,FCT,-846032548.4249363,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q3,mainline_operating_margin,FCT,-0.06146188240151879,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q3,fuel_cost,FCT,3993282308.4324,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q4,mainline_revenue,FCT,13200590928.748291,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q4,mainline_expense,FCT,14168443788.205265,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q4,mainline_operating_income,FCT,-967852859.456974,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q4,mainline_operating_margin,FCT,-0.07331890403096886,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q4,fuel_cost,FCT,3637731990.627139,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q1,mainline_revenue,FCT,12829074446.351337,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q1,mainline_expense,FCT,14024593128.734934,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q1,mainline_operating_income,FCT,-1195518682.3835964,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q1,mainline_operating_margin,FCT,-0.09318822549382032,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q1,fuel_cost,FCT,3434377499.6835494,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q2,mainline_revenue,FCT,16063255319.863295,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q2,mainline_expense,FCT,14813439180.9268,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q2,mainline_operating_income,FCT,1249816138.9364948,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q2,mainline_operating_margin,FCT,0.07780590634023063,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2027Q2,fuel_cost,FCT,3920776635.603459,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive with median YoY drift; fuel price flat at origin quarter
-2026Q3,mainline_revenue,UP,14348186302.853851,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q3,mainline_expense,UP,14246740493.618675,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q3,mainline_operating_income,UP,101445809.23517609,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q3,mainline_operating_margin,UP,0.0070702879858061595,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q3,fuel_cost,UP,3629893618.3650517,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q4,mainline_revenue,UP,13766496271.58045,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q4,mainline_expense,UP,13836357105.878437,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q4,mainline_operating_income,UP,-69860834.29798698,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q4,mainline_operating_margin,UP,-0.005074699685366397,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q4,fuel_cost,UP,3306698379.480069,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q1,mainline_revenue,UP,13379306203.750555,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q1,mainline_expense,UP,13711005754.700825,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q1,mainline_operating_income,UP,-331699550.9502697,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q1,mainline_operating_margin,UP,-0.02479198441973665,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q1,fuel_cost,UP,3121849147.212346,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q2,mainline_revenue,UP,16745096733.918043,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q2,mainline_expense,UP,14455559240.832354,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q2,mainline_operating_income,UP,2289537493.0856895,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q2,mainline_operating_margin,UP,0.13672883050284895,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2027Q2,fuel_cost,UP,3563985961.763544,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
-2026Q3,mainline_revenue,DOWN,12776375907.9733,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q3,mainline_expense,DOWN,15114090664.257103,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q3,mainline_operating_income,DOWN,-2337714756.283802,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q3,mainline_operating_margin,DOWN,-0.18297166372702872,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q3,fuel_cost,DOWN,4500429161.603314,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q4,mainline_revenue,DOWN,12239832017.507156,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q4,mainline_expense,DOWN,14626223466.29588,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q4,mainline_operating_income,DOWN,-2386391448.788723,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q4,mainline_operating_margin,DOWN,-0.19496929740337654,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2026Q4,fuel_cost,DOWN,4099723953.436785,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q1,mainline_revenue,DOWN,11894887767.053535,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q1,mainline_expense,DOWN,14456522984.943125,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q1,mainline_operating_income,DOWN,-2561635217.8895893,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q1,mainline_operating_margin,DOWN,-0.21535598048977037,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q1,fuel_cost,DOWN,3870543442.1433597,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q2,mainline_revenue,DOWN,14906669767.61889,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q2,mainline_expense,DOWN,15307020748.630312,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q2,mainline_operating_income,DOWN,-400350981.0114212,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q2,mainline_operating_margin,DOWN,-0.02685717113564065,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2027Q2,fuel_cost,DOWN,4418715268.325098,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
-2024Q1,mainline_revenue,BUD,12435233691.333525,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q1,mainline_expense,BUD,12688295000.488869,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q1,mainline_operating_income,BUD,-253061309.155344,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q1,mainline_operating_margin,BUD,-0.020350346076062068,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q1,fuel_cost,BUD,2802403090.1394186,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q2,mainline_revenue,BUD,15465391619.842966,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q2,mainline_expense,BUD,14473013491.226645,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q2,mainline_operating_income,BUD,992378128.6163216,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q2,mainline_operating_margin,BUD,0.06416766888353766,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q2,fuel_cost,BUD,3187864668.28412,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q3,mainline_revenue,BUD,15428571253.85364,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q3,mainline_expense,BUD,14709856131.572855,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q3,mainline_operating_income,BUD,718715122.2807846,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q3,mainline_operating_margin,BUD,0.04658338808276035,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q3,fuel_cost,BUD,3413640527.4518833,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q4,mainline_revenue,BUD,14306569683.503376,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q4,mainline_expense,BUD,14117221547.8004,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q4,mainline_operating_income,BUD,189348135.70297623,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q4,mainline_operating_margin,BUD,0.01323504794593143,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2024Q4,fuel_cost,BUD,3109575450.8351917,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base model run from 2023Q4
-2025Q1,mainline_revenue,BUD,11379259872.28213,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q1,mainline_expense,BUD,11629855205.157272,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q1,mainline_operating_income,BUD,-250595332.87514305,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q1,mainline_operating_margin,BUD,-0.022022111779479533,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q1,fuel_cost,BUD,2030545779.471873,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q2,mainline_revenue,BUD,14010427295.51292,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q2,mainline_expense,BUD,12894663567.539743,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q2,mainline_operating_income,BUD,1115763727.973177,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q2,mainline_operating_margin,BUD,0.07963809414510287,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q2,fuel_cost,BUD,2344247045.9067807,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q3,mainline_revenue,BUD,13344110169.071342,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q3,mainline_expense,BUD,13164181170.624544,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q3,mainline_operating_income,BUD,179928998.44679832,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q3,mainline_operating_margin,BUD,0.013483776450214974,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q3,fuel_cost,BUD,2412286438.891123,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q4,mainline_revenue,BUD,12991758614.359129,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q4,mainline_expense,BUD,12826642414.452328,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q4,mainline_operating_income,BUD,165116199.90680122,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q4,mainline_operating_margin,BUD,0.012709303244312645,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2025Q4,fuel_cost,BUD,2218050393.8127465,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base model run from 2024Q4
-2026Q1,mainline_revenue,BUD,11496958467.90946,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q1,mainline_expense,BUD,11745729616.806824,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q1,mainline_operating_income,BUD,-248771148.89736366,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q1,mainline_operating_margin,BUD,-0.02163799665726711,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q1,fuel_cost,BUD,2005915049.9941049,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q2,mainline_revenue,BUD,13730526261.576504,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q2,mainline_expense,BUD,12854774629.50241,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q2,mainline_operating_income,BUD,875751632.0740929,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q2,mainline_operating_margin,BUD,0.06378135953352318,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q2,fuel_cost,BUD,2299446910.812537,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q3,mainline_revenue,BUD,13395825202.591627,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q3,mainline_expense,BUD,13054864910.366636,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q3,mainline_operating_income,BUD,340960292.22499084,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q3,mainline_operating_margin,BUD,0.025452727776637967,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q3,fuel_cost,BUD,2357680385.1792564,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q4,mainline_revenue,BUD,12838225365.381767,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q4,mainline_expense,BUD,12757095960.265177,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q4,mainline_operating_income,BUD,81129405.1165905,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q4,mainline_operating_margin,BUD,0.006319362903174739,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
-2026Q4,fuel_cost,BUD,2147759336.4060264,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base model run from 2025Q4
+2026Q3,mainline_revenue,FCT,13177626000.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q3,mainline_expense,FCT,12428229000.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q3,mainline_operating_income,FCT,749397000.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q3,mainline_operating_margin,FCT,0.05686889277325066,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q3,fuel_cost,FCT,2258310925.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q4,mainline_revenue,FCT,12630063999.999998,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q4,mainline_expense,FCT,12170092000.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q4,mainline_operating_income,FCT,459971999.9999981,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q4,mainline_operating_margin,FCT,0.03641881783021829,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q4,fuel_cost,FCT,2083691785.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q1,mainline_revenue,FCT,12269993999.999998,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q1,mainline_expense,FCT,12414016000.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q1,mainline_operating_income,FCT,-144022000.0000019,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q1,mainline_operating_margin,FCT,-0.011737740051054787,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q1,fuel_cost,FCT,2270622538.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q2,mainline_revenue,FCT,15371445999.999998,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q2,mainline_expense,FCT,14319075000.0,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q2,mainline_operating_income,FCT,1052370999.9999981,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q2,mainline_operating_margin,FCT,0.06846271977275256,%,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2027Q2,fuel_cost,FCT,3885995456.0000005,USD,FCT-2026Q2,2026Q2,fpa-drivers-1.0,Base: seasonal naive by driver (same quarter one year earlier)
+2026Q3,mainline_revenue,FUEL,13177626000.0,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q3,mainline_expense,FUEL,14127776006.558779,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q3,mainline_operating_income,FUEL,-950150006.5587788,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q3,mainline_operating_margin,FUEL,-0.07210327615602224,%,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q3,fuel_cost,FUEL,3957857931.5587792,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q4,mainline_revenue,FUEL,12630063999.999998,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q4,mainline_expense,FUEL,13691861912.908518,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q4,mainline_operating_income,FUEL,-1061797912.9085197,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q4,mainline_operating_margin,FUEL,-0.08406908412408044,%,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q4,fuel_cost,FUEL,3605461697.9085183,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q1,mainline_revenue,FUEL,12269993999.999998,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q1,mainline_expense,FUEL,13547304625.101692,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q1,mainline_operating_income,FUEL,-1277310625.101694,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q1,mainline_operating_margin,FUEL,-0.10410034634912571,%,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q1,fuel_cost,FUEL,3403911163.101693,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q2,mainline_revenue,FUEL,15371445999.999998,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q2,mainline_expense,FUEL,14319075000.0,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q2,mainline_operating_income,FUEL,1052370999.9999981,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q2,mainline_operating_margin,FUEL,0.06846271977275256,%,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2027Q2,fuel_cost,FUEL,3885995456.0000005,USD,FUEL-2026Q2,2026Q2,fpa-drivers-1.0,Fuel held at the latest quarter's actual price for every forecast quarter; all other drivers as base.
+2026Q3,mainline_revenue,UP,13733804311.87458,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q3,mainline_expense,UP,12221705714.0175,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q3,mainline_operating_income,UP,1512098597.8570805,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q3,mainline_operating_margin,UP,0.11010049098702268,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q3,fuel_cost,UP,2052804630.8250003,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q4,mainline_revenue,UP,13169548547.12485,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q4,mainline_expense,UP,11979467407.543499,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q4,mainline_operating_income,UP,1190081139.5813503,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q4,mainline_operating_margin,UP,0.09036613026808475,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q4,fuel_cost,UP,1894075832.5649998,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q1,mainline_revenue,UP,12794337612.220486,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q1,mainline_expense,UP,12206375009.695799,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q1,mainline_operating_income,UP,587962602.5246868,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q1,mainline_operating_margin,UP,0.04595490758060781,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q1,fuel_cost,UP,2063995887.042,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q2,mainline_revenue,UP,16021613188.216305,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q2,mainline_expense,UP,13964406105.5496,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q2,mainline_operating_income,UP,2057207082.6667042,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q2,mainline_operating_margin,UP,0.12840199413750383,%,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2027Q2,fuel_cost,UP,3532369869.504,USD,UP-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst upside: capacity +1%, load factor +1 pt, yield +2%, CASM-ex -1%, fuel price -10% versus base."
+2026Q3,mainline_revenue,DOWN,12234672563.22404,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q3,mainline_expense,DOWN,12710966520.245003,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q3,mainline_operating_income,DOWN,-476293957.02096367,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q3,mainline_operating_margin,DOWN,-0.038929849128340896,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q3,fuel_cost,DOWN,2545116412.475,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q4,mainline_revenue,DOWN,11714450588.39572,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q4,mainline_expense,DOWN,12430686296.609,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q4,mainline_operating_income,DOWN,-716235708.2132797,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q4,mainline_operating_margin,DOWN,-0.061141212113078484,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2026Q4,fuel_cost,DOWN,2348320641.6949997,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q1,mainline_revenue,DOWN,11380042323.141382,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q1,mainline_expense,DOWN,12698327704.9412,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q1,mainline_operating_income,DOWN,-1318285381.799818,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q1,mainline_operating_margin,DOWN,-0.11584186986010386,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q1,fuel_cost,DOWN,2558991600.3259997,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q2,mainline_revenue,DOWN,14268932885.253078,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q2,mainline_expense,DOWN,14808423191.094402,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q2,mainline_operating_income,DOWN,-539490305.8413239,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q2,mainline_operating_margin,DOWN,-0.03780873525580083,%,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2027Q2,fuel_cost,DOWN,4379516878.912001,USD,DOWN-2026Q2,2026Q2,fpa-drivers-1.0,"Analyst downside: capacity -2%, load factor -2 pts, yield -3%, CASM-ex +2%, fuel price +15% versus base."
+2024Q1,mainline_revenue,BUD,10437499000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q1,mainline_expense,BUD,10251515000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q1,mainline_operating_income,BUD,185984000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q1,mainline_operating_margin,BUD,0.017818828054498498,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q1,fuel_cost,BUD,2379834719.9999995,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q2,mainline_revenue,BUD,12999807000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q2,mainline_expense,BUD,11246323000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q2,mainline_operating_income,BUD,1753484000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q2,mainline_operating_margin,BUD,0.13488538714459375,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q2,fuel_cost,BUD,2260478905.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q3,mainline_revenue,BUD,12965306000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q3,mainline_expense,BUD,11644753000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q3,mainline_operating_income,BUD,1320553000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q3,mainline_operating_margin,BUD,0.10185282167655742,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q3,fuel_cost,BUD,2650096936.9999995,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q4,mainline_revenue,BUD,12013581000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q4,mainline_expense,BUD,11388186000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q4,mainline_operating_income,BUD,625395000.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q4,mainline_operating_margin,BUD,0.05205733411211861,%,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2024Q4,fuel_cost,BUD,2623304541.0,USD,BUD-2023Q4,2023Q4,fpa-drivers-1.0,Budget: base method run from 2023Q4 (prior-year drivers)
+2025Q1,mainline_revenue,BUD,10997399000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q1,mainline_expense,BUD,10991122000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q1,mainline_operating_income,BUD,6277000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q1,mainline_operating_margin,BUD,0.0005707713251106012,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q1,fuel_cost,BUD,2279020912.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q2,mainline_revenue,BUD,13531450000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q2,mainline_expense,BUD,12091906000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q2,mainline_operating_income,BUD,1439544000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q2,mainline_operating_margin,BUD,0.10638505112164624,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q2,fuel_cost,BUD,2516603113.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q3,mainline_revenue,BUD,12891063999.999998,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q3,mainline_expense,BUD,12255661000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q3,mainline_operating_income,BUD,635402999.9999981,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q3,mainline_operating_margin,BUD,0.04929019047613123,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q3,fuel_cost,BUD,2497501362.0000005,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q4,mainline_revenue,BUD,12567429000.000002,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q4,mainline_expense,BUD,11752707000.0,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q4,mainline_operating_income,BUD,814722000.0000019,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q4,mainline_operating_margin,BUD,0.06482805671709001,%,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2025Q4,fuel_cost,BUD,2124605436.9999998,USD,BUD-2024Q4,2024Q4,fpa-drivers-1.0,Budget: base method run from 2024Q4 (prior-year drivers)
+2026Q1,mainline_revenue,BUD,11310311000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q1,mainline_expense,BUD,11369123000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q1,mainline_operating_income,BUD,-58812000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q1,mainline_operating_margin,BUD,-0.0051998570154260125,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q1,fuel_cost,BUD,2109385918.9999998,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q2,mainline_revenue,BUD,13506408000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q2,mainline_expense,BUD,12270941000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q2,mainline_operating_income,BUD,1235467000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q2,mainline_operating_margin,BUD,0.09147265505380853,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q2,fuel_cost,BUD,2235887580.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q3,mainline_revenue,BUD,13177626000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q3,mainline_expense,BUD,12428229000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q3,mainline_operating_income,BUD,749397000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q3,mainline_operating_margin,BUD,0.05686889277325066,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q3,fuel_cost,BUD,2258310925.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q4,mainline_revenue,BUD,12630063999.999998,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q4,mainline_expense,BUD,12170092000.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q4,mainline_operating_income,BUD,459971999.9999981,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q4,mainline_operating_margin,BUD,0.03641881783021829,%,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
+2026Q4,fuel_cost,BUD,2083691785.0,USD,BUD-2025Q4,2025Q4,fpa-drivers-1.0,Budget: base method run from 2025Q4 (prior-year drivers)
