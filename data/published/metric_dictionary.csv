@@ -1,0 +1,55 @@
+metric_id,metric_name,domain,unit,metric_type,formula,source_system,source_field,availability_count_2019_2026
+revenue,Total Operating Revenue,Financial Performance,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax,38
+operating_expenses,Total Operating Expense,Operating Costs,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:CostsAndExpenses,38
+operating_income,Operating Income,Profitability,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:OperatingIncomeLoss,38
+net_income,Net Income,Profitability,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:NetIncomeLoss,38
+fuel_costs,Aircraft Fuel and Related Taxes,Operating Costs,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:FuelCosts,38
+labor_costs,"Salaries, Wages and Related Costs",Operating Costs,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:LaborAndRelatedExpense,38
+maintenance_costs,Aircraft Maintenance Materials and Outside Repairs,Operating Costs,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:AircraftMaintenanceMaterialsAndRepairs,38
+depreciation_amortization,Depreciation and Amortization,Operating Costs,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:DepreciationDepletionAndAmortization,38
+operating_cash_flow,Net Cash Provided by Operating Activities,Cash Flow,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:NetCashProvidedByUsedInOperatingActivities,38
+capex_total,Capital Expenditures (Total),Capital Expenditure,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:PaymentsToAcquireProductiveAssets,38
+capex_flight_equipment,Capital Expenditures: Flight Equipment,Capital Expenditure,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:PaymentsForFlightEquipment,38
+capex_ground_technology,"Capital Expenditures: Ground Property, Equipment and Technology",Capital Expenditure,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:PaymentsToAcquireOtherProductiveAssets,38
+cash,Cash and Cash Equivalents,Liquidity,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:CashAndCashEquivalentsAtCarryingValue,38
+assets,Total Assets,Balance Sheet,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:Assets,38
+liabilities_and_equity,Total Liabilities and Stockholders' Equity,Balance Sheet,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:LiabilitiesAndStockholdersEquity,38
+stockholders_equity,Stockholders' Equity,Balance Sheet,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:StockholdersEquity,38
+debt_total,Debt Including Current Maturities (Excluding Leases),Capital Structure,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:LongTermDebt,38
+debt_current,Current Maturities of Debt,Capital Structure,USD,Reported,SEC XBRL reported value,SEC CompanyFacts,us-gaap:LongTermDebtCurrent,35
+employees,Employees (Full-Time Equivalent),Workforce,employee,Reported,SEC XBRL reported value,SEC CompanyFacts,dei:EntityNumberOfEmployees,12
+passengers,Passengers,Network / Operations,count,Reported,SUM(passengers),BTS T-100 Segment,passengers,
+seats,Available Seats,Network / Operations,count,Reported,SUM(seats),BTS T-100 Segment,seats,
+asm,Available Seat Miles (ASM),Network / Operations,seat-miles,Derived,SUM(seats * distance_miles),BTS T-100 Segment,derived from T-100 reported fields,
+rpm,Revenue Passenger Miles (RPM),Network / Operations,passenger-miles,Derived,SUM(passengers * distance_miles),BTS T-100 Segment,derived from T-100 reported fields,
+load_factor,Load Factor,Network / Operations,%,Derived,RPM / ASM,BTS T-100 Segment,derived from T-100 reported fields,
+departures_performed,Departures Performed,Network / Operations,count,Reported,SUM(departures_performed),BTS T-100 Segment,departures_performed,
+departures_scheduled,Departures Scheduled,Network / Operations,count,Reported,SUM(departures_scheduled),BTS T-100 Segment,departures_scheduled,
+completion_rate,Completion Rate,Network / Operations,%,Derived,Departures Performed / Departures Scheduled,BTS T-100 Segment,derived from T-100 reported fields,
+passengers_per_departure,Passengers per Departure,Network / Operations,passengers/departure,Derived,Passengers / Departures Performed,BTS T-100 Segment,derived from T-100 reported fields,
+average_stage_length,Average Stage Length,Network / Operations,miles,Derived,SUM(distance * departures performed) / SUM(departures performed),BTS T-100 Segment,derived from T-100 reported fields,
+freight_pounds,Freight Transported,Network / Operations,lb,Reported,SUM(freight_pounds),BTS T-100 Segment,freight_pounds,
+mail_pounds,Mail Transported,Network / Operations,lb,Reported,SUM(mail_pounds),BTS T-100 Segment,mail_pounds,
+airborne_hours,Airborne Time,Network / Operations,hours,Derived,SUM(airborne_minutes) / 60,BTS T-100 Segment,derived from T-100 reported fields,
+free_cash_flow,Free Cash Flow,Cash Flow,USD,Derived,operating_cash_flow - capex_total,Derived from SEC CompanyFacts,derived,
+total_liabilities,Total Liabilities,Balance Sheet,USD,Derived,liabilities_and_equity - stockholders_equity,Derived from SEC CompanyFacts,derived,
+operating_margin,Operating Margin,Profitability,%,Derived,operating_income / revenue,Derived from SEC CompanyFacts,derived,
+net_margin,Net Margin,Profitability,%,Derived,net_income / revenue,Derived from SEC CompanyFacts,derived,
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,%,Derived,revenue_t / revenue_same_period_prior_year - 1,Derived from SEC CompanyFacts,derived,
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,%,Derived,fuel_costs / operating_expenses,Derived from SEC CompanyFacts,derived,
+pax_revenue,Scheduled Passenger Revenue (Mainline),Unit Economics (Mainline),USD,Reported,Form 41 P-1.2 TRANS_REV_PAX x 1000,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+mainline_revenue,Operating Revenue excl. Transport-Related (Mainline),Unit Economics (Mainline),USD,Derived,OP_REVENUES - TRANS_REVENUE,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+mainline_expense,Operating Expense excl. Transport-Related (Mainline),Unit Economics (Mainline),USD,Derived,OP_EXPENSES - TRANS_EXPENSES,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+mainline_operating_margin,Operating Margin excl. Transport-Related (Mainline),Unit Economics (Mainline),%,Derived,(mainline_revenue - mainline_expense) / mainline_revenue,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+prasm_cents,Passenger Revenue per ASM,Unit Economics (Mainline),cents,Derived,pax_revenue / ASM x 100,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+trasm_cents,Total Revenue per ASM (Mainline),Unit Economics (Mainline),cents,Derived,mainline_revenue / ASM x 100,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+casm_cents,Cost per ASM (Mainline),Unit Economics (Mainline),cents,Derived,mainline_expense / ASM x 100,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+casm_ex_fuel_cents,Cost per ASM excl. Fuel (Mainline),Unit Economics (Mainline),cents,Derived,(mainline_expense - scheduled_fuel_cost) / ASM x 100,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+yield_cents,Passenger Yield,Unit Economics (Mainline),cents,Derived,pax_revenue / RPM x 100,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+fuel_cost_per_gallon,Fuel Cost per Gallon (Scheduled Service),Unit Economics (Mainline),USD/gallon,Derived,scheduled_fuel_cost / scheduled_fuel_gallons,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+asm_per_gallon,ASMs per Gallon of Fuel,Unit Economics (Mainline),seat-miles/gallon,Derived,ASM / scheduled_fuel_gallons,BTS Form 41 + T-100,"Form 41 P-1.2, P-12(a); T-100 segment",
+actual_vs_budget,Actual vs Budget Variance,FP&A,USD,Modeled,Actual - Budget,Analytical model,model formula,
+actual_vs_budget_pct,Actual vs Budget Variance %,FP&A,%,Modeled,(Actual - Budget) / ABS(Budget),Analytical model,model formula,
+actual_vs_forecast,Actual vs Forecast Variance,FP&A,USD,Modeled,Actual - Forecast,Analytical model,model formula,
+forecast_accuracy,Forecast Accuracy,FP&A,%,Modeled,1 - ABS(Actual - Forecast) / ABS(Actual),Analytical model,model formula,
+forecast_bias,Forecast Bias,FP&A,%,Modeled,(Forecast - Actual) / ABS(Actual),Analytical model,model formula,

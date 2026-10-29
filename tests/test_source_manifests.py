@@ -38,16 +38,11 @@ class SourceManifestTests(unittest.TestCase):
             self.assertIn("QO_fu146_anzr", query)
 
     def test_current_fixed_source_catalog_uses_expected_publishers_and_domains(self):
-        allowed_hosts = {
-            "data.sec.gov",
-            "d18rn0p25nwr6d.cloudfront.net",
-            "nfdc.faa.gov",
-        }
-        self.assertEqual(len(self.current.SOURCES), 4)
+        allowed_hosts = {"data.sec.gov", "nfdc.faa.gov"}
+        self.assertEqual(len(self.current.SOURCES), 2)
         self.assertEqual({source[1] for source in self.current.SOURCES}, {"financial", "network"})
         for label, group, url, destination in self.current.SOURCES:
             parsed = urlparse(url)
-            self.assertIn(group, {"financial", "network"}, label)
             self.assertEqual(parsed.scheme, "https", label)
             self.assertIn(parsed.netloc, allowed_hosts, label)
             self.assertTrue(str(destination).startswith(str(self.current.RAW)), label)
@@ -55,14 +50,18 @@ class SourceManifestTests(unittest.TestCase):
     def test_source_domain_selection_is_exact(self):
         financial = self.current.select_sources("financial")
         network = self.current.select_sources("network")
-        all_sources = self.current.select_sources("all")
+        self.assertEqual([s[0] for s in financial], ["SEC CompanyFacts"])
+        self.assertEqual([s[0] for s in network], ["FAA NASR airport CSV"])
+        self.assertEqual(set(financial + network), set(self.current.select_sources("all")))
 
-        self.assertEqual(len(financial), 3)
-        self.assertEqual(len(network), 1)
-        self.assertEqual(len(all_sources), 4)
-        self.assertTrue(all(source[1] == "financial" for source in financial))
-        self.assertTrue(all(source[1] == "network" for source in network))
-        self.assertEqual(set(financial + network), set(all_sources))
+    def test_bts_tables_use_exact_first_party_form_codes(self):
+        from pipeline.transtats import TABLES, table_url
+        expected = {"form41_p12": "FMI", "form41_fuel": "FMH", "master_coordinate": "FLL",
+                    "t100_domestic": "FIM", "t100_international": "FJE"}
+        for key, code in expected.items():
+            query = parse_qs(urlparse(table_url(TABLES[key])).query)
+            self.assertEqual(query["gnoyr_VQ"], [code], key)
+        self.assertFalse(TABLES["master_coordinate"].by_year)
 
 
 if __name__ == "__main__":

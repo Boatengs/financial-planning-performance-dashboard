@@ -1,53 +1,22 @@
-# Technical Roadmap
+# Roadmap
 
-## Phase 1 — Data foundation
+## Done
 
-- SEC CompanyFacts financial actuals
-- Delta 10-K and 10-Q filing ingestion
-- BTS T-100 domestic and international segment ingestion
-- FAA airport-coordinate fallback
-- typed SQLite analytical model
-- KPI dictionary and source lineage
-- deterministic validation and reproducibility controls
+- SEC consolidated actuals with every quarter, including Q4 and quarterly cash flow, 2019 onward
+- T-100 domestic and international segments for the DL reporting carrier, January 2019 onward
+- BTS Master Coordinate airport coordinates with FAA fallback
+- Form 41 P-1.2 profit and loss and P-12(a) fuel for scope-matched mainline unit economics
+- One build, one SQLite database, one validator
+- Network shift analysis: latest twelve months versus 2019 by airport and city pair
+- Driver-based FP&A model: rolling forecast, budget, upside and downside, sensitivity, operating income
+  bridge, rolling-origin backtest against a seasonal naive baseline
+- Streamlit dashboard with a 3D route map, and a Tableau Public extract
+- Monthly scheduled rebuild in GitHub Actions that commits refreshed published outputs
 
-## Phase 2 — Historical operating model
+## Possible next steps
 
-- extend monthly T-100 coverage to 2019–2026;
-- integrate BTS Airport Master Coordinate for global airport coverage;
-- reconcile revised and overlapping BTS releases;
-- add route, airport, geographic, and aircraft historical dimensions;
-- validate period completeness and carrier scope across the historical series.
-
-## Phase 3 — Cost and driver model
-
-- integrate BTS Form 41 operating-cost schedules;
-- add fuel cost and consumption measures;
-- model maintenance, labor, aircraft operating expense, and capacity drivers;
-- reconcile company-level and network-level periods before publishing blended KPIs.
-
-## Phase 4 — FP&A model
-
-- driver-based budget and rolling forecast;
-- actual-versus-budget and actual-versus-forecast variance analysis;
-- base, upside, and downside scenarios;
-- capacity, load factor, fuel, labor, revenue, and margin sensitivities;
-- forecast-accuracy and forecast-bias measurement.
-
-## Phase 5 — BI and 3D application
-
-- executive financial scorecard;
-- revenue, margin, cash-flow, and capital-performance views;
-- operating KPI dashboards;
-- route and airport drilldowns;
-- scenario and variance workspace;
-- interactive 3D airport nodes and route arcs;
-- metric-driven network encoding for passengers, ASM, RPM, load factor, and capacity.
-
-## Phase 6 — Production hardening
-
-- automated data-quality tests;
-- repeatable source acquisition and deterministic builds;
-- application-level interaction tests;
-- accessibility and responsive-layout checks;
-- first-load and rendering performance validation;
-- deployment documentation and release versioning.
+- Regional partner flying: add Delta Connection carriers (for example 9E, OO, YX) from T-100 and
+  Form 41 to approach consolidated capacity
+- Fuel price scenarios from a public forward or futures series instead of holding the origin quarter flat
+- Form 41 P-6 and P-5.2 cost detail (labor, maintenance, aircraft ownership) as separate CASM drivers
+- Peer comparison with United and American on the same mainline unit-economics basis

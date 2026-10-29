@@ -10,37 +10,32 @@ This project uses public regulatory, company, and U.S. government datasets. Raw 
 **API endpoint:** https://data.sec.gov/api/xbrl/companyfacts/CIK0000027904.json  
 **SEC API documentation:** https://www.sec.gov/search-filings/edgar-application-programming-interfaces
 
-**Model use**
+**Model use:** consolidated quarterly and annual revenue, operating expense, operating and net income,
+fuel, labor, maintenance, depreciation, operating cash flow, capital expenditures, cash, debt, assets and
+equity for `fact_financial_actual`.
 
-- historical GAAP financial facts;
-- reported statement values from XBRL;
-- filing date, form, accession number, taxonomy, frame, and unit lineage;
-- source for `fact_financial_actual`.
+**How periods are built.** CompanyFacts assigns a calendar frame to only one fact per period and SEC does
+not publish standalone fourth quarters or standalone quarterly cash flows. The pipeline therefore reads
+each fact's reported start and end dates rather than its frame:
+
+| Method | Rule |
+|---|---|
+| `reported` | A three-month (or full-year, or balance-sheet) value as filed |
+| `derived_fy_minus_9m` | Q4 = full year minus the nine-month year-to-date value |
+| `derived_ytd_difference` | Q2 and Q3 cash flow = year-to-date minus the prior year-to-date value |
+| `derived_sum_of_components` | Total capex = flight equipment + ground property, equipment and technology (Delta stopped tagging the total in 2026) |
+
+The most recently filed value wins when a period is restated.
+
+**Pinned snapshot.** SEC refuses requests from some cloud networks, including GitHub-hosted runners. When a
+fresh download is not possible the build uses the newest snapshot under `raw/sec/`, filtered to the
+concepts above by `scripts/subset_companyfacts.py`. The QA summary records which source a build used.
 
 ## 2. Delta Air Lines filings
 
-### 2025 Form 10-K
-
-**SEC filing:** https://www.sec.gov/Archives/edgar/data/27904/000002790426000013/0000027904-26-000013-index.htm  
-**Period ended:** December 31, 2025  
-**Filed:** February 11, 2026
-
-The annual filing provides audited financial statements, operating statistics, revenue composition, expenses, cash flow, capital expenditures, fleet information, and management disclosures.
-
-### Q2 2026 Form 10-Q
-
-**SEC filing:** https://www.sec.gov/Archives/edgar/data/27904/000002790426000031/0000027904-26-000031-index.htm  
-**Period ended:** June 30, 2026  
-**Filed:** July 10, 2026  
-**Delta Investor Relations filing page:** https://ir.delta.com/financials/sec-filings/sec-filings-details/default.aspx?FilingId=19602814
-
-The quarterly filing extends the financial layer with current-period statements and operating disclosures.
-
-### Delta Investor Relations
-
-**SEC filings index:** https://ir.delta.com/financials/sec-filings/default.aspx
-
-Company-published filing workbooks are retained as filing-level cross-check sources where available.
+The filings behind CompanyFacts are listed on Delta's investor relations site
+(https://ir.delta.com/financials/sec-filings/default.aspx) and on EDGAR. The pipeline does not parse filing
+documents directly. Earlier versions downloaded two XBRL workbooks that were never used; they were removed.
 
 ## 3. BTS T-100 Domestic Segment
 
@@ -103,11 +98,11 @@ The generated TranStats CSV is normalized into the same canonical fields used by
 ## 6. BTS Airport Master Coordinate
 
 **Publisher:** U.S. Department of Transportation, Bureau of Transportation Statistics  
-**TranStats table:** https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=N8vn6v10&gnoyr_VQ=FLL
+**TranStats table:** 288, https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FLL&QO_fu146_anzr=N8vn6v10
 
-This support table is the preferred geographic reference for the 3D network because it includes domestic and foreign airport identifiers with city, country, latitude, and longitude fields.
-
-The airport dimension records coordinate provenance so the application can distinguish BTS-resolved coordinates from fallback sources.
+Downloaded by `scripts/download_bts_tables.py --tables master_coordinate` to `raw/bts/master_coordinate.zip`.
+It is the primary coordinate source for every observed airport, domestic and foreign. Only rows flagged
+`AIRPORT_IS_LATEST` are used.
 
 ## 7. FAA NASR Airports and Other Landing Facilities
 
@@ -116,18 +111,25 @@ The airport dimension records coordinate provenance so the application can disti
 **Subscription page:** https://www.faa.gov/air_traffic/flight_info/aeronav/Aero_Data/NASR_Subscription/2026-09-03/  
 **Direct airport CSV archive:** https://nfdc.faa.gov/webContent/28DaySub/extra/03_Sep_2026_APT_CSV.zip
 
-FAA NASR airport data is used as a U.S. airport coordinate and metadata fallback. BTS Airport Master Coordinate remains the preferred global reference for international coverage.
+FAA NASR airport data is a U.S. fallback used only where Master Coordinate has no latitude and longitude, and for airport elevation. The build continues without it if the FAA cycle file is no longer published.
 
-## 8. Planned Form 41 extension
+## 8. BTS Form 41 financial schedules
 
-BTS Form 41 schedules are planned for detailed operating-cost and fuel-driver analysis. Relevant public tables include:
+**Publisher:** U.S. Department of Transportation, Bureau of Transportation Statistics, Air Carrier Financial Reports
 
-- **Schedule P-1.2 — Statement of Operations:** https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=Nv4+Pn44vr4+Sv0n0pvny&gnoyr_VQ=FMI
-- **Schedule P-12(a) — Fuel Cost and Consumption:** https://www.transtats.bts.gov/Tables.asp?QO_VQ=EGI
-- **Schedule P-5.2 — Aircraft Operating Expenses:** https://www.transtats.bts.gov/TableInfo.asp?QO_fu146_anzr=Nv4+Pn44vr4+Sv0n0pvny&V0s1_b0yB=D&gnoyr_VQ=FMK
+| Schedule | TranStats table | Form | Use |
+|---|---|---|---|
+| P-1.2 Statement of Operations (quarterly, by region, $000) | 295 | https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FMI&QO_fu146_anzr=Nv4%20Pn44vr4%20Sv0n0pvny | Passenger revenue, operating revenue and expense, transport-related lines |
+| P-12(a) Fuel Cost and Consumption (monthly) | 294 | https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FMH&QO_fu146_anzr=Nv4%20Pn44vr4%20Sv0n0pvny | Scheduled-service fuel gallons and cost, domestic and international |
 
-These tables will support cost-per-capacity, fuel, maintenance, labor, and margin-driver analysis after period and carrier-scope reconciliation.
+Both are downloaded one calendar year per request by `scripts/download_bts_tables.py` and filtered to
+unique carrier `DL`. P-1.2 regions are mapped to T-100 scope: Domestic to `domestic`; Atlantic, Pacific
+and Latin America to `international`. Any unmapped region fails validation.
+
+Form 41 covers the same DOT reporting entity as T-100, so revenue and cost per ASM use matching scope.
+These measures are not Delta's investor-relations TRASM and CASM, which are consolidated, include regional
+capacity purchase flying and exclude special items.
 
 ## Lineage
 
-`processed/source_manifest.csv` records source URL, local filename, file size, checksum, analytical role, and pipeline status for the combined foundation. `processed/network_source_manifest.csv` provides the equivalent source audit for the historical operating model. Reported financial facts retain SEC taxonomy and filing identifiers, while derived KPI definitions are maintained in `docs/KPI_DICTIONARY.md`.
+`data/published/source_manifest.csv` records source URL, local filename, file size, checksum, analytical role, and pipeline status for every input to a build. `raw/t100_history_download_manifest.csv` and `raw/bts_download_manifest.csv` record every TranStats request. Reported financial facts retain SEC taxonomy and filing identifiers, while derived KPI definitions are maintained in `docs/KPI_DICTIONARY.md`.

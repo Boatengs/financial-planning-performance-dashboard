@@ -25,7 +25,6 @@ def request_headers(url: str) -> dict[str, str]:
         return {
             "User-Agent": os.environ.get("SEC_USER_AGENT", DEFAULT_SEC_USER_AGENT),
             "Accept": "application/json,text/plain;q=0.9,*/*;q=0.8",
-            "Accept-Encoding": "gzip, deflate",
         }
     if host == "www.bts.gov" or host.endswith(".bts.gov"):
         return {
