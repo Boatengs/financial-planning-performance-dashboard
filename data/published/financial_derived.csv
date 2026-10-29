@@ -1,29 +1,29 @@
 metric_id,metric_name,domain,period_label,period_type,fiscal_year,fiscal_quarter,period_start,period_end,value,unit,formula,input_metric_ids,source
-free_cash_flow,Free Cash Flow,Cash Flow,2019Q1,Q1,2019,1,,2019-03-31,582000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019Q1,Q1,2019,1,,2019-03-31,0.20926787981379602,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2019Q1,Q1,2019,1,,2019-03-31,0.06970970206264324,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2019Q1,Q1,2019,1,,2019-03-31,0.09740259740259741,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2019Q1,Q1,2019,1,,2019-03-31,48930000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2019Q1,Q1,2019,1,2019-01-01,2019-03-31,582000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019Q1,Q1,2019,1,2019-01-01,2019-03-31,0.20926787981379602,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2019Q1,Q1,2019,1,2019-01-01,2019-03-31,0.06970970206264324,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2019Q1,Q1,2019,1,2019-01-01,2019-03-31,0.09740259740259741,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2019Q1,Q1,2019,1,2019-01-01,2019-03-31,48930000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2019Q2,Q2,2019,2,2019-04-01,2019-06-30,1709000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019Q2,Q2,2019,2,2019-04-01,2019-06-30,0.22011913912375097,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2019Q2,Q2,2019,2,2019-04-01,2019-06-30,0.11510848755583919,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
 operating_margin,Operating Margin,Profitability,2019Q2,Q2,2019,2,2019-04-01,2019-06-30,0.16975111678366306,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2019Q2,Q2,2019,2,2019-04-01,2019-06-30,48560000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2019Q3,Q3,2019,3,2019-07-01,2019-09-30,1298000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019Q3,Q3,2019,3,2019-07-01,2019-09-30,0.21346172180379444,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2019Q3,Q3,2019,3,2019-07-01,2019-09-30,0.11902866242038217,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2019Q3,Q3,2019,3,2019-07-01,2019-09-30,0.16488853503184714,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2019Q3,Q3,2019,3,2019-07-01,2019-09-30,48151000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2019Q4,Q4,2019,4,2019-10-01,2019-12-31,-102000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019Q4,Q4,2019,4,2019-10-01,2019-12-31,0.2002988047808765,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2019Q4,Q4,2019,4,2019-10-01,2019-12-31,0.0960748317160591,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2019Q4,Q4,2019,4,2019-10-01,2019-12-31,0.12230090042835912,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2019Q4,Q4,2019,4,2019-10-01,2019-12-31,49174000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2019FY,FY,2019,,2019-01-01,2019-12-31,3489000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019FY,FY,2019,,2019-01-01,2019-12-31,0.210923766372032,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2019FY,FY,2019,,2019-01-01,2019-12-31,0.1014104282340928,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2019FY,FY,2019,,2019-01-01,2019-12-31,0.14078754228093687,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2019FY,FY,2019,,2019-01-01,2019-12-31,49174000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2019Q3,Q3,2019,3,,2019-09-30,1298000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019Q3,Q3,2019,3,,2019-09-30,0.21346172180379444,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2019Q3,Q3,2019,3,,2019-09-30,0.11902866242038217,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2019Q3,Q3,2019,3,,2019-09-30,0.16488853503184714,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2019Q3,Q3,2019,3,,2019-09-30,48151000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2019Q4,Q4,2019,4,,2019-12-31,-102000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019Q4,Q4,2019,4,,2019-12-31,0.2002988047808765,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2019Q4,Q4,2019,4,,2019-12-31,0.0960748317160591,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2019Q4,Q4,2019,4,,2019-12-31,0.12230090042835912,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2019Q4,Q4,2019,4,,2019-12-31,49174000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2019FY,FY,2019,,,2019-12-31,3489000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2019FY,FY,2019,,,2019-12-31,0.210923766372032,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2019FY,FY,2019,,,2019-12-31,0.1014104282340928,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2019FY,FY,2019,,,2019-12-31,0.14078754228093687,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2019FY,FY,2019,,,2019-12-31,49174000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2020Q1,Q1,2020,1,,2020-03-31,-579000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2020Q1,Q1,2020,1,,2020-03-31,0.17718284825594313,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2020Q1,Q1,2020,1,,2020-03-31,-0.06215083798882681,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
@@ -42,18 +42,18 @@ net_margin,Net Margin,Profitability,2020Q3,Q3,2020,3,2020-07-01,2020-09-30,-1.75
 operating_margin,Operating Margin,Profitability,2020Q3,Q3,2020,3,2020-07-01,2020-09-30,-2.085564990202482,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2020Q3,Q3,2020,3,2020-07-01,2020-09-30,-0.7562101910828025,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2020Q3,Q3,2020,3,2020-07-01,2020-09-30,75719000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2020Q4,Q4,2020,4,,2020-12-31,-1834000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2020Q4,Q4,2020,4,,2020-12-31,0.14965845580625128,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2020Q4,Q4,2020,4,,2020-12-31,-0.19003272086584444,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2020Q4,Q4,2020,4,,2020-12-31,-0.21595771457337026,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2020Q4,Q4,2020,4,,2020-12-31,-0.6526794300201066,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2020Q4,Q4,2020,4,,2020-12-31,70462000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2020FY,FY,2020,,2020-01-01,2020-12-31,-5692000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2020FY,FY,2020,,2020-01-01,2020-12-31,0.1074279529157083,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2020FY,FY,2020,,2020-01-01,2020-12-31,-0.7244808423515647,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2020FY,FY,2020,,2020-01-01,2020-12-31,-0.7293945598128108,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2020FY,FY,2020,,2020-01-01,2020-12-31,-0.6363307592486225,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2020FY,FY,2020,,2020-01-01,2020-12-31,70462000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2020Q4,Q4,2020,4,2020-10-01,2020-12-31,-1834000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2020Q4,Q4,2020,4,2020-10-01,2020-12-31,0.14965845580625128,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2020Q4,Q4,2020,4,2020-10-01,2020-12-31,-0.19003272086584444,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2020Q4,Q4,2020,4,2020-10-01,2020-12-31,-0.21595771457337026,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2020Q4,Q4,2020,4,2020-10-01,2020-12-31,-0.6526794300201066,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2020Q4,Q4,2020,4,2020-10-01,2020-12-31,70462000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2020FY,FY,2020,,,2020-12-31,-5692000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2020FY,FY,2020,,,2020-12-31,0.1074279529157083,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2020FY,FY,2020,,,2020-12-31,-0.7244808423515647,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2020FY,FY,2020,,,2020-12-31,-0.7293945598128108,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2020FY,FY,2020,,,2020-12-31,-0.6363307592486225,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2020FY,FY,2020,,,2020-12-31,70462000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2021Q1,Q1,2021,1,,2021-03-31,253000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2021Q1,Q1,2021,1,,2021-03-31,0.18330930064888248,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2021Q1,Q1,2021,1,,2021-03-31,-0.28361445783132533,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
@@ -66,30 +66,30 @@ net_margin,Net Margin,Profitability,2021Q2,Q2,2021,2,2021-04-01,2021-06-30,0.091
 operating_margin,Operating Margin,Profitability,2021Q2,Q2,2021,2,2021-04-01,2021-06-30,0.11451024417625597,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2021Q2,Q2,2021,2,2021-04-01,2021-06-30,3.854223433242507,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2021Q2,Q2,2021,2,2021-04-01,2021-06-30,74028000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2021Q3,Q3,2021,3,2021-07-01,2021-09-30,-679000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2021Q3,Q3,2021,3,2021-07-01,2021-09-30,0.22334148798388256,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2021Q3,Q3,2021,3,2021-07-01,2021-09-30,0.13240113611535942,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2021Q3,Q3,2021,3,2021-07-01,2021-09-30,0.24087830456630982,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2021Q3,Q3,2021,3,2021-07-01,2021-09-30,1.9895493141737428,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2021Q3,Q3,2021,3,2021-07-01,2021-09-30,70177000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2021Q3,Q3,2021,3,,2021-09-30,-679000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2021Q3,Q3,2021,3,,2021-09-30,0.22334148798388256,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2021Q3,Q3,2021,3,,2021-09-30,0.13240113611535942,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2021Q3,Q3,2021,3,,2021-09-30,0.24087830456630982,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2021Q3,Q3,2021,3,,2021-09-30,1.9895493141737428,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2021Q3,Q3,2021,3,,2021-09-30,70177000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2021Q4,Q4,2021,4,2021-10-01,2021-12-31,-662000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2021Q4,Q4,2021,4,2021-10-01,2021-12-31,0.17128271966981645,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2021Q4,Q4,2021,4,2021-10-01,2021-12-31,-0.04308342133051742,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
 operating_margin,Operating Margin,Profitability,2021Q4,Q4,2021,4,2021-10-01,2021-12-31,0.027771911298838436,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2021Q4,Q4,2021,4,2021-10-01,2021-12-31,1.383589227284168,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2021Q4,Q4,2021,4,2021-10-01,2021-12-31,68572000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2021FY,FY,2021,,,2021-12-31,17000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2021FY,FY,2021,,,2021-12-31,0.20108521043801092,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2021FY,FY,2021,,,2021-12-31,0.009364861701060236,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2021FY,FY,2021,,,2021-12-31,0.06307903274357002,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2021FY,FY,2021,,,2021-12-31,0.7489909330213513,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2021FY,FY,2021,,,2021-12-31,68572000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2022Q1,Q1,2022,1,,2022-03-31,5000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2022Q1,Q1,2022,1,,2022-03-31,0.20649491659263647,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2022Q1,Q1,2022,1,,2022-03-31,-0.10055626872058195,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2022Q1,Q1,2022,1,,2022-03-31,-0.08376123234916559,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2022Q1,Q1,2022,1,,2022-03-31,1.2525301204819277,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2022Q1,Q1,2022,1,,2022-03-31,70757000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2021FY,FY,2021,,2021-01-01,2021-12-31,17000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2021FY,FY,2021,,2021-01-01,2021-12-31,0.20108521043801092,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2021FY,FY,2021,,2021-01-01,2021-12-31,0.009364861701060236,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2021FY,FY,2021,,2021-01-01,2021-12-31,0.06307903274357002,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2021FY,FY,2021,,2021-01-01,2021-12-31,0.7489909330213513,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2021FY,FY,2021,,2021-01-01,2021-12-31,68572000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2022Q1,Q1,2022,1,2022-01-01,2022-03-31,5000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2022Q1,Q1,2022,1,2022-01-01,2022-03-31,0.20649491659263647,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2022Q1,Q1,2022,1,2022-01-01,2022-03-31,-0.10055626872058195,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2022Q1,Q1,2022,1,2022-01-01,2022-03-31,-0.08376123234916559,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2022Q1,Q1,2022,1,2022-01-01,2022-03-31,1.2525301204819277,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2022Q1,Q1,2022,1,2022-01-01,2022-03-31,70757000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2022Q2,Q2,2022,2,,2022-06-30,1577000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2022Q2,Q2,2022,2,,2022-06-30,0.26192604632263305,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2022Q2,Q2,2022,2,,2022-06-30,0.053168402777777776,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
@@ -102,60 +102,60 @@ net_margin,Net Margin,Profitability,2022Q3,Q3,2022,3,2022-07-01,2022-09-30,0.049
 operating_margin,Operating Margin,Profitability,2022Q3,Q3,2022,3,2022-07-01,2022-09-30,0.10418604651162791,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2022Q3,Q3,2022,3,2022-07-01,2022-09-30,0.5266550142014419,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2022Q3,Q3,2022,3,2022-07-01,2022-09-30,68006000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2022Q4,Q4,2022,4,2022-10-01,2022-12-31,-1012000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2022Q4,Q4,2022,4,2022-10-01,2022-12-31,0.23811115754283327,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2022Q4,Q4,2022,4,2022-10-01,2022-12-31,0.061704503163379235,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2022Q4,Q4,2022,4,2022-10-01,2022-12-31,0.10941570524748791,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2022Q4,Q4,2022,4,2022-10-01,2022-12-31,0.41869060190073926,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2022Q4,Q4,2022,4,2022-10-01,2022-12-31,65706000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2022FY,FY,2022,,,2022-12-31,-3000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2022FY,FY,2022,,,2022-12-31,0.24470919204620534,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2022FY,FY,2022,,,2022-12-31,0.026056700011861927,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2022FY,FY,2022,,,2022-12-31,0.0723775256019928,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2022FY,FY,2022,,,2022-12-31,0.6917622662965317,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2022FY,FY,2022,,,2022-12-31,65706000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2023Q1,Q1,2023,1,,2023-03-31,1235000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023Q1,Q1,2023,1,,2023-03-31,0.20527769254372508,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2023Q1,Q1,2023,1,,2023-03-31,-0.028450505525511403,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2023Q1,Q1,2023,1,,2023-03-31,-0.02171016537346187,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023Q1,Q1,2023,1,,2023-03-31,0.36489088575096273,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2023Q1,Q1,2023,1,,2023-03-31,66874000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2022Q4,Q4,2022,4,,2022-12-31,-1012000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2022Q4,Q4,2022,4,,2022-12-31,0.23811115754283327,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2022Q4,Q4,2022,4,,2022-12-31,0.061704503163379235,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2022Q4,Q4,2022,4,,2022-12-31,0.10941570524748791,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2022Q4,Q4,2022,4,,2022-12-31,0.41869060190073926,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2022Q4,Q4,2022,4,,2022-12-31,65706000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2022FY,FY,2022,,2022-01-01,2022-12-31,-3000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2022FY,FY,2022,,2022-01-01,2022-12-31,0.24470919204620534,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2022FY,FY,2022,,2022-01-01,2022-12-31,0.026056700011861927,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2022FY,FY,2022,,2022-01-01,2022-12-31,0.0723775256019928,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2022FY,FY,2022,,2022-01-01,2022-12-31,0.6917622662965317,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2022FY,FY,2022,,2022-01-01,2022-12-31,65706000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2023Q1,Q1,2023,1,2023-01-01,2023-03-31,1235000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023Q1,Q1,2023,1,2023-01-01,2023-03-31,0.20527769254372508,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2023Q1,Q1,2023,1,2023-01-01,2023-03-31,-0.028450505525511403,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2023Q1,Q1,2023,1,2023-01-01,2023-03-31,-0.02171016537346187,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023Q1,Q1,2023,1,2023-01-01,2023-03-31,0.36489088575096273,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2023Q1,Q1,2023,1,2023-01-01,2023-03-31,66874000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2023Q2,Q2,2023,2,,2023-06-30,1156000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023Q2,Q2,2023,2,,2023-06-30,0.19225185298387712,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2023Q2,Q2,2023,2,,2023-06-30,0.11728078058800873,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
 operating_margin,Operating Margin,Profitability,2023Q2,Q2,2023,2,,2023-06-30,0.15990499422262164,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023Q2,Q2,2023,2,,2023-06-30,0.12688078703703698,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2023Q2,Q2,2023,2,,2023-06-30,65397000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2023Q3,Q3,2023,3,,2023-09-30,-193000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023Q3,Q3,2023,3,,2023-09-30,0.21741706161137442,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2023Q3,Q3,2023,3,,2023-09-30,0.07153925619834711,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2023Q3,Q3,2023,3,,2023-09-30,0.128099173553719,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023Q3,Q3,2023,3,,2023-09-30,0.10826475849731665,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2023Q3,Q3,2023,3,,2023-09-30,64021000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2023Q4,Q4,2023,4,,2023-12-31,-1057000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023Q4,Q4,2023,4,,2023-12-31,0.2279668242771878,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2023Q4,Q4,2023,4,,2023-12-31,0.1432187302256908,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2023Q4,Q4,2023,4,,2023-12-31,0.09294804190395838,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023Q4,Q4,2023,4,,2023-12-31,0.058652772608857484,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2023Q4,Q4,2023,4,,2023-12-31,62539000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2023FY,FY,2023,,,2023-12-31,1141000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023FY,FY,2023,,,2023-12-31,0.2107297199535477,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2023FY,FY,2023,,,2023-12-31,0.07939980705622933,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2023FY,FY,2023,,,2023-12-31,0.09511094266813672,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023FY,FY,2023,,,2023-12-31,0.1476019137242497,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2023FY,FY,2023,,,2023-12-31,62539000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2024Q1,Q1,2024,1,2024-01-01,2024-03-31,1215000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2024Q1,Q1,2024,1,2024-01-01,2024-03-31,0.19780721790772043,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2024Q1,Q1,2024,1,2024-01-01,2024-03-31,0.002691300552807681,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2024Q1,Q1,2024,1,2024-01-01,2024-03-31,0.04466104160605179,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2024Q1,Q1,2024,1,2024-01-01,2024-03-31,0.0775139117485697,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2024Q1,Q1,2024,1,2024-01-01,2024-03-31,63818000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2024Q2,Q2,2024,2,2024-04-01,2024-06-30,1141000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2024Q2,Q2,2024,2,2024-04-01,2024-06-30,0.1954693905913418,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2024Q2,Q2,2024,2,2024-04-01,2024-06-30,0.07834073718333534,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2024Q2,Q2,2024,2,2024-04-01,2024-06-30,0.13609076719894345,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2024Q2,Q2,2024,2,2024-04-01,2024-06-30,0.06932854024906909,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2024Q2,Q2,2024,2,2024-04-01,2024-06-30,62811000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2023Q3,Q3,2023,3,2023-07-01,2023-09-30,-193000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023Q3,Q3,2023,3,2023-07-01,2023-09-30,0.21741706161137442,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2023Q3,Q3,2023,3,2023-07-01,2023-09-30,0.07153925619834711,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2023Q3,Q3,2023,3,2023-07-01,2023-09-30,0.128099173553719,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023Q3,Q3,2023,3,2023-07-01,2023-09-30,0.10826475849731665,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2023Q3,Q3,2023,3,2023-07-01,2023-09-30,64021000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2023Q4,Q4,2023,4,2023-10-01,2023-12-31,-1057000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023Q4,Q4,2023,4,2023-10-01,2023-12-31,0.2279668242771878,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2023Q4,Q4,2023,4,2023-10-01,2023-12-31,0.1432187302256908,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2023Q4,Q4,2023,4,2023-10-01,2023-12-31,0.09294804190395838,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023Q4,Q4,2023,4,2023-10-01,2023-12-31,0.058652772608857484,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2023Q4,Q4,2023,4,2023-10-01,2023-12-31,62539000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2023FY,FY,2023,,2023-01-01,2023-12-31,1141000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2023FY,FY,2023,,2023-01-01,2023-12-31,0.2107297199535477,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2023FY,FY,2023,,2023-01-01,2023-12-31,0.07939980705622933,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2023FY,FY,2023,,2023-01-01,2023-12-31,0.09511094266813672,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2023FY,FY,2023,,2023-01-01,2023-12-31,0.1476019137242497,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2023FY,FY,2023,,2023-01-01,2023-12-31,62539000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2024Q1,Q1,2024,1,,2024-03-31,1215000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2024Q1,Q1,2024,1,,2024-03-31,0.19780721790772043,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2024Q1,Q1,2024,1,,2024-03-31,0.002691300552807681,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2024Q1,Q1,2024,1,,2024-03-31,0.04466104160605179,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2024Q1,Q1,2024,1,,2024-03-31,0.0775139117485697,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2024Q1,Q1,2024,1,,2024-03-31,63818000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2024Q2,Q2,2024,2,,2024-06-30,1141000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2024Q2,Q2,2024,2,,2024-06-30,0.1954693905913418,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2024Q2,Q2,2024,2,,2024-06-30,0.07834073718333534,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2024Q2,Q2,2024,2,,2024-06-30,0.13609076719894345,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2024Q2,Q2,2024,2,,2024-06-30,0.06932854024906909,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2024Q2,Q2,2024,2,,2024-06-30,62811000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2024Q3,Q3,2024,3,2024-07-01,2024-09-30,-54000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2024Q3,Q3,2024,3,2024-07-01,2024-09-30,0.1923669467787115,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2024Q3,Q3,2024,3,2024-07-01,2024-09-30,0.08113797282643363,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
@@ -174,51 +174,51 @@ net_margin,Net Margin,Profitability,2024FY,FY,2024,,,2024-12-31,0.05608098243109
 operating_margin,Operating Margin,Profitability,2024FY,FY,2024,,,2024-12-31,0.0972535405479941,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2024FY,FY,2024,,,2024-12-31,0.06193150496141131,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2024FY,FY,2024,,,2024-12-31,60079000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2025Q1,Q1,2025,1,2025-01-01,2025-03-31,1154000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025Q1,Q1,2025,1,2025-01-01,2025-03-31,0.17890282829782495,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2025Q1,Q1,2025,1,2025-01-01,2025-03-31,0.017094017094017096,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2025Q1,Q1,2025,1,2025-01-01,2025-03-31,0.040527065527065524,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025Q1,Q1,2025,1,2025-01-01,2025-03-31,0.02123945301134711,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2025Q1,Q1,2025,1,2025-01-01,2025-03-31,61895000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2025Q1,Q1,2025,1,,2025-03-31,1154000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025Q1,Q1,2025,1,,2025-03-31,0.17890282829782495,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2025Q1,Q1,2025,1,,2025-03-31,0.017094017094017096,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2025Q1,Q1,2025,1,,2025-03-31,0.040527065527065524,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025Q1,Q1,2025,1,,2025-03-31,0.02123945301134711,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2025Q1,Q1,2025,1,,2025-03-31,61895000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2025Q2,Q2,2025,2,,2025-06-30,648000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025Q2,Q2,2025,2,,2025-06-30,0.16898116320637976,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2025Q2,Q2,2025,2,,2025-06-30,0.12794329649207112,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
 operating_margin,Operating Margin,Profitability,2025Q2,Q2,2025,2,,2025-06-30,0.1262614127823162,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025Q2,Q2,2025,2,,2025-06-30,-0.0006003121623243679,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2025Q2,Q2,2025,2,,2025-06-30,60955000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2025Q3,Q3,2025,3,,2025-09-30,687000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025Q3,Q3,2025,3,,2025-09-30,0.1714590699846554,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2025Q3,Q3,2025,3,,2025-09-30,0.08498770467222455,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2025Q3,Q3,2025,3,,2025-09-30,0.10100161938463384,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025Q3,Q3,2025,3,,2025-09-30,0.06353256362824511,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2025Q3,Q3,2025,3,,2025-09-30,60801000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2025Q3,Q3,2025,3,2025-07-01,2025-09-30,687000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025Q3,Q3,2025,3,2025-07-01,2025-09-30,0.1714590699846554,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2025Q3,Q3,2025,3,2025-07-01,2025-09-30,0.08498770467222455,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2025Q3,Q3,2025,3,2025-07-01,2025-09-30,0.10100161938463384,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025Q3,Q3,2025,3,2025-07-01,2025-09-30,0.06353256362824511,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2025Q3,Q3,2025,3,2025-07-01,2025-09-30,60801000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2025Q4,Q4,2025,4,,2025-12-31,1353000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025Q4,Q4,2025,4,,2025-12-31,0.16373142542652724,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2025Q4,Q4,2025,4,,2025-12-31,0.07617321752171467,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
 operating_margin,Operating Margin,Profitability,2025Q4,Q4,2025,4,,2025-12-31,0.0916703118165344,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025Q4,Q4,2025,4,,2025-12-31,0.028536538337939454,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2025Q4,Q4,2025,4,,2025-12-31,60464000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2025FY,FY,2025,,2025-01-01,2025-12-31,3843000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025FY,FY,2025,,2025-01-01,2025-12-31,0.17064057557957665,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2025FY,FY,2025,,2025-01-01,2025-12-31,0.07898806893504198,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2025FY,FY,2025,,2025-01-01,2025-12-31,0.09188182564232056,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025FY,FY,2025,,2025-01-01,2025-12-31,0.027918822899599238,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2025FY,FY,2025,,2025-01-01,2025-12-31,60464000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2025FY,FY,2025,,,2025-12-31,3843000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2025FY,FY,2025,,,2025-12-31,0.17064057557957665,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2025FY,FY,2025,,,2025-12-31,0.07898806893504198,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2025FY,FY,2025,,,2025-12-31,0.09188182564232056,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2025FY,FY,2025,,,2025-12-31,0.027918822899599238,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2025FY,FY,2025,,,2025-12-31,60464000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
 free_cash_flow,Free Cash Flow,Cash Flow,2026Q1,Q1,2026,1,2026-01-01,2026-03-31,1232000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
 fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2026Q1,Q1,2026,1,2026-01-01,2026-03-31,0.17859701686966717,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
 net_margin,Net Margin,Profitability,2026Q1,Q1,2026,1,2026-01-01,2026-03-31,-0.018228838148101424,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
 operating_margin,Operating Margin,Profitability,2026Q1,Q1,2026,1,2026-01-01,2026-03-31,0.031600857827677555,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
 revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2026Q1,Q1,2026,1,2026-01-01,2026-03-31,0.1292022792022791,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
 total_liabilities,Total Liabilities,Balance Sheet,2026Q1,Q1,2026,1,2026-01-01,2026-03-31,64055000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2026Q2,Q2,2026,2,,2026-06-30,137000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2026Q2,Q2,2026,2,,2026-06-30,0.22964287710277762,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2026Q2,Q2,2026,2,,2026-06-30,0.0811864149415397,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2026Q2,Q2,2026,2,,2026-06-30,0.09434630763779926,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2026Q2,Q2,2026,2,,2026-06-30,0.18674915905814515,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2026Q2,Q2,2026,2,,2026-06-30,64506000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
-free_cash_flow,Free Cash Flow,Cash Flow,2026Q3,Q3,2026,3,,2026-09-30,300000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
-fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2026Q3,Q3,2026,3,,2026-09-30,0.23227631859918854,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
-net_margin,Net Margin,Profitability,2026Q3,Q3,2026,3,,2026-09-30,0.037451699197463585,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
-operating_margin,Operating Margin,Profitability,2026Q3,Q3,2026,3,,2026-09-30,0.07203011988506886,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
-revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2026Q3,Q3,2026,3,,2026-09-30,0.21069993402507037,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
-total_liabilities,Total Liabilities,Balance Sheet,2026Q3,Q3,2026,3,,2026-09-30,63535000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2026Q2,Q2,2026,2,2026-04-01,2026-06-30,137000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2026Q2,Q2,2026,2,2026-04-01,2026-06-30,0.22964287710277762,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2026Q2,Q2,2026,2,2026-04-01,2026-06-30,0.0811864149415397,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2026Q2,Q2,2026,2,2026-04-01,2026-06-30,0.09434630763779926,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2026Q2,Q2,2026,2,2026-04-01,2026-06-30,0.18674915905814515,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2026Q2,Q2,2026,2,2026-04-01,2026-06-30,64506000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
+free_cash_flow,Free Cash Flow,Cash Flow,2026Q3,Q3,2026,3,2026-07-01,2026-09-30,300000000.0,USD,operating_cash_flow - capex_total,"operating_cash_flow,capex_total",Derived from SEC CompanyFacts
+fuel_share_of_opex,Fuel Share of Operating Expense,Operating Costs,2026Q3,Q3,2026,3,2026-07-01,2026-09-30,0.23227631859918854,%,fuel_costs / operating_expenses,"fuel_costs,operating_expenses",Derived from SEC CompanyFacts
+net_margin,Net Margin,Profitability,2026Q3,Q3,2026,3,2026-07-01,2026-09-30,0.037451699197463585,%,net_income / revenue,"net_income,revenue",Derived from SEC CompanyFacts
+operating_margin,Operating Margin,Profitability,2026Q3,Q3,2026,3,2026-07-01,2026-09-30,0.07203011988506886,%,operating_income / revenue,"operating_income,revenue",Derived from SEC CompanyFacts
+revenue_growth_yoy,Revenue Growth YoY,Financial Performance,2026Q3,Q3,2026,3,2026-07-01,2026-09-30,0.21069993402507037,%,revenue_t / revenue_same_period_prior_year - 1,revenue,Derived from SEC CompanyFacts
+total_liabilities,Total Liabilities,Balance Sheet,2026Q3,Q3,2026,3,2026-07-01,2026-09-30,63535000000.0,USD,liabilities_and_equity - stockholders_equity,"liabilities_and_equity,stockholders_equity",Derived from SEC CompanyFacts
