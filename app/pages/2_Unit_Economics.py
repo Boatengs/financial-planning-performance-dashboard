@@ -8,8 +8,8 @@ page_setup("Unit Economics")
 require_data()
 
 st.title("Unit economics")
-st.caption("DL mainline: Form 41 revenue and expense (excluding transport-related lines) over T-100 seat-miles. "
-           "These are scope-matched public measures, not Delta's investor-relations TRASM and CASM.")
+st.caption("DL mainline: Form 41 revenue and expense excluding transport related lines, over T-100 seat miles. "
+           "Public measures matched to one scope, not Delta's investor relations TRASM and CASM.")
 
 ue = csv("unit_economics_quarterly.csv")
 ue["order"] = ue["period_label"].map(q_sort_key)
@@ -42,7 +42,7 @@ with left:
                     line=dict(color=RED, dash="dot"))
     fig.add_scatter(x=view["period_label"], y=view["prasm_cents"], name="PRASM", line=dict(color=MUTED, dash="dash"))
     fig.update_layout(title="Revenue and cost per ASM (cents)", height=380, margin=dict(l=10, r=10, t=50, b=10),
-                      legend=dict(orientation="h", y=-0.2))
+                      legend=dict(orientation="h", y=-0.2), yaxis=dict(range=[5, 28]))
     st.plotly_chart(fig, use_container_width=True)
 with right:
     fig = go.Figure()
@@ -50,14 +50,15 @@ with right:
                 marker_color=[BLUE if v >= 0 else RED for v in (view["trasm_cents"] - view["casm_cents"])],
                 name="TRASM minus CASM")
     fig.update_layout(title="Unit margin: TRASM minus CASM (cents per ASM)", height=380,
-                      margin=dict(l=10, r=10, t=50, b=10))
+                      margin=dict(l=10, r=10, t=50, b=10), yaxis=dict(range=[-8, 6]))
     st.plotly_chart(fig, use_container_width=True)
 
 a, b = st.columns(2)
 with a:
     fig = go.Figure()
     fig.add_scatter(x=view["period_label"], y=view["load_factor"] * 100, name="Load factor", line=dict(color=INK))
-    fig.update_layout(title="Load factor (%)", height=320, margin=dict(l=10, r=10, t=50, b=10))
+    fig.update_layout(title="Load factor (%)", height=320, margin=dict(l=10, r=10, t=50, b=10),
+                      yaxis=dict(range=[50, 95]))
     st.plotly_chart(fig, use_container_width=True)
 with b:
     fig = go.Figure()
@@ -68,6 +69,11 @@ with b:
                       yaxis=dict(title="$ per gallon"), yaxis2=dict(title="ASMs per gallon", overlaying="y", side="right"),
                       legend=dict(orientation="h", y=-0.25))
     st.plotly_chart(fig, use_container_width=True)
+
+off = view[(view["casm_cents"] > 28) | (view["trasm_cents"] - view["casm_cents"] < -8) | (view["load_factor"] < 0.5)]
+if not off.empty:
+    footnote("Pandemic quarters partly off the chart ranges: " + ", ".join(off["period_label"]) +
+             ". Exact values are in the table below.")
 
 with st.expander("Quarterly table"):
     cols = ["period_label", "asm", "load_factor", "pax_revenue", "mainline_revenue", "mainline_expense",

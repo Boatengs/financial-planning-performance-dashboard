@@ -37,8 +37,9 @@ airports = airports[airports["departing_passengers_ttm"] > 0].copy()
 airports["radius"] = 4000 + 60000 * np.sqrt(airports["departing_passengers_ttm"] / airports["departing_passengers_ttm"].max())
 
 deck = pdk.Deck(
-    map_style="light",
-    initial_view_state=pdk.ViewState(latitude=36, longitude=-60, zoom=1.6, pitch=40),
+    map_provider="carto",
+    map_style=pdk.map_styles.CARTO_LIGHT,
+    initial_view_state=pdk.ViewState(latitude=32, longitude=-45, zoom=1.2, pitch=35),
     layers=[
         pdk.Layer("ArcLayer", data=view, get_source_position=["origin_lon", "origin_lat"],
                   get_target_position=["destination_lon", "destination_lat"], get_source_color="color",
@@ -54,12 +55,13 @@ footnote(f"{qa['airports']['ttm_routes_without_coordinates']} routes lack coordi
          "the window. Blue: domestic. Amber: international.")
 
 st.subheader("What changed since 2019")
-structure = csv("network_structure.csv")
+structure = csv("network_structure.csv").astype({"window": str})
 s1, s2 = st.columns(2)
 with s1:
     fig = go.Figure()
     fig.add_bar(x=structure["window"], y=structure["passengers"] / 1e6, marker_color=BLUE, name="Passengers")
-    fig.update_layout(title="Passengers by year (millions)", height=320, margin=dict(l=10, r=10, t=50, b=10))
+    fig.update_layout(title="Passengers by year (millions)", height=320, margin=dict(l=10, r=10, t=50, b=10),
+                      xaxis=dict(type="category"))
     st.plotly_chart(fig, use_container_width=True)
 with s2:
     fig = go.Figure()
@@ -68,27 +70,34 @@ with s2:
     fig.add_scatter(x=structure["window"], y=structure["top20_market_passenger_share"] * 100,
                     name="Top 20 markets' share of passengers", line=dict(color=BLUE, dash="dot"))
     fig.update_layout(title="Network mix (%)", height=320, margin=dict(l=10, r=10, t=50, b=10),
-                      legend=dict(orientation="h", y=-0.25))
+                      legend=dict(orientation="h", y=-0.25), xaxis=dict(type="category"))
     st.plotly_chart(fig, use_container_width=True)
 footnote("Years with fewer than twelve loaded months are partial; compare the TTM bar with 2019.")
 
 a1, a2 = st.columns(2)
 markets = csv("market_ttm_vs_2019.csv")
+market_cols = {"market_id": "City pair", "scope": "Scope", "passengers_base": "2019", "passengers_ttm": "Latest 12 months",
+               "passenger_change": "Change", "passenger_change_pct": "Change %", "status": "Status"}
+fmt = {"2019": "{:,.0f}", "Latest 12 months": "{:,.0f}", "Change": "{:+,.0f}", "Change %": "{:+.0%}"}
 with a1:
-    st.markdown("**City pairs with the largest passenger gains (TTM vs 2019)**")
-    st.dataframe(markets.head(15)[["market_id", "scope", "passengers_base", "passengers_ttm", "passenger_change",
-                                   "passenger_change_pct"]], hide_index=True, use_container_width=True)
+    st.markdown("**City pairs with the largest passenger gains (latest 12 months vs 2019)**")
+    top = markets.head(15)[list(market_cols)].rename(columns=market_cols)
+    st.dataframe(top.style.format(fmt, na_rep="new"), hide_index=True, use_container_width=True)
 with a2:
     st.markdown("**City pairs with the largest passenger declines**")
-    st.dataframe(markets.sort_values("passenger_change").head(15)[
-        ["market_id", "scope", "passengers_base", "passengers_ttm", "passenger_change", "status"]],
-        hide_index=True, use_container_width=True)
+    bottom = markets.sort_values("passenger_change").head(15)[list(market_cols)].rename(columns=market_cols)
+    st.dataframe(bottom.style.format(fmt, na_rep="new"), hide_index=True, use_container_width=True)
 
 st.markdown("**Airports: departing passengers and share of the network**")
 air = csv("airport_ttm_vs_2019.csv")
-st.dataframe(air.head(30)[["airport_code", "departing_passengers_base", "departing_passengers_ttm",
-                           "passenger_change_pct", "share_base", "share_ttm", "share_change_pts"]],
-             hide_index=True, use_container_width=True)
+air_cols = {"airport_code": "Airport", "departing_passengers_base": "2019", "departing_passengers_ttm": "Latest 12 months",
+            "passenger_change_pct": "Change %", "share_base": "Share 2019", "share_ttm": "Share now",
+            "share_change_pts": "Share change (pts)"}
+st.dataframe(air.head(30)[list(air_cols)].rename(columns=air_cols).style.format(
+    {"2019": "{:,.0f}", "Latest 12 months": "{:,.0f}", "Change %": "{:+.1%}", "Share 2019": "{:.1%}",
+     "Share now": "{:.1%}", "Share change (pts)": "{:+.2f}"}, na_rep="new"), hide_index=True, use_container_width=True)
+footnote("Delta Connection partners report under their own carrier codes, so growth on short routes can reflect "
+         "flying moved onto Delta-operated aircraft rather than new demand.")
 counts = pd.Series(markets["status"]).value_counts()
 footnote(f"Markets in the comparison: {counts.get('continuing', 0)} served in both windows, "
          f"{counts.get('new', 0)} new since 2019, {counts.get('exited', 0)} no longer served.")

@@ -57,7 +57,16 @@ def financial_wide() -> pd.DataFrame:
 
 
 def usd_b(x) -> str:
-    return "n/a" if pd.isna(x) else f"${x / 1e9:,.2f}B"
+    # Sign before the dollar sign so Streamlit metric deltas pick the right arrow and color.
+    if pd.isna(x):
+        return "n/a"
+    return f"{'-' if x < 0 else ''}${abs(x) / 1e9:,.2f}B"
+
+
+def clip_note(series, low, high) -> str:
+    """Footnote text when values fall outside a fixed chart range."""
+    out = [str(v) for v, ok in zip(series.index, ((series < low) | (series > high))) if ok]
+    return f"Off the chart range: {', '.join(out)}." if out else ""
 
 
 def pct(x, digits=1) -> str:

@@ -26,7 +26,7 @@ c[1].metric("Operating margin", pct(latest["operating_margin"]),
             f"{(latest['operating_margin'] - prior_year['operating_margin'].iloc[0]) * 100:+.1f} pts YoY"
             if not prior_year.empty else None)
 c[2].metric("Net income", usd_b(latest["net_income"]))
-c[3].metric("Free cash flow, last 4 quarters", usd_b(ttm["free_cash_flow"].sum()))
+c[3].metric("FCF, last 4 qtrs", usd_b(ttm["free_cash_flow"].sum()))
 c[4].metric("Cash", usd_b(latest["cash"]))
 c[5].metric("Debt (excl. leases)", usd_b(latest["debt_total"]))
 footnote("Consolidated Delta Air Lines, Inc. from SEC CompanyFacts. Q4 values are full year minus nine months; "
@@ -39,7 +39,8 @@ with left:
     fig.add_bar(x=fin["period_label"], y=fin["operating_expenses"] / 1e9, name="Operating expense",
                 marker_color="#93c5fd")
     fig.update_layout(title="Quarterly revenue and operating expense ($B)", barmode="group", height=360,
-                      margin=dict(l=10, r=10, t=50, b=10), legend=dict(orientation="h", y=-0.2))
+                      margin=dict(l=10, r=10, t=50, b=10), legend=dict(orientation="h", y=-0.3),
+                      xaxis=dict(tickangle=-45, nticks=16))
     st.plotly_chart(fig, use_container_width=True)
 with right:
     fig = go.Figure()
@@ -49,8 +50,12 @@ with right:
                     line=dict(color=MUTED, width=2, dash="dot"))
     fig.add_hline(y=0, line_color=RED, line_width=1)
     fig.update_layout(title="Operating and net margin (%)", height=360, margin=dict(l=10, r=10, t=50, b=10),
-                      legend=dict(orientation="h", y=-0.2))
+                      legend=dict(orientation="h", y=-0.3), yaxis=dict(range=[-40, 25]),
+                      xaxis=dict(tickangle=-45, nticks=16))
     st.plotly_chart(fig, use_container_width=True)
+    low = fin.loc[fin["operating_margin"] * 100 < -40, ["period_label", "operating_margin"]]
+    if not low.empty:
+        footnote("Below the axis: " + ", ".join(f"{p} ({m:.0%})" for p, m in low.itertuples(index=False)) + ".")
 
 st.subheader("Cash generation")
 fig = go.Figure()
@@ -59,7 +64,7 @@ fig.add_bar(x=fin["period_label"], y=-fin["capex_total"] / 1e9, name="Capital ex
 fig.add_scatter(x=fin["period_label"], y=fin["free_cash_flow"] / 1e9, name="Free cash flow", mode="lines+markers",
                 line=dict(color=INK))
 fig.update_layout(barmode="relative", height=340, margin=dict(l=10, r=10, t=20, b=10),
-                  yaxis_title="$B", legend=dict(orientation="h", y=-0.25))
+                  yaxis_title="$B", legend=dict(orientation="h", y=-0.35), xaxis=dict(tickangle=-45, nticks=20))
 st.plotly_chart(fig, use_container_width=True)
 
 summary = js("fpa_model_summary.json")
