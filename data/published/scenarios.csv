@@ -1,0 +1,6 @@
+scenario_id,scenario_name,scenario_type,editable,description
+ACT,Actual,Reported,0,Reported historical actuals (Form 41 and T-100).
+BUD,Budget,Modeled,1,Analyst-modeled budget: base driver model run from Q4 of the prior year.
+FCT,Forecast,Modeled,1,Analyst-modeled rolling forecast from the latest actual quarter (seasonal naive with drift).
+UP,Upside,Modeled,1,Analyst-modeled upside: explicit driver shocks to the base forecast; not company guidance.
+DOWN,Downside,Modeled,1,Analyst-modeled downside: explicit driver shocks to the base forecast; not company guidance.
