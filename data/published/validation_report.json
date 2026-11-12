@@ -19,7 +19,7 @@
     },
     "network_history_reconciles": {
       "pass": true,
-      "detail": "2019-01-01..2026-07-01, 142164 route-months"
+      "detail": "2019-01-01..2026-08-01, 143970 route-months"
     },
     "bts_master_coordinate_ingested": {
       "pass": true,
@@ -91,7 +91,7 @@
     },
     "route_12m_view_is_twelve_months": {
       "pass": true,
-      "detail": "2025-08-01..2026-07-01"
+      "detail": "2025-09-01..2026-08-01"
     },
     "published_outputs_present": {
       "pass": true,
